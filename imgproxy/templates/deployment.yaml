@@ -56,47 +56,63 @@ spec:
               name: {{ template "imgproxy.fullname" . }}-secrets
               key: salt
         - name: IMGPROXY_SIGNATURE_SIZE
-          value: {{ .Values.signatureSize }}
+          value: {{ .Values.signatureSize | quote }}
         - name: IMGPROXY_READ_TIMEOUT
-          value: "{{ .Values.readTimeout }}"
+          value: {{ .Values.readTimeout | quote }}
         - name: IMGPROXY_WRITE_TIMEOUT
-          value: "{{ .Values.writeTimeout }}"
+          value: {{ .Values.writeTimeout | quote }}
         - name: IMGPROXY_KEEP_ALIVE_TIMEOUT
-          value: "{{ .Values.keepAliveTimeout }}"
+          value: {{ .Values.keepAliveTimeout | quote }}
         - name: IMGPROXY_DOWNLOAD_TIMEOUT
-          value: "{{ .Values.downloadTimeout }}"
+          value: {{ .Values.downloadTimeout | quote }}
         {{- if .Values.concurrency }}
         - name: IMGPROXY_CONCURRENCY
-          value: "{{ .Values.concurrency }}"
+          value: {{ .Values.concurrency | quote }}
         {{- end }}
         {{- if .Values.maxClients }}
         - name: IMGPROXY_MAX_CLIENTS
-          value: "{{ .Values.maxClients }}"
+          value: {{ .Values.maxClients | quote }}
         {{- end }}
         - name: IMGPROXY_TTL
-          value: "{{ .Values.ttl }}"
+          value: {{ .Values.ttl | quote }}
+        {{- if .Values.cacheControlPassthrough }}
+        - name: IMGPROXY_CACHE_CONTROL_PASSTHROUGH
+          value: "true"
+        {{- end }}
         {{- if .Values.soReuseport }}
         - name: IMGPROXY_SO_REUSEPORT
           value: "true"
         {{- end }}
         {{- if .Values.userAgent }}
         - name: IMGPROXY_USER_AGENT
-          value: "{{ .Values.userAgent }}"
+          value: {{ .Values.userAgent | quote }}
         {{- end }}
         {{- if .Values.useEtag }}
         - name: IMGPROXY_USE_ETAG
           value: "true"
         {{- end }}
+        {{- if .Values.customRequestHeaders }}
+        - name: IMGPROXY_CUSTOM_REQUEST_HEADERS
+          value: {{ .Values.customRequestHeaders | quote }}
+        {{- end }}
+        {{- if .Values.customResponseHeaders }}
+        - name: IMGPROXY_CUSTOM_RESPONSE_HEADERS
+          value: {{ .Values.customResponseHeaders | quote }}
+        {{- end }}
+        {{- if .Values.customHeadersSeparator }}
+        - name: IMGPROXY_CUSTOM_HEADERS_SEPARATOR
+          value: {{ .Values.customHeadersSeparator | quote }}
+        {{- end }}
         {{- if .Values.localFileSystemRoot }}
         - name: IMGPROXY_LOCAL_FILESYSTEM_ROOT
-          value: "{{ .Values.localFileSystemRoot }}"
+          value: {{ .Values.localFileSystemRoot | quote}}
         {{- end }}
         - name: IMGPROXY_MAX_SRC_RESOLUTION
-          value: "{{ .Values.maxSrcResolution }}"
+          value: {{ .Values.maxSrcResolution | quote }}
         - name: IMGPROXY_MAX_SRC_FILE_SIZE
-          value: "{{ .Values.maxSrcFileSize }}"
+          value: {{ .Values.maxSrcFileSize | quote }}
         - name: IMGPROXY_MAX_ANIMATION_FRAMES
-          value: "{{ .Values.maxAnimationFrames }}"
+          value: {{ .Values.maxAnimationFrames | quote }}
         {{- if .Values.secret }}
         - name: IMGPROXY_SECRET
           valueFrom:
@@ -106,11 +122,11 @@ spec:
         {{- end }}
         {{- if .Values.allowOrigin }}
         - name: IMGPROXY_ALLOW_ORIGIN
-          value: "{{ .Values.allowOrigin }}"
+          value: {{ .Values.allowOrigin | quote }}
         {{- end }}
         {{- if .Values.allowedSources }}
         - name: IMGPROXY_ALLOWED_SOURCES
-          value: "{{ .Values.allowedSources }}"
+          value: {{ .Values.allowedSources | quote }}
         {{- end }}
         {{- if .Values.ignoreSslVerification}}
         - name: IMGPROXY_IGNORE_SSL_VERIFICATION
@@ -121,9 +137,9 @@ spec:
           value: "true"
         {{- end }}
         - name: IMGPROXY_QUALITY
-          value: "{{ .Values.quality }}"
+          value: {{ .Values.quality | quote }}
         - name: IMGPROXY_GZIP_COMPRESSION
-          value: "{{ .Values.gzipCompression }}"
+          value: {{ .Values.gzipCompression | quote }}
         {{- if .Values.jpegProgressive}}
         - name: IMGPROXY_JPEG_PROGRESSIVE
           value: "true"
@@ -146,7 +162,7 @@ spec:
         {{- end }}
         {{- if .Values.jpegQuantTable }}
         - name: IMGPROXY_JPEG_QUANT_TABLE
-          value: "{{ .Values.jpegQuantTable }}"
+          value: {{ .Values.jpegQuantTable | quote }}
         {{- end }}
         {{- if .Values.pngInterlaced }}
         - name: IMGPROXY_PNG_INTERLACED
@@ -157,7 +173,15 @@ spec:
           value: "true"
         {{- end }}
         - name: IMGPROXY_PNG_QUANTIZATION_COLORS
-          value: "{{ .Values.pngQuantizationColors }}"
+          value: {{ .Values.pngQuantizationColors | quote }}
+        {{- if .Values.gifOptimizeFrames }}
+        - name: IMGPROXY_GIF_OPTIMIZE_FRAMES
+          value: "true"
+        {{- end }}
+        {{- if .Values.gifOptimizeTransparency }}
+        - name: IMGPROXY_GIF_OPTIMIZE_TRANSPARENCY
+          value: "true"
+        {{- end }}
         {{- if .Values.enableWebpDetection }}
         - name: IMGPROXY_ENABLE_WEBP_DETECTION
           value: "true"
@@ -172,23 +196,23 @@ spec:
         {{- end }}
         {{- if .Values.watermarkData }}
         - name: IMGPROXY_WATERMARK_DATA
-          value: "{{ .Values.watermarkData }}"
+          value: {{ .Values.watermarkData | quote }}
         {{- end }}
         {{- if .Values.watermarkPath }}
         - name: IMGPROXY_WATERMARK_PATH
-          value: "{{ .Values.watermarkPath }}"
+          value: {{ .Values.watermarkPath | quote }}
         {{- end }}
         {{- if .Values.watermarkUrl }}
         - name: IMGPROXY_WATERMARK_URL
-          value: "{{ .Values.watermarkUrl }}"
+          value: {{ .Values.watermarkUrl | quote }}
         {{- end }}
         - name: IMGPROXY_WATERMARK_OPACITY
-          value: "{{ .Values.watermarkOpacity }}"
+          value: {{ .Values.watermarkOpacity | quote }}
         - name: IMGPROXY_WATERMARK_CACHE_SIZE
-          value: "{{ .Values.watermarkCacheSize }}"
+          value: {{ .Values.watermarkCacheSize | quote }}
         {{- if .Values.presets }}
         - name: IMGPROXY_PRESETS
-          value: "{{ .Values.presets }}"
+          value: {{ .Values.presets | quote }}
         {{- end }}
         {{- if .Values.onlyPresets }}
         - name: IMGPROXY_ONLY_PRESETS
@@ -213,9 +237,9 @@ spec:
               key: awsSecret
         {{- end }}
         - name: IMGPROXY_S3_REGION
-          value: "{{ .Values.awsRegion }}"
+          value: {{ .Values.awsRegion | quote }}
         - name: IMGPROXY_S3_ENDPOINT
-          value: "{{ .Values.s3Endpoint }}"
+          value: {{ .Values.s3Endpoint | quote }}
         {{- end }}
 
         {{- if .Values.gcsKey }}
@@ -233,7 +257,7 @@ spec:
               name: {{ template "imgproxy.fullname" . }}-secrets
               key: newRelicKey
         - name: IMGPROXY_NEW_RELIC_APP_NAME
-          value: "{{ .Values.newRelicAppName }}"
+          value: {{ .Values.newRelicAppName | quote }}
         {{- end }}
 
         {{- if .Values.enablePrometheus }}
@@ -248,7 +272,7 @@ spec:
               name: {{ template "imgproxy.fullname" . }}-secrets
               key: bugsnagKey
         - name: IMGPROXY_BUGSNAG_STAGE
-          value: "{{ .Values.bugsnagStage }}"
+          value: {{ .Values.bugsnagStage | quote }}
         {{- end }}
 
         {{- if .Values.honeybadgerKey }}
@@ -258,7 +282,7 @@ spec:
               name: {{ template "imgproxy.fullname" . }}-secrets
               key: honeybadgerKey
         - name: IMGPROXY_HONEYBADGER_ENV
-          value: "{{ .Values.honeybadgerEnv }}"
+          value: {{ .Values.honeybadgerEnv | quote }}
         {{- end }}
 
         {{- if .Values.sentryDsn }}
@@ -268,10 +292,10 @@ spec:
               name: {{ template "imgproxy.fullname" . }}-secrets
               key: sentryDsn
         - name: IMGPROXY_SENTRY_ENVIRONMENT
-          value: "{{ .Values.sentryEnvironment }}"
+          value: {{ .Values.sentryEnvironment | quote }}
         {{- if .Values.sentryRelease }}
         - name: IMGPROXY_SENTRY_RELEASE
-          value: "{{ .Values.sentryRelease }}"
+          value: {{ .Values.sentryRelease | quote }}
         {{- end }}
         {{- end }}
 
@@ -281,36 +305,36 @@ spec:
         {{- end }}
 
         - name: IMGPROXY_LOG_FORMAT
-          value: "{{ .Values.logFormat }}"
+          value: {{ .Values.logFormat | quote }}
         - name: IMGPROXY_LOG_LEVEL
-          value: "{{ .Values.logLevel }}"
+          value: {{ .Values.logLevel | quote }}
         {{- if .Values.syslogEnable }}
         - name: IMGPROXY_SYSLOG_ENABLE
           value: "true"
         - name: IMGPROXY_SYSLOG_LEVEL
-          value: "{{ .Values.syslogLevel }}"
+          value: {{ .Values.syslogLevel | quote }}
         - name: IMGPROXY_SYSLOG_NETWORK
-          value: "{{ .Values.syslogNetwork }}"
+          value: {{ .Values.syslogNetwork | quote }}
         {{- if .Values.syslogAddress }}
         - name: IMGPROXY_SYSLOG_ADDRESS
-          value: "{{ .Values.syslogAddress }}"
+          value: {{ .Values.syslogAddress | quote }}
         {{- end }}
         - name: IMGPROXY_SYSLOG_TAG
-          value: "{{ .Values.syslogTag }}"
+          value: {{ .Values.syslogTag | quote }}
         {{- end }}
 
         - name: IMGPROXY_DOWNLOAD_BUFFER_SIZE
-          value: "{{ .Values.downloadBufferSize }}"
+          value: {{ .Values.downloadBufferSize | quote }}
         - name: IMGPROXY_GZIP_BUFFER_SIZE
-          value: "{{ .Values.gzipBufferSize }}"
+          value: {{ .Values.gzipBufferSize | quote }}
         - name: IMGPROXY_FREE_MEMORY_INTERVAL
-          value: "{{ .Values.freeMemoryInterval }}"
+          value: {{ .Values.freeMemoryInterval | quote }}
         - name: IMGPROXY_BUFFER_POOL_CALIBRATION_THRESHOLD
-          value: "{{ .Values.bufferPoolCalibrationThreshold }}"
+          value: {{ .Values.bufferPoolCalibrationThreshold | quote }}
 
         {{- if .Values.baseUrl }}
         - name: IMGPROXY_BASE_URL
-          value: "{{ .Values.baseUrl }}"
+          value: {{ .Values.baseUrl | quote }}
         {{- end }}
         {{- if .Values.useLinearColorspace }}
         - name: IMGPROXY_USE_LINEAR_COLORSPACE
@@ -335,9 +359,11 @@ spec:
         - containerPort: 8080
           name: http
           protocol: TCP
+        {{- if .Values.enablePrometheus }}
         - containerPort: 8081
           name: metrics
           protocol: TCP
+        {{- end }}
         readinessProbe:
           httpGet:
             path: /health

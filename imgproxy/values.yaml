@@ -14,7 +14,7 @@ tolerations: {}
 # Docker image repository, tag and a policy for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v2.9.0
+  tag: v2.10.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: {}
@@ -115,14 +115,26 @@ maxClients: ""
 # Duration in seconds sent in Expires and Cache-Control: max-age headers.
 ttl: 3600
 
+#when true and source image response contains Expires or Cache-Control headers, reuse those headers
+cacheControlPassthrough: false
+
 # when true, enables SO_REUSEPORT socket option (currently on linux and darwin only);
 soReuseport: false
 
 # User-Agent header that will be sent with source image request. Default: imgproxy/%current_version
 userAgent: ""
 
-# When true, enables using ETag header for the cache control|`false`|
+# When true, enables using ETag header for the cache control
 useEtag: false
+
+# PRO: list of custom headers that imgproxy will send while requesting the source image, divided by \; (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)
+customRequestHeaders: ""
+
+# PRO: list of custom response headers, divided by \; (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)
+customResponseHeaders: ""
+
+# PRO: string that will be used as a custom headers separator; default '\;'
+customHeadersSeparator: ""
 
 # Root of the local filesystem. See [Serving local files](https://github.com/darthsim/imgproxy#serving-local-files). Keep empty to disable serving of local files.
 localFileSystemRoot: false
@@ -192,6 +204,12 @@ pngQuantize: false
 
 # maximum number of quantization palette entries. Should be between 2 and 256.
 pngQuantizationColors: 256
+
+# PRO: when true, enables GIF frames optimization. This may produce a smaller result, but may increase compression time
+gifOptimizeFrames: false
+
+# PRO: when true, enables GIF transparency optimization. This may produce a smaller result, but may increase compression time
+gifOptimizeTransparency: false
 
 # Enables WebP support detection. When the file extension is omitted in the imgproxy URL and browser supports WebP, imgproxy will use it as the resulting format
 enableWebpDetection: false

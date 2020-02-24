@@ -65,7 +65,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to helm 
 ```shell
 helm upgrade -i imgproxy \
   --namespace imgproxy \
-  --set image.tag=v2.3.0 \
+  --set image.tag=v2.10.0 \
   imgproxy/imgproxy
 ```
 
@@ -88,10 +88,14 @@ These are the values used to configure imgproxy itself:
 |**downloadTimeout**|the maximum duration (in seconds) for downloading the source image|`5`|
 |**concurrency**|the maximum number of image requests to be processed simultaneously|`double number of CPU cores`|
 |**maxClients**|the maximum number of simultaneous active connections|`concurrency * 10`|
-|**ttl**|duration in seconds sent in Expires and Cache-Control: max-age headers.|`3600`|
+|**ttl**|duration in seconds sent in Expires and Cache-Control: max-age headers|`3600`|
+|**cacheControlPassthrough**|when true and source image response contains Expires or Cache-Control headers, reuse those header|`false`|
 |**soReuseport**|when true, enables SO_REUSEPORT socket option (currently on linux and darwin only)|`false`|
 |**userAgent**|User-Agent header that will be sent with source image request|`imgproxy/%current_version`|
 |**useEtag**|when true, enables using ETag header for the cache control|`false`|
+|**customRequestHeaders**|`PRO:` list of custom headers that imgproxy will send while requesting the source image, divided by `\;` (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)||
+|**customResponseHeaders**|`PRO:` list of custom response headers, divided by \; (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)||
+|**customHeadersSeparator**|`PRO:` string that will be used as a custom headers separator|`\;`|
 |**localFileSystemRoot**|root of the local filesystem. See [Serving local files](https://github.com/darthsim/imgproxy#serving-local-files). Keep empty to disable serving of local files.||
 |**maxSrcResolution**|the maximum resolution of the source image, in megapixels. Images with larger real size will be rejected|`16.8`|
 |**maxSrcFileSize**|the maximum size of the source image, in bytes. Images with larger file size will be rejected. When 0, file size check is disabled|`0`|
@@ -111,6 +115,8 @@ These are the values used to configure imgproxy itself:
 |**pngInterlaced**|when true, enables interlaced compression of PNG|`false`|
 |**pngQuantize**|when true, enables PNG quantization. libvips should be built with libimagequant support|`false`|
 |**pngQuantizationColors**|maximum number of quantization palette entries. Should be between 2 and 256|`256`|
+|**gifOptimizeFrames**|`PRO:` when true, enables GIF frames optimization; this may produce a smaller result, but may increase compression time|`false`|
+|**gifOptimizeTransparency**|`PRO:` when true, enables GIF transparency optimization; this may produce a smaller result, but may increase compression time|`false`|
 |**enableWebpDetection**|Enables WebP support detection. When the file extension is omitted in the imgproxy URL and browser supports WebP, imgproxy will use it as the resulting format|`false`|
 |**enforceWebp**|Enables WebP support detection and enforces WebP usage. If the browser supports WebP, it will be used as resulting format even if another extension is specified in the imgproxy URL|`false`|
 |**enableClientHints**|Enables Client Hints support when the width is ommited for automatic responsive images|`false`|
