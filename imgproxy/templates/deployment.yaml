@@ -56,7 +56,7 @@ spec:
               name: {{ template "imgproxy.fullname" . }}-secrets
               key: salt
         - name: IMGPROXY_SIGNATURE_SIZE
-          value: {{ .Values.image.signatureSize }}
+          value: {{ .Values.signatureSize }}
         - name: IMGPROXY_READ_TIMEOUT
           value: "{{ .Values.readTimeout }}"
         - name: IMGPROXY_WRITE_TIMEOUT
@@ -79,8 +79,10 @@ spec:
         - name: IMGPROXY_SO_REUSEPORT
           value: "true"
         {{- end }}
+        {{- if .Values.userAgent }}
         - name: IMGPROXY_USER_AGENT
           value: "{{ .Values.userAgent }}"
+        {{- end }}
         {{- if .Values.useEtag }}
         - name: IMGPROXY_USE_ETAG
           value: "true"
@@ -168,18 +170,26 @@ spec:
         - name: IMGPROXY_ENABLE_CLIENT_HINTS
           value: "true"
         {{- end }}
+        {{- if .Values.watermarkData }}
         - name: IMGPROXY_WATERMARK_DATA
           value: "{{ .Values.watermarkData }}"
+        {{- end }}
+        {{- if .Values.watermarkPath }}
         - name: IMGPROXY_WATERMARK_PATH
           value: "{{ .Values.watermarkPath }}"
+        {{- end }}
+        {{- if .Values.watermarkUrl }}
         - name: IMGPROXY_WATERMARK_URL
           value: "{{ .Values.watermarkUrl }}"
+        {{- end }}
         - name: IMGPROXY_WATERMARK_OPACITY
           value: "{{ .Values.watermarkOpacity }}"
         - name: IMGPROXY_WATERMARK_CACHE_SIZE
           value: "{{ .Values.watermarkCacheSize }}"
+        {{- if .Values.presets }}
         - name: IMGPROXY_PRESETS
           value: "{{ .Values.presets }}"
+        {{- end }}
         {{- if .Values.onlyPresets }}
         - name: IMGPROXY_ONLY_PRESETS
           value: "true"
