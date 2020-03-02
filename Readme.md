@@ -191,6 +191,7 @@ Deployment specific options.
 |**ingress.acme**|Enables the ingress resource annotation which tells cert-manager to issue a Let's Encrypt certificate|`false`|
 |**ingress.annotations**|Additional annotations for the ingress resource||
 |**ingress.enabled**|When true, enables ingress resource for imgproxy|`false`|
+|**ingress.health.whitelist**|Comma separated string of CIDR addresses that are allowed to access `/health` url of imgproxy||
 |**ingress.host**|Hostname for the ingress resource to use|`example.com`|
 |**ingress.tls.crt**|Certificate file for the ingress tls secret||
 |**ingress.tls.enabled**|When true, enables tls support in the ingress resource|`false`|
