@@ -1,4 +1,8 @@
 
+## 0.5.3 (2020-03-03)
+
+* (Fix) indentation typo in ingress-health.yaml
+
 ## 0.5.2 (2020-03-02)
 
 * (New) `ingress.health.whitelist` Comma separated string of CIDR addresses that are allowed to access `/health` url of imgproxy
