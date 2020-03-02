@@ -3,10 +3,10 @@ entries:
   imgproxy:
   - apiVersion: v1
     appVersion: 2.10.0
-    created: "2020-03-02T23:19:00.116817+03:00"
+    created: "2020-03-03T00:56:34.77784+03:00"
     description: A fast and secure standalone server for resizing and converting remote
       images. The main principles of imgproxy are simplicity, speed, and security.
-    digest: 1e13438dfabef72bcce39c8a9c7850da61d40b012bcdaf5b888d08829e7b23e8
+    digest: ecca9bc7a460ed1530bad2dfb707eb561dd9bba081fba61e06879a29e86b9ad9
     home: https://github.com/imgproxy/imgproxy
     icon: https://cdn.rawgit.com/imgproxy/imgproxy/master/logo.svg
     keywords:
@@ -22,11 +22,11 @@ entries:
     sources:
     - https://github.com/imgproxy/imgproxy
     urls:
-    - https://helm.imgproxy.net/imgproxy-0.5.2.tgz
-    version: 0.5.2
+    - https://helm.imgproxy.net/imgproxy-0.5.3.tgz
+    version: 0.5.3
   - apiVersion: v1
     appVersion: 2.10.0
-    created: "2020-03-02T23:19:00.115657+03:00"
+    created: "2020-03-03T00:56:34.776622+03:00"
     description: A fast and secure standalone server for resizing and converting remote
       images. The main principles of imgproxy are simplicity, speed, and security.
     digest: 0cf58a44a54cdbd77f0fbbf747983ea654815347a35afce877b0c18d2c8d58e6
@@ -49,7 +49,7 @@ entries:
     version: 0.5.1
   - apiVersion: v1
     appVersion: 2.9.0
-    created: "2020-03-02T23:19:00.114462+03:00"
+    created: "2020-03-03T00:56:34.775451+03:00"
     description: A fast and secure standalone server for resizing and converting remote
       images. The main principles of imgproxy are simplicity, speed, and security.
     digest: 79c348dd2d6d72ed8bde07e0784779cd4c377f74c6378b9c790bcf44ba281d33
@@ -70,4 +70,4 @@ entries:
     urls:
     - https://helm.imgproxy.net/imgproxy-0.5.0.tgz
     version: 0.5.0
-generated: "2020-03-02T23:19:00.111069+03:00"
+generated: "2020-03-03T00:56:34.773493+03:00"
