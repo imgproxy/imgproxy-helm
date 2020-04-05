@@ -70,6 +70,7 @@ ingress:
     secretName: ""
   #   nginx.ingress.kubernetes.io/proxy-body-size: "32m"
 
+enablePrometheus: false
 serviceMonitor:
   enabled: false
   honorLabels: true

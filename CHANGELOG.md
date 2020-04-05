@@ -1,4 +1,8 @@
 
+## 0.5.4 (2020-04-05)
+
+* (New) `enablePrometheus` Boolean to bind Prometheus `/metrics` url to imgproxy
+
 ## 0.5.3 (2020-03-03)
 
 * (Fix) indentation typo in ingress-health.yaml
