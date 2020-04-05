@@ -206,6 +206,7 @@ Options to configure ServiceMonitor for Prometheus Operator.
 
 |Value|Description|Default|
 |-----|-----------|-------|
+|**enablePrometheus**|Set IMGPROXY_PROMETHEUS_BIND environment variable to bind metrics to port 8081|`false`|
 |**serviceMonitor.enabled**|Enables ServiceMonitor manifest|`false`|
 |**serviceMonitor.honorLabels**|Chooses the metric's labels on collisions with target labels|`true`|
 |**serviceMonitor.interval**|Interval at which metrics should be scraped (if it differs from default one)|`0`|
