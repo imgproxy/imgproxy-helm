@@ -16,3 +16,9 @@
 * (New) imgproxy v2.10.0
 * (Fix) unnecessary empty environment variables were removed
 * (Fix) quoted templated strings refactoring
+
+## 0.5.0 (2020-02-03)
+
+- (New) imgproxy `v2.9.0`
+- (New) PRO options support
+- (New) full support for `v2.9.0` options`
