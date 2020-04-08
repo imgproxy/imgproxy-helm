@@ -1,4 +1,8 @@
 
+## 0.5.5 (2020-04-07)
+
+* (New) `fullnameOverride` string to override generated resource names prefix
+
 ## 0.5.4 (2020-04-05)
 
 * (New) `enablePrometheus` Boolean to bind Prometheus `/metrics` url to imgproxy

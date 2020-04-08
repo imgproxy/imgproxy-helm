@@ -215,3 +215,10 @@ Options to configure ServiceMonitor for Prometheus Operator.
 |**serviceMonitor.targetLabels**|Transfers mentioned labels on the Kubernetes Service onto the target|`["app","release"]`|
 
 See `values.yaml` for some more Kubernetes-specific configuration options.
+
+### Other
+
+|Value|Description|Default|
+|-----|-----------|-------|
+|**nameOverride**|String to partially override imgproxy.fullname template with a string (will be appended to the release name)|`nil`|
+|**fullnameOverride**|String to fully override imgproxy.fullname template with a string (will be used as pod name prefix instead of release name)|`nil`|
