@@ -14,7 +14,7 @@ tolerations: {}
 # Docker image repository, tag and a policy for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v2.10.0
+  tag: v2.12.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: {}
@@ -126,6 +126,9 @@ cacheControlPassthrough: false
 # when true, enables SO_REUSEPORT socket option (currently on linux and darwin only);
 soReuseport: false
 
+# URL path prefix. Example: when set to /abc/def, imgproxy URL will be /abc/def/%signature/%processing_options/%source_url
+pathPrefix: ""
+
 # User-Agent header that will be sent with source image request. Default: imgproxy/%current_version
 userAgent: ""
 
@@ -224,6 +227,12 @@ enforceWebp: false
 
 # Enables Client Hints support when the width is ommited for automatic responsive images
 enableClientHints: false
+
+# PRO: when true, enables video thumbnails generation
+enableVideoThumbnails: false
+
+# PRO: the timestamp of the frame in seconds that will be used for a thumbnail
+videoThumbnailSecond: 1
 
 # Base64-encoded image data
 watermarkData: ""

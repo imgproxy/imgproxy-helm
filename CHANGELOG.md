@@ -1,4 +1,8 @@
+## 0.5.6 (2020-04-17)
 
+* (New) imgproxy `v2.12.0`
+* (New) `pathPrefix` value for URL path prefix
+* (New) `enableVideoThumbnails` & `videoThumbnailSecond` values for video thumbnail support
 ## 0.5.5 (2020-04-07)
 
 * (New) `fullnameOverride` string to override generated resource names prefix
