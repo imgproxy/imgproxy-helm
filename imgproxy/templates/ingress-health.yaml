@@ -11,7 +11,9 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.ingress.health.whitelist }}
 {{- if or .Values.ingress.annotations (and .Values.ingress.tls.enabled .Values.ingress.acme) }}
+{{ if .Values.ingress.annotations }}
 {{ toYaml .Values.ingress.annotations | indent 4 }}
+{{ end }}
 {{- if and .Values.ingress.tls.enabled .Values.ingress.acme }}
     kubernetes.io/tls-acme: "true"
 {{- end }}
