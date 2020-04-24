@@ -70,6 +70,12 @@ ingress:
     secretName: ""
   #   nginx.ingress.kubernetes.io/proxy-body-size: "32m"
 
+hpa:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  cpuAverageUtilization: 50
+
 enablePrometheus: false
 serviceMonitor:
   enabled: false
