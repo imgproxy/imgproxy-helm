@@ -1,3 +1,11 @@
+## 0.5.7 (2020-04-27)
+
+* (New) imgproxy `v2.13.0`
+* (New) Fallback image options
+* (Fix) `IMGPROXY_VIDEO_THUMBNAIL_SECOND` env var should be quoted (by @ziofix)
+* (Fix) conditions for annotatinons in ingress manifests
+* (Fix) ingress-health manifest should not be tagged by acme tag - it will use the main secret for tls
+
 ## 0.5.6 (2020-04-17)
 
 * (New) imgproxy `v2.12.0`

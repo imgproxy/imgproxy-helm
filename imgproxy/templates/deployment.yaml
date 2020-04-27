@@ -220,6 +220,18 @@ spec:
           value: {{ .Values.watermarkOpacity | quote }}
         - name: IMGPROXY_WATERMARK_CACHE_SIZE
           value: {{ .Values.watermarkCacheSize | quote }}
+        {{- if .Values.fallbackImageData }}
+        - name: IMGPROXY_FALLBACK_IMAGE_DATA
+          value: {{ .Values.fallbackImageData | quote }}
+        {{- end }}
+        {{- if .Values.fallbackImagePath }}
+        - name: IMGPROXY_FALLBACK_IMAGE_PATH
+          value: {{ .Values.fallbackImagePath | quote }}
+        {{- end }}
+        {{- if .Values.fallbackImageUrl }}
+        - name: IMGPROXY_FALLBACK_IMAGE_URL
+          value: {{ .Values.fallbackImageUrl | quote }}
+        {{- end }}
         {{- if .Values.presets }}
         - name: IMGPROXY_PRESETS
           value: {{ .Values.presets | quote }}

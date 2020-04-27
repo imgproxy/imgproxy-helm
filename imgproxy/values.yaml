@@ -14,7 +14,7 @@ tolerations: {}
 # Docker image repository, tag and a policy for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v2.12.0
+  tag: v2.13.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: {}
@@ -248,6 +248,15 @@ watermarkOpacity: 1
 
 #PRO: size of custom watermarks cache. When set to 0, watermarks cache is disabled. By default 256 watermarks are cached.
 watermarkCacheSize: 256
+
+# Base64-encoded image data. You can easily calculate it with `base64 tmp/fallback.png | tr -d '\n'`
+fallbackImageData: ""
+
+# path to the locally stored image
+fallbackImagePath: ""
+
+# fallback image URL
+fallbackImageUrl: ""
 
 # Set of preset definitions, comma-divided
 presets: ""
