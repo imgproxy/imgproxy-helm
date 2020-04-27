@@ -203,7 +203,7 @@ spec:
           value: "true"
         {{- end }}
         - name: IMGPROXY_VIDEO_THUMBNAIL_SECOND
-          value: {{ .Values.videoThumbnailSecond }}
+          value: {{ .Values.videoThumbnailSecond | quote }}
         {{- if .Values.watermarkData }}
         - name: IMGPROXY_WATERMARK_DATA
           value: {{ .Values.watermarkData | quote }}
