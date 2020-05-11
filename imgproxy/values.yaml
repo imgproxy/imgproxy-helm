@@ -34,9 +34,6 @@ resources: {}
   #   cpu: 700m
   #   memory: 700Mi
 
-# Which port should imgproxy and its Kubernetes service listen
-httpPort: 80
-
 # Kubernetes service type
 serviceType: "ClusterIP"
 
