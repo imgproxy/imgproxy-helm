@@ -1,3 +1,8 @@
+## 0.5.8 (2020-05-11)
+
+* (New) imgproxy `v2.13.1`
+* (Fix) remove unused `httpPort` variable from `values.yaml`
+
 ## 0.5.7 (2020-04-27)
 
 * (New) imgproxy `v2.13.0`
