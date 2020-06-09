@@ -10,18 +10,18 @@ metadata:
     heritage: "{{ .Release.Service }}"
   annotations:
     nginx.ingress.kubernetes.io/whitelist-source-range: {{ .Values.ingress.health.whitelist }}
-{{- if .Values.ingress.annotations }}
-{{ toYaml .Values.ingress.annotations | indent 4 }}
+{{- if .Values.ingress.health.annotations }}
+{{ toYaml .Values.ingress.health.annotations | indent 4 }}
 {{- end }}
 spec:
 {{- if .Values.ingress.tls.enabled }}
   tls:
   - hosts:
-    - {{ .Values.ingress.host }}
+    - {{ .Values.ingress.health.host }}
     secretName: {{ .Values.ingress.tls.secretName | default (printf "%s-tls" (include "imgproxy.fullname" .)) | quote }}
 {{- end }}
   rules:
-  - host: {{ .Values.ingress.host }}
+  - host: {{ .Values.ingress.health.host }}
     http:
       paths:
       - path: /health

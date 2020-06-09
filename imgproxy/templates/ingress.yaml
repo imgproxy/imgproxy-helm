@@ -1,4 +1,5 @@
 {{- if .Values.ingress.enabled -}}
+{{- $dot := . }}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -25,11 +26,15 @@ spec:
     secretName: {{ .Values.ingress.tls.secretName | default (printf "%s-tls" (include "imgproxy.fullname" .)) | quote }}
 {{- end }}
   rules:
-  - host: {{ .Values.ingress.host }}
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: {{ template "imgproxy.fullname" . }}
-          servicePort: 80
+  {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+        {{- range .paths }}
+          - path: {{ . }}
+            backend:
+              serviceName: {{ template "imgproxy.fullname" $dot }}
+              servicePort: {{ $.Values.servicePort }}
+        {{- end }}
+  {{- end }}
 {{- end -}}

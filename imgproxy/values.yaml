@@ -56,10 +56,15 @@ ingress:
   annotations: {}
   enabled: false
   health:
+    host: "example.com"
     # Comma separated string of CIDR addresses that are allowed
     # to access `/health` url of imgproxy.
     whitelist: ""
-  host: "example.com"
+    annotations: {}
+  hosts:
+    - host: "example.com"
+      paths:
+        - /
   tls:
     enabled: false
     crt: ""
