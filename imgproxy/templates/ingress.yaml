@@ -34,7 +34,7 @@ spec:
           - path: {{ . }}
             backend:
               serviceName: {{ template "imgproxy.fullname" $dot }}
-              servicePort: {{ $.Values.servicePort }}
+              servicePort: 80
         {{- end }}
   {{- end }}
 {{- end -}}
