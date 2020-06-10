@@ -264,6 +264,10 @@ spec:
           value: {{ .Values.s3Endpoint | quote }}
         {{- end }}
 
+        {{- if .Values.useGcs }}
+        - name: IMGPROXY_USE_GCS
+          value: "true"
+        {{- end }}
         {{- if .Values.gcsKey }}
         - name: IMGPROXY_GCS_KEY
           valueFrom:

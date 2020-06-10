@@ -1,3 +1,7 @@
+## 0.5.9 (2020-06-10)
+
+* (Fix) Add forgotten `useGcs` value.
+
 ## 0.5.8 (2020-05-11)
 
 * (New) imgproxy `v2.13.1`

@@ -276,6 +276,9 @@ awsRegion: ""
 # Custom S3 endpoint to being used by imgproxy
 s3Endpoint: ""
 
+# Enable GCS as backend for images
+useGcs: false
+
 # Google Cloud JSON key. When set, enables image fetching from Google Cloud Storage buckets
 gcsKey: ""
 
