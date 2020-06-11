@@ -9,21 +9,25 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
-{{- if or .Values.ingress.annotations (and .Values.ingress.tls.enabled .Values.ingress.acme) }}
+{{- if or .Values.ingress.annotations (and .Values.tls.enabled .Values.ingress.acme) }}
   annotations:
 {{- if .Values.ingress.annotations }}
 {{ toYaml .Values.ingress.annotations | indent 4 }}
 {{- end }}
-{{- if and .Values.ingress.tls.enabled .Values.ingress.acme }}
+{{- if and .Values.tls.enabled .Values.ingress.acme }}
     kubernetes.io/tls-acme: "true"
 {{- end }}
 {{- end }}
 spec:
-{{- if .Values.ingress.tls.enabled }}
+{{- if .Values.tls.enabled }}
   tls:
+  {{- range $index, $tls := .Values.ingress.tls}}
   - hosts:
-    - {{ .Values.ingress.host }}
-    secretName: {{ .Values.ingress.tls.secretName | default (printf "%s-tls" (include "imgproxy.fullname" .)) | quote }}
+    {{- range $tls.hosts }}
+    - {{ . }}
+    {{- end}}
+    secretName: {{ $tls.secretName | default (printf "%s-tls-%d" (include "imgproxy.fullname" $dot) $index) | quote }}
+  {{- end}}
 {{- end }}
   rules:
   {{- range .Values.ingress.hosts }}

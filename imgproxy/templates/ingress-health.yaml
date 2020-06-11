@@ -14,7 +14,7 @@ metadata:
 {{ toYaml .Values.ingress.health.annotations | indent 4 }}
 {{- end }}
 spec:
-{{- if .Values.ingress.tls.enabled }}
+{{- if .Values.tls.enabled }}
   tls:
   - hosts:
     - {{ .Values.ingress.health.host }}

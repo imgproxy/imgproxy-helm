@@ -50,6 +50,9 @@ livenessProbe:
   successThreshold: 1
   failureThreshold: 5
 
+tls:
+  enabled: false
+
 # Configuration parameters for Ingress resource
 ingress:
   acme: false
@@ -65,12 +68,12 @@ ingress:
     - host: "example.com"
       paths:
         - /
-  tls:
-    enabled: false
-    crt: ""
-    key: ""
-    secretName: ""
-  #   nginx.ingress.kubernetes.io/proxy-body-size: "32m"
+  tls: []
+  #  - secretName: example-tls
+  #    crt: ""
+  #    key: ""
+  #    hosts:
+  #      - example.com
 
 enablePrometheus: false
 serviceMonitor:
