@@ -16,16 +16,22 @@ metadata:
 spec:
 {{- if .Values.tls.enabled }}
   tls:
+  {{- range := .Values.ingress.health.tls}}
   - hosts:
-    - {{ .Values.ingress.health.host }}
-    secretName: {{ .Values.ingress.tls.secretName | default (printf "%s-tls" (include "imgproxy.fullname" .)) | quote }}
+    {{- range := .hosts}}
+    - {{ . }}
+    {{- end }}
+    secretName: {{ .secretName | default (printf "%s-health-tls" (include "imgproxy.fullname" .)) | quote }}
+  {{- end}}
 {{- end }}
   rules:
-  - host: {{ .Values.ingress.health.host }}
+  {{- range := .Values.ingress.health.hosts }}
+  - host: {{ . }}
     http:
       paths:
       - path: /health
         backend:
           serviceName: {{ template "imgproxy.fullname" . }}
           servicePort: 80
+  {{- end}}
 {{- end -}}
