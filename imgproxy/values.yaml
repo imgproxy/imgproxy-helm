@@ -58,6 +58,16 @@ ingress:
   acme: false
   annotations: {}
   enabled: false
+  hosts:
+    - host: "example.com"
+      paths:
+        - /
+  tls: []
+  #  - secretName: example-tls
+  #    crt: ""
+  #    key: ""
+  #    hosts:
+  #      - example.com
   health:
     hosts:
       - example.com
@@ -71,17 +81,6 @@ ingress:
       #    key: ""
       #    hosts:
       #      - example.com
-  hosts:
-    - host: "example.com"
-      paths:
-        - /
-  tls: []
-  #  - secretName: example-tls
-  #    crt: ""
-  #    key: ""
-  #    hosts:
-  #      - example.com
-
 enablePrometheus: false
 serviceMonitor:
   enabled: false

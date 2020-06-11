@@ -1,4 +1,5 @@
 {{- if and .Values.ingress.enabled .Values.ingress.health.whitelist -}}
+{{- $dot := . -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -16,22 +17,22 @@ metadata:
 spec:
 {{- if .Values.tls.enabled }}
   tls:
-  {{- range := .Values.ingress.health.tls}}
+  {{- range $index, $tls := .Values.ingress.health.tls}}
   - hosts:
-    {{- range := .hosts}}
+    {{- range $tls.hosts }}
     - {{ . }}
-    {{- end }}
-    secretName: {{ .secretName | default (printf "%s-health-tls" (include "imgproxy.fullname" .)) | quote }}
+    {{- end}}
+    secretName: {{ $tls.secretName | default (printf "%s-tls-%d" (include "imgproxy.fullname" $dot) $index) | quote }}
   {{- end}}
 {{- end }}
   rules:
-  {{- range := .Values.ingress.health.hosts }}
-  - host: {{ . }}
-    http:
-      paths:
-      - path: /health
-        backend:
-          serviceName: {{ template "imgproxy.fullname" . }}
-          servicePort: 80
-  {{- end}}
-{{- end -}}
+  {{- range .Values.ingress.health.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+        - path: /health
+          backend:
+            serviceName: {{ template "imgproxy.fullname" $dot }}
+            servicePort: 80
+  {{- end }}
+{{- end }}
