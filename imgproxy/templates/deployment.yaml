@@ -289,6 +289,8 @@ spec:
         {{- if .Values.enablePrometheus }}
         - name: IMGPROXY_PROMETHEUS_BIND
           value: ":8081"
+        - name: IMGPROXY_PROMETHEUS_NAMESPACE
+          value: {{ .Values.prometheusNamespace | quote }}
         {{- end }}
 
         {{- if .Values.bugsnagKey }}

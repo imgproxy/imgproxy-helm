@@ -1,3 +1,5 @@
+* (New) `prometheusNamespace` to prepend prefix to the names of metrics
+
 ## 0.5.9 (2020-06-10)
 
 * (Fix) Add forgotten `useGcs` value.
