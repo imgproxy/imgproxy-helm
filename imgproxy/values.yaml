@@ -68,6 +68,7 @@ ingress:
   #   nginx.ingress.kubernetes.io/proxy-body-size: "32m"
 
 enablePrometheus: false
+prometheusNamespace: ""
 serviceMonitor:
   enabled: false
   honorLabels: true
