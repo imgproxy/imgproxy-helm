@@ -14,7 +14,7 @@ tolerations: {}
 # Docker image repository, tag and a policy for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v2.10.0
+  tag: v2.13.1
   pullPolicy: IfNotPresent
 
 imagePullSecrets: {}
@@ -33,9 +33,6 @@ resources: {}
   # requests:
   #   cpu: 700m
   #   memory: 700Mi
-
-# Which port should imgproxy and its Kubernetes service listen
-httpPort: 80
 
 # Kubernetes service type
 serviceType: "ClusterIP"
@@ -70,6 +67,8 @@ ingress:
     secretName: ""
   #   nginx.ingress.kubernetes.io/proxy-body-size: "32m"
 
+enablePrometheus: false
+prometheusNamespace: ""
 serviceMonitor:
   enabled: false
   honorLabels: true
@@ -128,6 +127,9 @@ cacheControlPassthrough: false
 
 # when true, enables SO_REUSEPORT socket option (currently on linux and darwin only);
 soReuseport: false
+
+# URL path prefix. Example: when set to /abc/def, imgproxy URL will be /abc/def/%signature/%processing_options/%source_url
+pathPrefix: ""
 
 # User-Agent header that will be sent with source image request. Default: imgproxy/%current_version
 userAgent: ""
@@ -228,6 +230,12 @@ enforceWebp: false
 # Enables Client Hints support when the width is ommited for automatic responsive images
 enableClientHints: false
 
+# PRO: when true, enables video thumbnails generation
+enableVideoThumbnails: false
+
+# PRO: the timestamp of the frame in seconds that will be used for a thumbnail
+videoThumbnailSecond: 1
+
 # Base64-encoded image data
 watermarkData: ""
 
@@ -242,6 +250,15 @@ watermarkOpacity: 1
 
 #PRO: size of custom watermarks cache. When set to 0, watermarks cache is disabled. By default 256 watermarks are cached.
 watermarkCacheSize: 256
+
+# Base64-encoded image data. You can easily calculate it with `base64 tmp/fallback.png | tr -d '\n'`
+fallbackImageData: ""
+
+# path to the locally stored image
+fallbackImagePath: ""
+
+# fallback image URL
+fallbackImageUrl: ""
 
 # Set of preset definitions, comma-divided
 presets: ""
@@ -263,6 +280,9 @@ awsRegion: ""
 
 # Custom S3 endpoint to being used by imgproxy
 s3Endpoint: ""
+
+# Enable GCS as backend for images
+useGcs: false
 
 # Google Cloud JSON key. When set, enables image fetching from Google Cloud Storage buckets
 gcsKey: ""
