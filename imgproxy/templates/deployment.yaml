@@ -83,6 +83,10 @@ spec:
         - name: IMGPROXY_SO_REUSEPORT
           value: "true"
         {{- end }}
+        {{- if .Values.pathPrefix }}
+        - name: IMGPROXY_PATH_PREFIX
+          value: {{ .Values.pathPrefix | quote }}
+        {{- end }}
         {{- if .Values.userAgent }}
         - name: IMGPROXY_USER_AGENT
           value: {{ .Values.userAgent | quote }}
@@ -194,6 +198,12 @@ spec:
         - name: IMGPROXY_ENABLE_CLIENT_HINTS
           value: "true"
         {{- end }}
+        {{- if .Values.enableVideoThumbnails }}
+        - name: IMGPROXY_ENABLE_VIDEO_THUMBNAILS
+          value: "true"
+        {{- end }}
+        - name: IMGPROXY_VIDEO_THUMBNAIL_SECOND
+          value: {{ .Values.videoThumbnailSecond | quote }}
         {{- if .Values.watermarkData }}
         - name: IMGPROXY_WATERMARK_DATA
           value: {{ .Values.watermarkData | quote }}
@@ -210,6 +220,18 @@ spec:
           value: {{ .Values.watermarkOpacity | quote }}
         - name: IMGPROXY_WATERMARK_CACHE_SIZE
           value: {{ .Values.watermarkCacheSize | quote }}
+        {{- if .Values.fallbackImageData }}
+        - name: IMGPROXY_FALLBACK_IMAGE_DATA
+          value: {{ .Values.fallbackImageData | quote }}
+        {{- end }}
+        {{- if .Values.fallbackImagePath }}
+        - name: IMGPROXY_FALLBACK_IMAGE_PATH
+          value: {{ .Values.fallbackImagePath | quote }}
+        {{- end }}
+        {{- if .Values.fallbackImageUrl }}
+        - name: IMGPROXY_FALLBACK_IMAGE_URL
+          value: {{ .Values.fallbackImageUrl | quote }}
+        {{- end }}
         {{- if .Values.presets }}
         - name: IMGPROXY_PRESETS
           value: {{ .Values.presets | quote }}
@@ -242,6 +264,10 @@ spec:
           value: {{ .Values.s3Endpoint | quote }}
         {{- end }}
 
+        {{- if .Values.useGcs }}
+        - name: IMGPROXY_USE_GCS
+          value: "true"
+        {{- end }}
         {{- if .Values.gcsKey }}
         - name: IMGPROXY_GCS_KEY
           valueFrom:
@@ -263,6 +289,8 @@ spec:
         {{- if .Values.enablePrometheus }}
         - name: IMGPROXY_PROMETHEUS_BIND
           value: ":8081"
+        - name: IMGPROXY_PROMETHEUS_NAMESPACE
+          value: {{ .Values.prometheusNamespace | quote }}
         {{- end }}
 
         {{- if .Values.bugsnagKey }}

@@ -132,6 +132,7 @@ These are the values used to configure imgproxy itself:
 |**awsSecret**|AWS Secret Access Key||
 |**awsRegion**|AWS Region||
 |**s3Endpoint**|Custom S3 endpoint to being used by imgproxy||
+|**useGcs**|When true, enables image fetching from Google Cloud Storage|`false`|
 |**gcsKey**|Google Cloud JSON key. When set, enables image fetching from Google Cloud Storage buckets||
 |**newRelicKey**|New Relic license key||
 |**newRelicAppName**|New Relic application name||
@@ -206,6 +207,8 @@ Options to configure ServiceMonitor for Prometheus Operator.
 
 |Value|Description|Default|
 |-----|-----------|-------|
+|**enablePrometheus**|Set IMGPROXY_PROMETHEUS_BIND environment variable to bind metrics to port 8081|`false`|
+|**prometheusNamespace**|Set IMGPROXY_PROMETHEUS_NAMESPACE environment variable to prepend prefix to the names of metrics|`""`|
 |**serviceMonitor.enabled**|Enables ServiceMonitor manifest|`false`|
 |**serviceMonitor.honorLabels**|Chooses the metric's labels on collisions with target labels|`true`|
 |**serviceMonitor.interval**|Interval at which metrics should be scraped (if it differs from default one)|`0`|
@@ -214,3 +217,10 @@ Options to configure ServiceMonitor for Prometheus Operator.
 |**serviceMonitor.targetLabels**|Transfers mentioned labels on the Kubernetes Service onto the target|`["app","release"]`|
 
 See `values.yaml` for some more Kubernetes-specific configuration options.
+
+### Other
+
+|Value|Description|Default|
+|-----|-----------|-------|
+|**nameOverride**|String to partially override imgproxy.fullname template with a string (will be appended to the release name)|`nil`|
+|**fullnameOverride**|String to fully override imgproxy.fullname template with a string (will be used as pod name prefix instead of release name)|`nil`|
