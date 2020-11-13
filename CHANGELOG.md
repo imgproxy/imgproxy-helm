@@ -1,4 +1,7 @@
+## 0.5.10 (2020-11-13)
+
 * (New) `prometheusNamespace` to prepend prefix to the names of metrics
+* (New) add deployment annotations
 
 ## 0.5.9 (2020-06-10)
 
