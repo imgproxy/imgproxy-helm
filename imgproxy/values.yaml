@@ -14,7 +14,7 @@ tolerations: {}
 # Docker image repository, tag and a policy for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v2.13.1
+  tag: v2.15.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: {}

@@ -1,5 +1,6 @@
 ## 0.5.10 (2020-11-13)
 
+* (New) imgproxy `v2.15.0`
 * (New) `prometheusNamespace` to prepend prefix to the names of metrics
 * (New) add deployment annotations
 
