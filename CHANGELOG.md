@@ -1,3 +1,7 @@
+## 0.5.11 (2020-11-20)
+
+* (New) `videoThumbnailProbeSize` & `videoThumbnailMaxAnalyzeDuration` options for `v2.15.0` configuration
+
 ## 0.5.10 (2020-11-13)
 
 * (New) imgproxy `v2.15.0`

@@ -206,6 +206,10 @@ spec:
         - name: IMGPROXY_ENABLE_VIDEO_THUMBNAILS
           value: "true"
         {{- end }}
+        - name: IMGPROXY_VIDEO_THUMBNAIL_PROBE_SIZE
+          value: {{ .Values.videoThumbnailProbeSize | quote }}
+        - name: IMGPROXY_VIDEO_THUMBNAIL_MAX_ANALYZE_DURATION
+          value: {{ .Values.videoThumbnailMaxAnalyzeDuration | quote }}
         - name: IMGPROXY_VIDEO_THUMBNAIL_SECOND
           value: {{ .Values.videoThumbnailSecond | quote }}
         {{- if .Values.watermarkData }}

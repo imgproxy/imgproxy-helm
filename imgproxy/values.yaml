@@ -233,6 +233,12 @@ enableClientHints: false
 # PRO: when true, enables video thumbnails generation
 enableVideoThumbnails: false
 
+# PRO: the maximum amount of bytes used to determine the format. Lower values can decrease memory usage but can produce inaccurate data or even lead to errors
+videoThumbnailProbeSize: 5000000
+
+# PRO: the maximum of milliseconds used to get the stream info. Low values can decrease memory usage but can produce inaccurate data or even lead to errors. When set to 0, the heuristic is used.
+videoThumbnailMaxAnalyzeDuration: 0
+
 # PRO: the timestamp of the frame in seconds that will be used for a thumbnail
 videoThumbnailSecond: 1
 
