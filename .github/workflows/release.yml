@@ -21,9 +21,9 @@ jobs:
       run: helm repo index --url https://helm.imgproxy.net/ --merge helm-repository/index.yaml helm-repository/
     - name: Commit & Push gh-pages with a new chart
       run: |
+        cd helm-repository/
         git config user.name github-actions
         git config user.email github-actions@github.com
-        cd helm-repository/
         git add .
         git commit -m "${GITHUB_REF##*/} release"
         git push origin gh-pages
