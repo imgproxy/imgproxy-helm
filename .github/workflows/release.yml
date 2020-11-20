@@ -2,7 +2,7 @@ name: release-helm-chart
 on:
   push:
     tags:
-    - *
+    - '*'
 jobs:
   release-helm-chart:
     runs-on: ubuntu-latest
