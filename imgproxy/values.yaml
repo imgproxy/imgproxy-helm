@@ -14,7 +14,7 @@ tolerations: {}
 # Docker image repository, tag and a policy for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v2.13.1
+  tag: v2.15.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: {}
@@ -87,6 +87,10 @@ podDisruptionBudget:
 
 # Pod annotations
 annotations: {}
+
+# Deployment annotations
+deployment:
+  annotations: {}
 
 # Hex-encoded key for URL encoding. CHANGE IT!!!!
 key: 1b147116e57d9e06df3696b21260169902fe201ccdb9715267999176ccbfaae6f2c2b75b78110d0287643d98cde143e7a3f98a46ec825a1ab7ea10af426c2436
@@ -228,6 +232,12 @@ enableClientHints: false
 
 # PRO: when true, enables video thumbnails generation
 enableVideoThumbnails: false
+
+# PRO: the maximum amount of bytes used to determine the format. Lower values can decrease memory usage but can produce inaccurate data or even lead to errors
+videoThumbnailProbeSize: 5000000
+
+# PRO: the maximum of milliseconds used to get the stream info. Low values can decrease memory usage but can produce inaccurate data or even lead to errors. When set to 0, the heuristic is used.
+videoThumbnailMaxAnalyzeDuration: 0
 
 # PRO: the timestamp of the frame in seconds that will be used for a thumbnail
 videoThumbnailSecond: 1
