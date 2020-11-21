@@ -9,7 +9,7 @@ metadata:
     app: {{ template "imgproxy.fullname" . }}
   {{- if .Values.deployment.annotations }}
   annotations:
-    {{ toYaml .Values.deployment.annotations | indent 4 }}
+    {{ toYaml .Values.deployment.annotations | nindent 4 }}
   {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}

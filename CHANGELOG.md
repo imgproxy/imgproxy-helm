@@ -1,3 +1,7 @@
+## 0.5.12 (2020-11-21)
+
+* (Fix) deployment annotations
+
 ## 0.5.11 (2020-11-20)
 
 * (New) `videoThumbnailProbeSize` & `videoThumbnailMaxAnalyzeDuration` options for `v2.15.0` configuration
