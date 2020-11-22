@@ -7,10 +7,7 @@ metadata:
     release: {{ .Release.Name | quote }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     app: {{ template "imgproxy.fullname" . }}
-  {{- if .Values.deployment.annotations }}
-  annotations:
-    {{ toYaml .Values.deployment.annotations | indent 4 }}
-  {{- end }}
+  annotations: {{ toYaml .Values.deployment.annotations | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -21,25 +18,11 @@ spec:
       labels:
         app: {{ template "imgproxy.fullname" . }}
         release: {{ .Release.Name | quote }}
-{{- if .Values.annotations }}
-      annotations:
-        {{- range $key, $value := .Values.annotations }}
-        {{ $key }}: {{ $value | quote }}
-        {{- end }}
-{{- end }}
+      annotations: {{ toYaml .Values.pod.annotations | nindent 8 }}
     spec:
-    {{- if .Values.affinity }}
-      affinity:
-{{ toYaml .Values.affinity | indent 8 }}
-    {{- end }}
-    {{- if .Values.tolerations }}
-      tolerations:
-{{ toYaml .Values.tolerations | indent 8 }}
-    {{- end }}
-    {{- if .Values.nodeSelector }}
-      nodeSelector:
-{{ toYaml .Values.nodeSelector | indent 8 }}
-    {{- end }}
+      affinity: {{ toYaml .Values.affinity | nindent 8 }}
+      tolerations: {{ toYaml .Values.tolerations | nindent 8 }}
+      nodeSelector: {{ toYaml .Values.nodeSelector | nindent 8 }}
 {{- if .Values.imagePullSecrets }}
       imagePullSecrets:
       - name: "{{ .Release.Name }}-docker-registry-secret"
@@ -388,9 +371,7 @@ spec:
         - name: IMGPROXY_STRIP_METADATA
           value: "true"
         {{- end }}
-
-        resources:
-{{ toYaml .Values.resources | indent 10 }}
+        resources: {{ toYaml .Values.resources | nindent 10 }}
         ports:
         - containerPort: 8080
           name: http

@@ -1,3 +1,8 @@
+## 0.6.0 (2020-11-22)
+
+* (Fix) deployment indentations
+* (New) pod annotations values were ranamed
+
 ## 0.5.11 (2020-11-20)
 
 * (New) `videoThumbnailProbeSize` & `videoThumbnailMaxAnalyzeDuration` options for `v2.15.0` configuration

@@ -9,7 +9,7 @@ nodeSelector: {}
 affinity: {}
 
 # Toleration for K8s taints
-tolerations: {}
+tolerations: []
 
 # Docker image repository, tag and a policy for Kubernetes to pull it.
 image:
@@ -86,7 +86,8 @@ podDisruptionBudget:
   maxUnavailable: 0
 
 # Pod annotations
-annotations: {}
+pod:
+  annotations: {}
 
 # Deployment annotations
 deployment:
