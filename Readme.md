@@ -120,6 +120,10 @@ These are the values used to configure imgproxy itself:
 |**enableWebpDetection**|Enables WebP support detection. When the file extension is omitted in the imgproxy URL and browser supports WebP, imgproxy will use it as the resulting format|`false`|
 |**enforceWebp**|Enables WebP support detection and enforces WebP usage. If the browser supports WebP, it will be used as resulting format even if another extension is specified in the imgproxy URL|`false`|
 |**enableClientHints**|Enables Client Hints support when the width is ommited for automatic responsive images|`false`|
+|**ebableVideoThumbnails**|`PRO:` when true, enables video thumbnails generation|`false`|
+|**videoThumbnailProbeSize**|`PRO:` the maximum amount of bytes used to determine the format. Lower values can decrease memory usage but can produce inaccurate data or even lead to errors|`5000000`|
+|**videoThumbnailMaxAnalyzeDuration**|`PRO:` the maximum of milliseconds used to get the stream info. Low values can decrease memory usage but can produce inaccurate data or even lead to errors. When set to 0, the heuristic is used|`0`|
+|**videoThumbnailSecond**|`PRO:` the timestamp of the frame in seconds that will be used for a thumbnail|`1`|
 |**watermarkData**|Base64-encoded image data||
 |**watermarkPath**|Path to the locally stored image||
 |**watermarkUrl**|Watermark image URL||
