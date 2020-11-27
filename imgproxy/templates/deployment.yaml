@@ -383,7 +383,7 @@ spec:
         {{- end }}
         readinessProbe:
           httpGet:
-            path: /health
+            path: {{ .Values.pathPrefix }}/health
             port: 8080
             scheme: HTTP
             httpHeaders:
@@ -397,7 +397,7 @@ spec:
           {{- end }}
         livenessProbe:
           httpGet:
-            path: /health
+            path: {{ .Values.pathPrefix }}/health
             port: 8080
             scheme: HTTP
             httpHeaders:
