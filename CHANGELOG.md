@@ -1,3 +1,8 @@
+## 0.6.1 (2020-11-28)
+
+* (Fix) readiness probe configuration when using pathPrefix
+* (Fix) readme file
+
 ## 0.6.0 (2020-11-22)
 
 * (Fix) deployment indentations
