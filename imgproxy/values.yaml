@@ -52,20 +52,18 @@ livenessProbe:
 
 # Configuration parameters for Ingress resource
 ingress:
-  acme: false
-  annotations: {}
   enabled: false
-  health:
-    # Comma separated string of CIDR addresses that are allowed
-    # to access `/health` url of imgproxy.
-    whitelist: ""
-  host: "example.com"
-  tls:
-    enabled: false
-    crt: ""
-    key: ""
-    secretName: ""
-  #   nginx.ingress.kubernetes.io/proxy-body-size: "32m"
+  # annotations:
+  #   kubernetes.io/ingress.class: nginx
+  #   kubernetes.io/tls-acme: "true"
+  # hosts:
+  #   - example.com
+  #   - www.example.com
+  # tls:
+  #   - secretName: example-com-tls
+  #     hosts:
+  #       - example.com
+  #       - www.example.com
 
 enablePrometheus: false
 prometheusNamespace: ""
