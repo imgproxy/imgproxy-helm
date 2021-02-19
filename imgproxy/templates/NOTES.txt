@@ -19,11 +19,15 @@ It can be accessed:
 {{- end }}
 
 {{ if .Values.ingress.enabled -}}
-There is also an Ingress resource enabled for this installation.
-It can be accessed outside via the URL:
-  {{ $scheme := "http" -}}
-  {{ if .Values.ingress.tls -}}
-    {{- $scheme := "https" }}
+There is also an Ingress resource(s) enabled for this installation.
+It can be accessed outside via the URL(s):
+  {{- $tlsHosts := list -}}
+  {{- range .Values.ingress.tls -}}
+    {{- $tlsHosts = concat $tlsHosts .hosts -}}
+  {{- end -}}
+  {{- range .Values.ingress.hosts -}}
+    {{- $host := . -}}
+    {{- $scheme := ternary "https://" "http://" (has $host $tlsHosts) }}
+    {{ $scheme }}{{ $host }}{{ default "/" $.Values.pathPrefix }}
   {{- end }}
-  "{{ $scheme }}://{{ .Values.ingress.host }}"
 {{- end }}
