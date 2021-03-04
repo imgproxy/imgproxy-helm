@@ -86,6 +86,7 @@ podDisruptionBudget:
 # Pod annotations
 pod:
   annotations: {}
+  labels: {}
 
 # Deployment annotations
 deployment:

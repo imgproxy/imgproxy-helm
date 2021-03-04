@@ -170,6 +170,7 @@ Deployment specific options.
 |-----|-----------|-------|
 |**affinity**|Node and inter-pod affinity configuration||
 |**annotations**|Custom annotations for imgproxy pods|`{}`|
+|**labels**|Custom labels for imgproxy pods|`{}`|
 |**imagePullSecrets.password**|Password to your private registry|``|
 |**imagePullSecrets.registry**|URL of a private registry you want to authorize to|``|
 |**imagePullSecrets.username**|Login to your private registry|``|

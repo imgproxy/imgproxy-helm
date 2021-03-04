@@ -15,7 +15,7 @@ spec:
       app: {{ template "imgproxy.fullname" . }}
   template:
     metadata:
-      labels:
+      labels: {{ toYaml .Values.pod.lables | nindent 8 }}
         app: {{ template "imgproxy.fullname" . }}
         release: {{ .Release.Name | quote }}
       annotations: {{ toYaml .Values.pod.annotations | nindent 8 }}
