@@ -181,7 +181,10 @@ Deployment specific options.
 |**readinessProbe**|Timeouts and counters for the readiness probe||
 |**replicaCount**|How many pods with imgproxy should be running simultaneously|`1`|
 |**resources**|Hash of resource limits for your pods|`{}`|
-|**serviceType**|Kubernetes service type for imgproxy|`ClusterIP`|
+|**service.type**|Kubernetes service type for imgproxy|`ClusterIP`|
+|**service.loadBalancerIP**|Load balancer ip for service type "LoadBalancer"|''|
+|**service.loadBalancerSourceRanges**| Load balancer source ranges for service type "LoadBalancer"|`[]|
+|**servive.externalTrafficPolicy**| Enable client source IP preservation |`Cluster`|
 |**tolerations**|Tolerations for Kubernetes taints||
 
 
