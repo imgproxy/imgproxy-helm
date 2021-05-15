@@ -1,3 +1,21 @@
+## 0.7.0 (to be released)
+
+* (New) add support for the following env variables
+  - IMGPROXY_SET_CANONICAL_HEADER
+  - IMGPROXY_ENABLE_DEBUG_HEADERS
+  - IMGPROXY_MAX_SVG_CHECK_BYTES
+  - IMGPROXY_ALLOW_ORIGIN
+  - IMGPROXY_FORMAT_QUALITY
+  - IMGPROXY_AVIF_SPEED
+  - IMGPROXY_ENABLE_AVIF_DETECTION
+  - IMGPROXY_ENFORCE_AVIF
+  - IMGPROXY_UNSHARPENING_WEIGHT
+  - IMGPROXY_UNSHARPENING_DIVIDOR
+  - IMGPROXY_SKIP_PROCESSING_FORMATS
+  - IMGPROXY_USE_ABS
+  - IMGPROXY_STRIP_COLOR_PROFILE
+  - IMGPROXY_AUTO_ROTATE
+
 ## 0.6.4 (2021-05-27)
 
 * (Add) support for service accounts
@@ -18,7 +36,7 @@
 ## 0.6.0 (2020-11-22)
 
 * (Fix) deployment indentations
-* (New) pod annotations values were ranamed
+* (New) pod annotations values were renamed
 
 ## 0.5.11 (2020-11-20)
 
