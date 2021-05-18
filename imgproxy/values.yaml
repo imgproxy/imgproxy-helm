@@ -120,7 +120,8 @@ features:
     writeTimeout: 10
 
     # ENV['IMGPROXY_KEEP_ALIVE_TIMEOUT']
-    # the maximum duration (in seconds) to wait for the next request before closing the connection. When set to 0, keep-alive is disabled.
+    # the maximum duration (in seconds) to wait for the next request before closing the connection.
+    # When set to 0, keep-alive is disabled.
     keepAliveTimeout: 10
 
     # ENV['IMGPROXY_DOWNLOAD_TIMEOUT']
@@ -128,11 +129,13 @@ features:
     downloadTimeout: 5
 
     # ENV['IMGPROXY_CONCURRENCY']
-    # The maximum number of image requests to be processed simultaneously. Default: double number of CPU cores
+    # The maximum number of image requests to be processed simultaneously.
+    # Default: double number of CPU cores
     concurrency: ""
 
     # ENV['IMGPROXY_MAX_CLIENTS']
-    # The maximum number of simultaneous active connections. Default: concurrency * 10
+    # The maximum number of simultaneous active connections.
+    # Default: concurrency * 10
     maxClients: ""
 
     # ENV['IMGPROXY_TTL']
@@ -144,19 +147,21 @@ features:
     cacheControlPassthrough: false
 
     # ENV['IMGPROXY_SET_CANONICAL_HEADER']
-    # when true and the source image has http or https scheme, set rel="canonical" HTTP header to the value of the source image URL. More details here
+    # when true and the source image has http or https scheme, set rel="canonical" HTTP header to the value of the source image URL.
     setCanonicalHeader: false
 
     # ENV['IMGPROXY_SO_REUSEPORT']
-    # when true, enables SO_REUSEPORT socket option (currently on linux and darwin only);
+    # when true, enables SO_REUSEPORT socket option (currently on linux and darwin only)
     soReuseport: false
 
     # ENV['IMGPROXY_PATH_PREFIX']
-    # URL path prefix. Example: when set to /abc/def, imgproxy URL will be /abc/def/%signature/%processing_options/%source_url
+    # URL path prefix.
+    # Example: when set to /abc/def, imgproxy URL will be /abc/def/%signature/%processing_options/%source_url
     pathPrefix: ""
 
     # ENV['IMGPROXY_USER_AGENT']
-    # User-Agent header that will be sent with source image request. Default: imgproxy/%current_version
+    # User-Agent header that will be sent with source image request.
+    # Default: imgproxy/%current_version
     userAgent: ""
 
     # ENV['IMGPROXY_USE_ETAG']
@@ -164,7 +169,8 @@ features:
     useEtag: false
 
     # ENV['IMGPROXY_CUSTOM_REQUEST_HEADERS']
-    # PRO: list of custom headers that imgproxy will send while requesting the source image, divided by \; (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)
+    # PRO: list of custom headers that imgproxy will send while requesting the source image, divided by \;
+    # (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)
     customRequestHeaders: ""
 
     # ENV['IMGPROXY_CUSTOM_RESPONSE_HEADERS']
@@ -172,8 +178,8 @@ features:
     customResponseHeaders: ""
 
     # ENV['IMGPROXY_CUSTOM_HEADERS_SEPARATOR']
-    # PRO: string that will be used as a custom headers separator; default '\;'
-    customHeadersSeparator: ""
+    # PRO: string that will be used as a custom headers separator;
+    customHeadersSeparator: ";"
 
     # ENV['IMGPROXY_ENABLE_DEBUG_HEADERS']
     # when true, imgproxy will add X-Origin-Content-Length header with the value is size of the source image.
@@ -191,7 +197,8 @@ features:
     maxSrcResolution: "16.8"
 
     # ENV['IMGPROXY_MAX_SRC_FILE_SIZE']
-    # The maximum size of the source image, in bytes. Images with larger file size will be rejected. When `0`, file size check is disabled.
+    # The maximum size of the source image, in bytes. Images with larger file size will be rejected.
+    # When `0`, file size check is disabled.
     maxSrcFileSize: 0
 
     # ENV['IMGPROXY_MAX_ANIMATION_FRAMES']
@@ -199,7 +206,8 @@ features:
     maxAnimationFrames: 1
 
     # ENV['IMGPROXY_MAX_SVG_CHECK_BYTES']
-    # the maximum number of bytes imgproxy will read to recognize SVG. If imgproxy can't recognize your SVG, try to increase this number.
+    # the maximum number of bytes imgproxy will read to recognize SVG.
+    # If imgproxy can't recognize your SVG, try to increase this number.
     maxSvgCheckBytes: 32768 # 32KB
 
     # ENV['IMGPROXY_ALLOW_ORIGIN']
@@ -207,7 +215,8 @@ features:
     allowOrigin: false
 
     # ENV['IMGPROXY_ALLOWED_SOURCES']
-    # whitelist of source image URLs prefixes divided by comma. When blank, imgproxy allows all source image URLs. Example: `s3://,https://example.com/,local://`.
+    # whitelist of source image URLs prefixes divided by comma. When blank, imgproxy allows all source image URLs.
+    # Example: `s3://,https://example.com/,local://`.
     allowedSources: ""
 
     # ENV['IMGPROXY_IGNORE_SSL_VERIFICATION']
@@ -215,7 +224,8 @@ features:
     ignoreSslVerification: false
 
     # ENV['IMGPROXY_DEVELOPMENT_ERRORS_MODE']
-    # when true, imgproxy will respond with detailed error messages. Not recommended for production because some errors may contain stack trace.
+    # when true, imgproxy will respond with detailed error messages.
+    # Not recommended for production because some errors may contain stack trace.
     developmentErrorsMode: ""
 
   # https://docs.imgproxy.net/#/configuration?id=compression
@@ -226,7 +236,8 @@ features:
     quality: 80
 
     # ENV['IMGPROXY_FORMAT_QUALITY']
-    # default quality of the resulting image per format, comma divided. Example: `jpeg=70,avif=40,webp=60`. When value for the resulting format is not set, `IMGPROXY_QUALITY` value is used.
+    # default quality of the resulting image per format, comma divided.
+    # Example: `jpeg=70,avif=40,webp=60`. When value for the resulting format is not set, `IMGPROXY_QUALITY` value is used.
     formatQuality: ""
 
     # ENV['IMGPROXY_GZIP_COMPRESSION']
@@ -246,11 +257,13 @@ features:
     jpegTrellisQuant: false
 
     # ENV['IMGPROXY_JPEG_OVERSHOOT_DERINGING']
-    # PRO: when true, enables overshooting of samples with extreme values. Overshooting may reduce ringing artifacts from compression, in particular in areas where black text appears on a white background.
+    # PRO: when true, enables overshooting of samples with extreme values.
+    # Overshooting may reduce ringing artifacts from compression, in particular in areas where black text appears on a white background.
     jpegOvershootDeringing: false
 
     # ENV['IMGPROXY_JPEG_OPTIMIZE_SCANS']
-    # PRO: when true, split the spectrum of DCT coefficients into separate scans. Reduces file size but increases compression time. Requires `IMGPROXY_JPEG_PROGRESSIVE` to be true.
+    # PRO: when true, split the spectrum of DCT coefficients into separate scans.
+    # Reduces file size but increases compression time. Requires `IMGPROXY_JPEG_PROGRESSIVE` to be true.
     jpegOptimizeScans: false
 
     # ENV['IMGPROXY_JPEG_QUANT_TABLE']
@@ -294,7 +307,8 @@ features:
   formatsSupportDetection:
 
     # ENV['IMGPROXY_ENABLE_WEBP_DETECTION']
-    # enables WebP support detection. When the file extension is omitted in the imgproxy URL and browser supports WebP, imgproxy will use it as the resulting format
+    # enables WebP support detection.
+    # When the file extension is omitted in the imgproxy URL and browser supports WebP, imgproxy will use it as the resulting format
     enableWebpDetection: false
 
     # ENV['IMGPROXY_ENFORCE_WEBP']
@@ -402,7 +416,8 @@ features:
   presets:
 
     # ENV['IMGPROXY_PRESETS']
-    # set of preset definitions, comma-divided. Example: `default=resizing_type:fill/enlarge:1,sharp=sharpen:0.7,blurry=blur:2`.
+    # set of preset definitions, comma-divided.
+    # Example: `default=resizing_type:fill/enlarge:1,sharp=sharpen:0.7,blurry=blur:2`.
     definitions: ""
 
     # ENV['IMGPROXY_ONLY_PRESETS']
@@ -414,19 +429,19 @@ features:
 
     # ENV['IMGPROXY_USE_S3']
     # when `true`, enables image fetching from Amazon S3 buckets.
-    useS3: false
+    enabled: false
 
     # ENV['AWS_ACCESS_KEY_ID']
     # AWS key
-    awsKey: ""
+    accessKeyId: ""
 
     # ENV['AWS_SECRET_ACCESS_KEY']
     # AWS secret
-    awsSecret: ""
+    secretAccessKey: ""
 
     # ENV['IMGPROXY_S3_REGION']
     # AWS region
-    awsRegion: ""
+    s3Region: ""
 
     # ENV['IMGPROXY_S3_ENDPOINT']
     # custom S3 endpoint to being used by imgproxy.
@@ -440,37 +455,39 @@ features:
 
     # ENV['IMGPROXY_GCS_KEY']
     # Google Cloud JSON key. When set, enables image fetching from Google Cloud Storage buckets.
-    gcsKey: ""
+    jsonKey: ""
 
   # https://docs.imgproxy.net/#/configuration?id=serving-files-from-azure-blob-storage
   azure:
 
     # ENV['IMGPROXY_USE_ABS']
     # when `true`, enables image fetching from Azure Blob Storage containers.
-    useAzure: false
+    enabled: false
 
     # ENV['IMGPROXY_ABS_NAME']
     # Azure account name.
-    azureAccountName: ""
+    accountName: ""
 
     # ENV['IMGPROXY_ABS_KEY']
     # Azure account key.
-    azureAccountKey: ""
+    accountKey: ""
 
     # ENV['IMGPROXY_ABS_ENDPOINT']
     # custom Azure Blob Storage endpoint to being used by imgproxy. Default: blank.
-    azureEndpoint: ""
+    endpoint: ""
 
   # https://docs.imgproxy.net/#/configuration?id=new-relic-metrics
   newRelic:
 
+    enabled: false
+
     # ENV['IMGPROXY_NEW_RELIC_KEY']
     # New Relic license key
-    newRelicKey: ""
+    licenseKey: ""
 
     # ENV['IMGPROXY_NEW_RELIC_APP_NAME']
     # New Relic application name. Default: `imgproxy`.
-    newRelicAppName: ""
+    appName: ""
 
   # https://docs.imgproxy.net/#/configuration?id=prometheus-metrics
   prometheus:
@@ -479,7 +496,7 @@ features:
 
     # ENV['IMGPROXY_PROMETHEUS_NAMESPACE']
     # Namespace (prefix) for imgproxy metrics.
-    prometheusNamespace: ""
+    namespace: ""
 
     # ENV['IMGPROXY_PROMETHEUS_BIND']
     # This value is set to ':8081' (not editable)
@@ -487,33 +504,51 @@ features:
   # https://docs.imgproxy.net/#/configuration?id=error-reporting
   errorReporting:
 
-    # ENV['IMGPROXY_BUGSNAG_KEY']
-    # Bugsnag API key. When provided, enables error reporting to Bugsnag
-    bugsnagKey: ""
+    # Integration to Bugsnag
+    bugsnag:
 
-    # ENV['IMGPROXY_BUGSNAG_STAGE']
-    # Bugsnag stage to report to.
-    bugsnagStage: "production"
+      # When provided, enables error reporting to Bugsnag
+      enabled: false
 
-    # ENV['IMGPROXY_HONEYBADGER_KEY']
-    # Honeybadger API key. When provided, enables error reporting to Honeybadger
-    honeybadgerKey: ""
+      # ENV['IMGPROXY_BUGSNAG_KEY']
+      # Bugsnag API key
+      key: ""
 
-    # ENV['IMGPROXY_HONEYBADGER_ENV']
-    # Honeybadger env to report to.
-    honeybadgerEnv: "production"
+      # ENV['IMGPROXY_BUGSNAG_STAGE']
+      # Bugsnag stage to report to.
+      env: "production"
 
-    # ENV['IMGPROXY_SENTRY_DSN']
-    # Sentry project DSN. When provided, enables error reporting to Sentry
-    sentryDsn: ""
+    # Integration to Honeybadger
+    honeybadger:
 
-    # ENV['IMGPROXY_SENTRY_ENVIRONMENT']
-    # Sentry environment to report to. Default: `production`
-    sentryEnvironment: "production"
+      # When provided, enables error reporting to Honeybadger
+      enabled: false
 
-    # ENV['IMGPROXY_SENTRY_RELEASE']
-    # Sentry release to report to. Default: `imgproxy/{imgproxy version}`
-    sentryRelease: ""
+      # ENV['IMGPROXY_HONEYBADGER_KEY']
+      # Honeybadger API key.
+      key: ""
+
+      # ENV['IMGPROXY_HONEYBADGER_ENV']
+      # Honeybadger env to report to.
+      env: "production"
+
+    # Integration to Sentry
+    sentry:
+
+      #  When provided, enables error reporting to Sentry
+      enabled: false
+
+      # ENV['IMGPROXY_SENTRY_DSN']
+      # Sentry project DSN.
+      dsn: ""
+
+      # ENV['IMGPROXY_SENTRY_ENVIRONMENT']
+      # Sentry environment to report to. Default: `production`
+      env: "production"
+
+      # ENV['IMGPROXY_SENTRY_RELEASE']
+      # Sentry release to report to. Default: `imgproxy/{imgproxy version}`
+      release: ""
 
     # ENV['IMGPROXY_REPORT_DOWNLOADING_ERRORS']
     # when `true`, imgproxy will report downloading errors.
@@ -533,25 +568,29 @@ features:
     # the log level. The following levels are supported `error`, `warn`, `info` and `debug`.
     logLevel: "info"
 
-    # ENV['IMGPROXY_SYSLOG_ENABLE']
-    # when `true`, enables sending logs to syslog
-    syslogEnable: false
+    # Enable Syslog integration
+    # 
+    syslog:
 
-    # ENV['IMGPROXY_SYSLOG_LEVEL']
-    # maximum log level to send to syslog. Known levels are: `crit`, `error`, `warning` and `info`.
-    syslogLevel: "info"
+      # ENV['IMGPROXY_SYSLOG_ENABLE']
+      # when `true`, enables sending logs to syslog
+      enabled: false
 
-    # ENV['IMGPROXY_SYSLOG_NETWORK']
-    # network that will be used to connect to syslog. When blank, the local syslog server will be used. Known networks are `tcp`, `tcp4`, `tcp6`, `udp`, `udp4`, `udp6`, `ip`, `ip4`, `ip6`, `unix`, `unixgram` and `unixpacket`.
-    syslogNetwork: ""
+      # ENV['IMGPROXY_SYSLOG_LEVEL']
+      # maximum log level to send to syslog. Known levels are: `crit`, `error`, `warning` and `info`.
+      level: "info"
 
-    # ENV['IMGPROXY_SYSLOG_ADDRESS']
-    # address of the syslog service. Not used if `IMGPROXY_SYSLOG_NETWORK` is blank.
-    syslogAddress: ""
+      # ENV['IMGPROXY_SYSLOG_NETWORK']
+      # network that will be used to connect to syslog. When blank, the local syslog server will be used. Known networks are `tcp`, `tcp4`, `tcp6`, `udp`, `udp4`, `udp6`, `ip`, `ip4`, `ip6`, `unix`, `unixgram` and `unixpacket`.
+      network: ""
 
-    # ENV['IMGPROXY_SYSLOG_TAG']
-    # specific syslog tag.
-    syslogTag: "imgproxy"
+      # ENV['IMGPROXY_SYSLOG_ADDRESS']
+      # address of the syslog service. Not used if `IMGPROXY_SYSLOG_NETWORK` is blank.
+      address: ""
+
+      # ENV['IMGPROXY_SYSLOG_TAG']
+      # specific syslog tag.
+      tag: "imgproxy"
 
   # https://docs.imgproxy.net/#/configuration?id=memory-usage-tweaks
   memoryUsageTweaks:
