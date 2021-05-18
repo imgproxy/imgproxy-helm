@@ -7,7 +7,7 @@ metadata:
     release: {{ .Release.Name | quote }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     app: {{ template "imgproxy.fullname" . }}
-  annotations: {{ toYaml .Values.deployment.annotations | nindent 4 }}
+  annotations: {{ .Values.deployment.annotations | toYaml | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -18,60 +18,64 @@ spec:
       labels:
         app: {{ template "imgproxy.fullname" . }}
         release: {{ .Release.Name | quote }}
-      annotations: {{ toYaml .Values.pod.annotations | nindent 8 }}
+      annotations: {{ .Values.pod.annotations | toYaml | nindent 8 }}
     spec:
-      affinity: {{ toYaml .Values.affinity | nindent 8 }}
-      tolerations: {{ toYaml .Values.tolerations | nindent 8 }}
-      nodeSelector: {{ toYaml .Values.nodeSelector | nindent 8 }}
-{{- if .Values.imagePullSecrets }}
+      affinity: {{ .Values.affinity | toYaml | nindent 8 }}
+      tolerations: {{ .Values.tolerations | toYaml | nindent 8 }}
+      nodeSelector: {{ .Values.nodeSelector | toYaml | nindent 8 }}
+      {{- if .Values.imagePullSecrets }}
       imagePullSecrets:
-      - name: "{{ .Release.Name }}-docker-registry-secret"
-{{- end }}
-{{- if .Values.serviceAccount.enabled }}
-      serviceAccountName: {{ .Values.serviceAccount.name | quote }} 
-{{- end }}
+        - name: "{{ .Release.Name }}-docker-registry-secret"
+      {{- if .Values.serviceAccount.enabled }}
+      serviceAccountName: {{ .Values.serviceAccount.name | quote }}
+      {{- end }}
+      {{- end }}
       containers:
-      - name: "imgproxy"
-        image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        envFrom:
-          - secretRef:
-              name: {{ template "imgproxy.fullname" . }}-env-secrets
-        resources: {{ toYaml .Values.resources | nindent 10 }}
-        ports:
-        - containerPort: 8080
-          name: http
-          protocol: TCP
-        {{- if .Values.enablePrometheus }}
-        - containerPort: 8081
-          name: metrics
-          protocol: TCP
-        {{- end }}
-        readinessProbe:
-          httpGet:
-            path: {{ .Values.pathPrefix }}/health
-            port: 8080
-            scheme: HTTP
-            httpHeaders:
-            - name: Authorization
-              value: Bearer {{ .Values.secret }}
-          {{- with .Values.readinessProbe }}
-          initialDelaySeconds: {{ .initialDelaySeconds | default 10 }}
-          timeoutSeconds: {{ .timeoutSeconds | default 5}}
-          successThreshold: {{ .successThreshold | default 1 }}
-          failureThreshold: {{ .failureThreshold | default 5 }}
-          {{- end }}
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.pathPrefix }}/health
-            port: 8080
-            scheme: HTTP
-            httpHeaders:
-            - name: Authorization
-              value: Bearer {{ .Values.secret }}
-          {{- with .Values.livenessProbe }}
-          initialDelaySeconds: {{ .initialDelaySeconds | default 50 }}
-          timeoutSeconds: {{ .timeoutSeconds | default 5}}
-          successThreshold: {{ .successThreshold | default 1 }}
-          failureThreshold: {{ .failureThreshold | default 5 }}
-          {{- end }}
+        - name: "imgproxy"
+          image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - secretRef:
+                name: {{ template "imgproxy.fullname" . }}-env-secrets
+          resources: {{ .Values.resources | toYaml | nindent 16 }}
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+            {{- if .Values.features.prometheus.enabled }}
+            - containerPort: 8081
+              name: metrics
+              protocol: TCP
+            {{- end }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.features.server.pathPrefix }}/health
+              port: 8080
+              scheme: HTTP
+              {{- if .Values.features.security.secret }}
+              httpHeaders:
+              - name: Authorization
+                value: Bearer {{ .Values.features.security.secret }}
+              {{- end }}
+            {{- with .Values.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds | default 10 }}
+            timeoutSeconds: {{ .timeoutSeconds | default 5 }}
+            successThreshold: {{ .successThreshold | default 1 }}
+            failureThreshold: {{ .failureThreshold | default 5 }}
+            {{- end }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.features.server.pathPrefix }}/health
+              port: 8080
+              scheme: HTTP
+              {{- if .Values.features.security.secret }}
+              httpHeaders:
+                - name: Authorization
+                  value: Bearer {{ .Values.features.security.secret }}
+              {{- end }}
+            {{- with .Values.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds | default 50 }}
+            timeoutSeconds: {{ .timeoutSeconds | default 5 }}
+            successThreshold: {{ .successThreshold | default 1 }}
+            failureThreshold: {{ .failureThreshold | default 5 }}
+            {{- end }}
