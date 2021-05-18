@@ -1,5 +1,7 @@
 ## 0.7.0 (to be released)
 
+* (Breaking) group keys in values.yml by imgproxy features
+* (Breaking) add keys to enable integrations with external resources
 * (New) add support for the following env variables
   - IMGPROXY_SET_CANONICAL_HEADER
   - IMGPROXY_ENABLE_DEBUG_HEADERS
