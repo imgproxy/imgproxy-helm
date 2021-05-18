@@ -32,7 +32,7 @@ spec:
     - host: {{ . | quote }}
       http:
         paths:
-          - path: {{ default "/" $.Values.pathPrefix | quote}}
+          - path: {{ default "/" $.Values.features.server.pathPrefix | quote}}
             backend:
               serviceName: {{ template "imgproxy.fullname" $ }}
               servicePort: 80
