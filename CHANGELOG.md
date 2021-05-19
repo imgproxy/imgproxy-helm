@@ -1,7 +1,6 @@
 ## 0.7.0 (to be released)
 
-* (Breaking) group keys in values.yml by imgproxy features
-* (Breaking) add keys to enable integrations with external resources
+* (Breaking) rearrange keys in `values.yaml`
 * (New) add support for the following env variables
     - IMGPROXY_SET_CANONICAL_HEADER
     - IMGPROXY_ENABLE_DEBUG_HEADERS
@@ -20,6 +19,7 @@
     - IMGPROXY_ABS_ENDPOINT
     - IMGPROXY_STRIP_COLOR_PROFILE
     - IMGPROXY_AUTO_ROTATE
+* (Fix) Add serviceMonitor if only Prometheus is enabled
 
 ## 0.6.0 (2020-11-22)
 

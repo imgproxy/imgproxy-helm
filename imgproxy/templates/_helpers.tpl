@@ -19,5 +19,9 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 Template to generate secrets for a private Docker repository for K8s to use
 */}}
 {{- define "imgproxy.imagePullSecrets" }}
-{{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" .Values.imagePullSecrets.registry (printf "%s:%s" .Values.imagePullSecrets.username .Values.imagePullSecrets.password | b64enc) | b64enc }}
+{{- with .Values.image.pullSecrets -}}
+{{- if .enabled }}
+{{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" .registry (printf "%s:%s" .username .password | b64enc) | b64enc }}
 {{- end }}
+{{- end -}}
+{{- end -}}
