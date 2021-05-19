@@ -267,6 +267,22 @@ spec:
               key: gcsKey
         {{- end }}
 
+        {{- if .Values.useAbs }}
+        - name: IMGPROXY_USE_ABS
+          value: "true"
+        {{- if .Values.absKey }}
+        - name: IMGPROXY_ABS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "imgproxy.fullname" . }}-secrets
+              key: absKey
+        {{- end }}
+        - name: IMGPROXY_ABS_NAME
+          value: {{ .Values.absName | quote }}
+        - name: IMGPROXY_ABS_ENDPOINT
+          value: {{ .Values.absEndpoint | quote }}
+        {{- end }}
+
         {{- if .Values.newRelicKey }}
         - name: IMGPROXY_NEW_RELIC_KEY
           valueFrom:

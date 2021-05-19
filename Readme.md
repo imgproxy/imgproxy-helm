@@ -134,6 +134,10 @@ These are the values used to configure imgproxy itself:
 |**s3Endpoint**|Custom S3 endpoint to being used by imgproxy||
 |**useGcs**|When true, enables image fetching from Google Cloud Storage|`false`|
 |**gcsKey**|Google Cloud JSON key. When set, enables image fetching from Google Cloud Storage buckets||
+|**useAbs**|when true, enables image fetching from Azure Blob Storage containers|`false`|
+|**absName**|Azure storage account name||
+|**absKey**|Azure storage account key||
+|**absEndpoint**|custom Azure Blob Storage endpoint to being used by imgproxy||
 |**newRelicKey**|New Relic license key||
 |**newRelicAppName**|New Relic application name||
 |**bugsnagKey**|Bugsnag API key. When provided, enables errors reporting to Bugsnag||

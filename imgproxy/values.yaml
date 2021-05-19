@@ -292,6 +292,18 @@ useGcs: false
 # Google Cloud JSON key. When set, enables image fetching from Google Cloud Storage buckets
 gcsKey: ""
 
+# Enable ABS as backend for images
+useAbs: false
+
+# ABS key
+absKey: ""
+
+# ABS name
+absName: ""
+
+# ABS endpoint
+absEndpoint: ""
+
 # New Relic license key
 newRelicKey: ""
 
