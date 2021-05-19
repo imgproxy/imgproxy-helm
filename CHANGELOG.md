@@ -1,3 +1,7 @@
+## 0.6.2 (2021-05-20)
+
+* (New) Azure Blob Storage options (`useAbs`, `absName`, `absKey`, `absEndpoint`)
+
 ## 0.6.1 (2020-11-28)
 
 * (Fix) readiness probe configuration when using pathPrefix
