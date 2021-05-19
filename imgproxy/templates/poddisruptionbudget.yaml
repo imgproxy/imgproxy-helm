@@ -1,16 +1,18 @@
-{{- if .Values.podDisruptionBudget.enabled }}
+{{- with .Values.resources.podDisruptionBudget -}}
+{{- if .enabled }}
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ template "imgproxy.fullname" . }}-pdb
+  name: {{ template "imgproxy.fullname" $ }}-pdb
 spec:
-  {{- if .Values.podDisruptionBudget.minAvailable }}
-  minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
+  {{- if .minAvailable }}
+  minAvailable: {{ .minAvailable }}
   {{- end }}
-  {{- if .Values.podDisruptionBudget.maxUnavailable }}
-  maxUnavailable: {{ .Values.podDisruptionBudget.maxUnavailable }}
+  {{- if .maxUnavailable }}
+  maxUnavailable: {{ .maxUnavailable }}
   {{- end }}
   selector:
     matchLabels:
-      app: {{ template "imgproxy.fullname" . }}
+      app: {{ template "imgproxy.fullname" $ }}
+{{- end -}}
 {{- end }}

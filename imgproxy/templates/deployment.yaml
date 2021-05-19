@@ -1,28 +1,28 @@
 apiVersion: {{ .Values.apiVersion }}
 kind: Deployment
 metadata:
-  name: {{ template "imgproxy.fullname" . }}
+  name: {{ template "imgproxy.fullname" $ }}
   labels:
     heritage: {{ .Release.Service | quote }}
     release: {{ .Release.Name | quote }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-    app: {{ template "imgproxy.fullname" . }}
-  annotations: {{ .Values.deployment.annotations | toYaml | nindent 4 }}
+    app: {{ template "imgproxy.fullname" $ }}
+  annotations: {{ .Values.resources.deployment.annotations | toYaml | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.resources.deployment.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "imgproxy.fullname" . }}
+      app: {{ template "imgproxy.fullname" $ }}
   template:
     metadata:
       labels:
-        app: {{ template "imgproxy.fullname" . }}
+        app: {{ template "imgproxy.fullname" $ }}
         release: {{ .Release.Name | quote }}
-      annotations: {{ .Values.pod.annotations | toYaml | nindent 8 }}
+      annotations: {{ .Values.resources.pod.annotations | toYaml | nindent 8 }}
     spec:
-      affinity: {{ .Values.affinity | toYaml | nindent 8 }}
-      tolerations: {{ .Values.tolerations | toYaml | nindent 8 }}
-      nodeSelector: {{ .Values.nodeSelector | toYaml | nindent 8 }}
+      affinity: {{ .Values.resources.deployment.affinity | toYaml | nindent 8 }}
+      tolerations: {{ .Values.resources.deployment.tolerations | toYaml | nindent 8 }}
+      nodeSelector: {{ .Values.resources.deployment.nodeSelector | toYaml | nindent 8 }}
       {{- if .Values.image.pullSecrets.enabled }}
       imagePullSecrets:
         - name: "{{ .Release.Name }}-docker-registry-secret"
@@ -36,8 +36,10 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - secretRef:
-                name: {{ template "imgproxy.fullname" . }}-env-secrets
-          resources: {{ .Values.resources | toYaml | nindent 16 }}
+                name: {{ template "imgproxy.fullname" $ }}-env-secrets
+          {{- if .Values.resources.deployment.resources }}
+          resources: {{ .Values.resources.deployment.resources | toYaml | nindent 16 }}
+          {{- end }}
           ports:
             - containerPort: 8080
               name: http
@@ -57,7 +59,7 @@ spec:
               - name: Authorization
                 value: Bearer {{ .Values.features.security.secret }}
               {{- end }}
-            {{- with .Values.readinessProbe }}
+            {{- with .Values.resources.deployment.readinessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds | default 10 }}
             timeoutSeconds: {{ .timeoutSeconds | default 5 }}
             successThreshold: {{ .successThreshold | default 1 }}
@@ -73,7 +75,7 @@ spec:
                 - name: Authorization
                   value: Bearer {{ .Values.features.security.secret }}
               {{- end }}
-            {{- with .Values.livenessProbe }}
+            {{- with .Values.resources.deployment.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds | default 50 }}
             timeoutSeconds: {{ .timeoutSeconds | default 5 }}
             successThreshold: {{ .successThreshold | default 1 }}
