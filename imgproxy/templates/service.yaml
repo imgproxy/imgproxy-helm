@@ -15,8 +15,10 @@ spec:
     port: 80
     protocol: TCP
     targetPort: 8080
+  {{- if .Values.features.prometheus.enabled }}
   - name: metrics
     port: 8081
     protocol: TCP
     targetPort: 8081
+  {{- end }}
   type: {{ default "ClusterIP" .Values.serviceType }}

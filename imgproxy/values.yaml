@@ -72,7 +72,6 @@ ingress:
   #       - www.example.com
 
 serviceMonitor:
-  enabled: false
   honorLabels: true
   interval: 0
   namespace: ""
