@@ -178,9 +178,9 @@ Deployment specific options.
 |-----|-----------|-------|
 |**affinity**|Node and inter-pod affinity configuration||
 |**annotations**|Custom annotations for imgproxy pods|`{}`|
-|**imagePullSecrets.password**|Password to your private registry|``|
-|**imagePullSecrets.registry**|URL of a private registry you want to authorize to|``|
-|**imagePullSecrets.username**|Login to your private registry|``|
+|**image.pullSecrets.password**|Password to your private registry|``|
+|**image.pullSecrets.registry**|URL of a private registry you want to authorize to|``|
+|**image.pullSecrets.username**|Login to your private registry|``|
 |**livenessProbe**|Timeouts and counters for the liveness probe||
 |**nodeSelector**|A node selector labels||
 |**podDisruptionBudget.enabled**|Enable or disable a disruprion budget policy|`false`|

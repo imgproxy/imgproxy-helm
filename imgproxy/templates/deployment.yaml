@@ -23,7 +23,7 @@ spec:
       affinity: {{ .Values.affinity | toYaml | nindent 8 }}
       tolerations: {{ .Values.tolerations | toYaml | nindent 8 }}
       nodeSelector: {{ .Values.nodeSelector | toYaml | nindent 8 }}
-      {{- if .Values.imagePullSecrets }}
+      {{- if .Values.image.pullSecrets.enabled }}
       imagePullSecrets:
         - name: "{{ .Release.Name }}-docker-registry-secret"
       {{- if .Values.serviceAccount.enabled }}

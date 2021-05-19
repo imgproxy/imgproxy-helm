@@ -11,16 +11,16 @@ affinity: {}
 # Toleration for K8s taints
 tolerations: []
 
-# Docker image repository, tag and a policy for Kubernetes to pull it.
+# Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
   tag: v2.15.0
   pullPolicy: IfNotPresent
-
-imagePullSecrets: {}
-  # registry: ""
-  # username: ""
-  # password: ""
+  pullSecrets:
+    enabled:  true
+    registry: ""
+    username: ""
+    password: ""
 
 # Kubernetes service account details
 serviceAccount:
