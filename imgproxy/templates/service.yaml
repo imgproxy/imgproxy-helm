@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "imgproxy.fullname" . }}
+  name: {{ template "imgproxy.fullname" $ }}
   labels:
     heritage: {{ .Release.Service | quote }}
     release: {{ .Release.Name | quote }}
@@ -9,7 +9,7 @@ metadata:
     app: {{ .Release.Name | quote }}
 spec:
   selector:
-    app: {{ template "imgproxy.fullname" . }}
+    app: {{ template "imgproxy.fullname" $ }}
   ports:
   - name: http
     port: 80
@@ -21,4 +21,4 @@ spec:
     protocol: TCP
     targetPort: 8081
   {{- end }}
-  type: {{ default "ClusterIP" .Values.serviceType }}
+  type: {{ default "ClusterIP" .Values.resources.service.type }}
