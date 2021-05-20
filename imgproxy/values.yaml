@@ -89,6 +89,9 @@ resources:
   pod:
     annotations: {}
 
+  serviceAccount:
+    enabled: false
+
 # Configure imgproxy features
 # https://docs.imgproxy.net/#/configuration
 features:
