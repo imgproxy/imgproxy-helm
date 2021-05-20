@@ -181,6 +181,9 @@ Deployment specific options.
 |**readinessProbe**|Timeouts and counters for the readiness probe||
 |**replicaCount**|How many pods with imgproxy should be running simultaneously|`1`|
 |**resources**|Hash of resource limits for your pods|`{}`|
+|**serviceAccount.enabled**|Enable or disable the creation of a Kubernetes service account for imgproxy|`false`|
+|**serviceAccount.name**|Name of the Kubernetes service account for imgproxy|`imgproxy`|
+|**serviceAccount.annotations**|Annotations for the Kubernetes service account for imgproxy|``|
 |**serviceType**|Kubernetes service type for imgproxy|`ClusterIP`|
 |**tolerations**|Tolerations for Kubernetes taints||
 
