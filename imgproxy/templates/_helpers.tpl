@@ -21,7 +21,10 @@ Template to generate secrets for a private Docker repository for K8s to use
 {{- define "imgproxy.imagePullSecrets" }}
 {{- with .Values.image.pullSecrets -}}
 {{- if .enabled }}
-{{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" .registry (printf "%s:%s" .username .password | b64enc) | b64enc }}
+{{- $username := required "image.pullSecrets.username" .username -}}
+{{- $registry := required "image.pullSecrets.registry" .registry -}}
+{{- $password := required "image.pullSecrets.password" .password -}}
+{{- printf "{\"auths\": {\"%s\": {\"auth\": \"%s\"}}}" $registry (printf "%s:%s" $username $password | b64enc) | b64enc }}
 {{- end }}
 {{- end -}}
 {{- end -}}

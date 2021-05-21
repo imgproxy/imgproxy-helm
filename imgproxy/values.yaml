@@ -9,9 +9,9 @@ image:
   pullPolicy: IfNotPresent
   pullSecrets:
     enabled:  true
-    registry: ""
-    username: ""
-    password: ""
+    registry: "foo"
+    username: "bar"
+    password: "baz"
 
 # Configure K8s resources
 resources:
@@ -95,6 +95,9 @@ features:
 
   # https://docs.imgproxy.net/#/configuration?id=url-signature
   urlSignature:
+
+    # If URL signature is enabled
+    enabled: true
 
     # ENV['IMGPROXY_KEY']
     # Hex-encoded key for URL encoding. CHANGE IT!!!!
@@ -454,7 +457,7 @@ features:
     enabled: false
 
     # ENV['IMGPROXY_GCS_KEY']
-    # Google Cloud JSON key. When set, enables image fetching from Google Cloud Storage buckets.
+    # Google Cloud JSON key.
     jsonKey: ""
 
   # https://docs.imgproxy.net/#/configuration?id=serving-files-from-azure-blob-storage
@@ -473,7 +476,7 @@ features:
     accountKey: ""
 
     # ENV['IMGPROXY_ABS_ENDPOINT']
-    # custom Azure Blob Storage endpoint to being used by imgproxy. Default: blank.
+    # custom Azure Blob Storage endpoint to be used by imgproxy.
     endpoint: ""
 
   # https://docs.imgproxy.net/#/configuration?id=new-relic-metrics
@@ -574,7 +577,7 @@ features:
 
       # ENV['IMGPROXY_SYSLOG_ENABLE']
       # when `true`, enables sending logs to syslog
-      enabled: false
+      enabled: true
 
       # ENV['IMGPROXY_SYSLOG_LEVEL']
       # maximum log level to send to syslog. Known levels are: `crit`, `error`, `warning` and `info`.
@@ -582,7 +585,7 @@ features:
 
       # ENV['IMGPROXY_SYSLOG_NETWORK']
       # network that will be used to connect to syslog. When blank, the local syslog server will be used. Known networks are `tcp`, `tcp4`, `tcp6`, `udp`, `udp4`, `udp6`, `ip`, `ip4`, `ip6`, `unix`, `unixgram` and `unixpacket`.
-      network: ""
+      network: "tcp"
 
       # ENV['IMGPROXY_SYSLOG_ADDRESS']
       # address of the syslog service. Not used if `IMGPROXY_SYSLOG_NETWORK` is blank.
