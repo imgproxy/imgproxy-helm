@@ -1,3 +1,7 @@
+## 0.6.3 (2021-05-21)
+
+* (Fix) enable `IMGPROXY_REPORT_DOWNLOADING_ERRORS` to be set to `false` explicitly
+
 ## 0.6.2 (2021-05-20)
 
 * (New) Azure Blob Storage options (`useAbs`, `absName`, `absKey`, `absEndpoint`)

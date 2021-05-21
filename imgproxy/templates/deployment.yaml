@@ -334,11 +334,8 @@ spec:
         {{- end }}
         {{- end }}
 
-        {{- if .Values.reportDownloadingErrors }}
         - name: IMGPROXY_REPORT_DOWNLOADING_ERRORS
-          value: "true"
-        {{- end }}
-
+          value: {{ .Values.reportDownloadingErrors | ternary "true" "false" }}
         - name: IMGPROXY_LOG_FORMAT
           value: {{ .Values.logFormat | quote }}
         - name: IMGPROXY_LOG_LEVEL
