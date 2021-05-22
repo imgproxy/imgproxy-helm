@@ -27,6 +27,9 @@ spec:
       imagePullSecrets:
       - name: "{{ .Release.Name }}-docker-registry-secret"
 {{- end }}
+{{- if .Values.serviceAccount.enabled }}
+      serviceAccountName: {{ .Values.serviceAccount.name | quote }} 
+{{- end }}
       containers:
       - name: "imgproxy"
         image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
