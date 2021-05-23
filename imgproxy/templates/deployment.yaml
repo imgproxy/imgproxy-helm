@@ -30,6 +30,9 @@ spec:
       serviceAccountName: {{ .Values.serviceAccount.name | quote }}
       {{- end }}
       {{- end }}
+      {{- if (and .Values.features.aws.enabled .Values.features.aws.iamRoleName) }}
+      serviceAccountName: "{{ template "imgproxy.fullname" $ }}-service-account"
+      {{- end }}
       containers:
         - name: "imgproxy"
           image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"

@@ -434,6 +434,9 @@ features:
     # when `true`, enables image fetching from Amazon S3 buckets.
     enabled: false
 
+    # AWS account id (required for authentication using IAM Role)
+    accountId: ""
+
     # ENV['AWS_ACCESS_KEY_ID']
     # AWS key
     accessKeyId: ""
@@ -441,6 +444,9 @@ features:
     # ENV['AWS_SECRET_ACCESS_KEY']
     # AWS secret
     secretAccessKey: ""
+
+    # If enabled then the IAM Role is used for the authentication
+    iamRoleName: ""
 
     # ENV['IMGPROXY_S3_REGION']
     # AWS region

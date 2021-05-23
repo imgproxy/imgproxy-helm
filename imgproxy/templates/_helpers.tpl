@@ -28,3 +28,16 @@ Template to generate secrets for a private Docker repository for K8s to use
 {{- end }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Template to generate service account annotation for AWS IAM Role
+https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.html
+*/}}
+{{- define "aws.iamRoleAnnotation" }}
+{{- with .Values.features.aws -}}
+{{- $id := required "features.aws.accountId" .accountId -}}
+{{- $role := required "features.aws.iamRoleName" .iamRoleName -}}
+{{- $value := printf "arn:aws:iam::%s:role/%s" $id $role -}}
+{{- printf "eks.amazonaws.com/role-arn: %s" (quote $value) }}
+{{- end }}
+{{- end -}}
