@@ -309,71 +309,77 @@ features:
   # https://docs.imgproxy.net/#/configuration?id=avifwebp-support-detection
   formatsSupportDetection:
 
-    # ENV['IMGPROXY_ENABLE_WEBP_DETECTION']
-    # enables WebP support detection.
-    # When the file extension is omitted in the imgproxy URL and browser supports WebP, imgproxy will use it as the resulting format
-    enableWebpDetection: false
+    # Enforce/enable webP detection/usage
+    webp:
 
-    # ENV['IMGPROXY_ENFORCE_WEBP']
-    # enables WebP support detection and enforces WebP usage. If the browser supports WebP, it will be used as resulting format even if another extension is specified in the imgproxy URL.
-    enforceWebp: false
+      # ENV['IMGPROXY_ENABLE_WEBP_DETECTION']
+      # enables WebP support detection.
+      # When the file extension is omitted in the imgproxy URL and browser supports WebP, imgproxy will use it as the resulting format
+      enabled: false
 
-    # ENV['IMGPROXY_ENABLE_AVIF_DETECTION']
-    # enables AVIF support detection. When the file extension is omitted in the imgproxy URL and browser supports AVIF, imgproxy will use it as the resulting format
-    enableAvifDetection: false
+      # ENV['IMGPROXY_ENFORCE_WEBP']
+      # enables WebP support detection and enforces WebP usage. If the browser supports WebP, it will be used as resulting format even if another extension is specified in the imgproxy URL.
+      enforced: false
 
-    # ENV['IMGPROXY_ENFORCE_AVIF']
-    # enables AVIF support detection and enforces AVIF usage. If the browser supports AVIF, it will be used as resulting format even if another extension is specified in the imgproxy URL.
-    enforceAvif: false
+    # Enforce/enable AVIF detection/usage
+    avif:
+
+      # ENV['IMGPROXY_ENABLE_AVIF_DETECTION']
+      # enables AVIF support detection. When the file extension is omitted in the imgproxy URL and browser supports AVIF, imgproxy will use it as the resulting format
+      enabled: false
+
+      # ENV['IMGPROXY_ENFORCE_AVIF']
+      # enables AVIF support detection and enforces AVIF usage. If the browser supports AVIF, it will be used as resulting format even if another extension is specified in the imgproxy URL.
+      enforced: false
 
   # https://docs.imgproxy.net/#/configuration?id=client-hints-support
   clientHintsSupport:
 
     # ENV['IMGPROXY_ENABLE_CLIENT_HINTS']
     # enables Client Hints support to determine default width and DPR options.
-    enableClientHints: false
+    enabled: false
 
   # https://docs.imgproxy.net/#/configuration?id=video-thumbnails
   videoThumbnails:
 
     # ENV['IMGPROXY_ENABLE_VIDEO_THUMBNAILS']
     # PRO: then true, enables video thumbnails generation.
-    enableVideoThumbnails: false
+    enabled: false
 
     # ENV['IMGPROXY_VIDEO_THUMBNAIL_SECOND']
     # PRO: the timestamp of the frame in seconds that will be used for a thumbnail.
-    videoThumbnailSecond: 1
+    second: 1
 
     # ENV['IMGPROXY_VIDEO_THUMBNAIL_PROBE_SIZE']
     # PRO: the maximum amount of bytes used to determine the format. Lower values can decrease memory usage but can produce inaccurate data or even lead to errors.
-    videoThumbnailProbeSize: 5000000
+    probeSize: 5000000
 
     # ENV['IMGPROXY_VIDEO_THUMBNAIL_MAX_ANALYZE_DURATION']
     # PRO: the maximum of milliseconds used to get the stream info. Low values can decrease memory usage but can produce inaccurate data or even lead to errors. When set to 0, the heuristic is used.
-    videoThumbnailMaxAnalyzeDuration: 0
+    maxAnalyzeDuration: 0
 
   # https://docs.imgproxy.net/#/configuration?id=watermark
   watermark:
 
     # ENV['IMGPROXY_WATERMARK_DATA']
     # Base64-encoded image data. You can easily calculate it with `base64 tmp/watermark.png | tr -d '\n'`
-    watermarkData: ""
+    data: ""
 
     # ENV['IMGPROXY_WATERMARK_PATH']
     # path to the locally stored image
-    watermarkPath: ""
+    path: ""
 
     # ENV['IMGPROXY_WATERMARK_URL']
     # watermark image URL
-    watermarkUrl: ""
+    url: ""
 
     # ENV['IMGPROXY_WATERMARK_OPACITY']
     # watermark base opacity
-    watermarkOpacity: 1
+    opacity: 1
 
     # ENV['IMGPROXY_WATERMARKS_CACHE_SIZE']
     # PRO: size of custom watermarks cache. When set to `0`, watermarks cache is disabled.
-    watermarkCacheSize: 256
+    cacheSize: 256
 
   # https://docs.imgproxy.net/#/configuration?id=unsharpening
   unsharpening:
@@ -381,35 +387,35 @@ features:
     # ENV['IMGPROXY_UNSHARPENING_MODE']
     # PRO: controls when unsharpenning mask should be applied.
     # The following modes are supported: `auto`, `none`, `always'
-    unsharpeningMode: auto
+    mode: auto
 
     # ENV['IMGPROXY_UNSHARPENING_WEIGHT']
     # PRO: a floating-point number that defines how neighbor pixels will affect the current pixel.
     # The greater the value the sharper the image. Should be greater than zero.
-    unsharpeningWeight: 1
+    weight: 1
 
     # ENV['IMGPROXY_UNSHARPENING_DIVIDOR']
     # PRO: a floating-point number that defines the unsharpening strength.
     # The lesser the value the sharper the image. Should be greater than zero.
-    unsharpeningDividor: 24
+    dividor: 24
 
   # https://docs.imgproxy.net/#/configuration?id=fallback-image
   fallbackImage:
 
     # ENV['IMGPROXY_FALLBACK_IMAGE_DATA']
     # Base64-encoded image data. You can easily calculate it with `base64 tmp/fallback.png | tr -d '\n'`
-    fallbackImageData: ""
+    data: ""
 
     # ENV['IMGPROXY_FALLBACK_IMAGE_URL']
     # fallback image URL.
-    fallbackImageUrl: ""
+    url: ""
 
   # https://docs.imgproxy.net/#/configuration?id=skip-processing
   skipProcessing:
 
     # ENV['IMGPROXY_SKIP_PROCESSING_FORMATS']
     # list of formats that imgproxy shouldn't process, comma-divided.
-    skipProcessingFormats: ""
+    formats: ""
 
   # https://docs.imgproxy.net/#/configuration?id=presets
   presets:
@@ -567,11 +573,11 @@ features:
     # - pretty: (default) colored human-readable format;
     # - structured: machine-readable format;
     # - json: JSON format;
-    logFormat: "pretty"
+    format: "pretty"
 
     # ENV['IMGPROXY_LOG_LEVEL']
     # the log level. The following levels are supported `error`, `warn`, `info` and `debug`.
-    logLevel: "info"
+    level: "info"
 
     # Enable Syslog integration
     # 

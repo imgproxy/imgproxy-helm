@@ -142,56 +142,56 @@ The above command installs a specified version of imgproxy.
 
 |Value|Description|Default|
 |-----|-----------|-------|
-|**features.formatsSupportDetection.enableWebpDetection**|Enables WebP support detection. When the file extension is omitted in the imgproxy URL and browser supports WebP, imgproxy will use it as the resulting format|`false`|
-|**features.formatsSupportDetection.enforceWebp**|Enables WebP support detection and enforces WebP usage. If the browser supports WebP, it will be used as resulting format even if another extension is specified in the imgproxy URL|`false`|
-|**features.formatsSupportDetection.enableAvifDetection**|||
-|**features.formatsSupportDetection.enforceAvif**|||
+|**features.formatsSupportDetection.webp.enabled**|Enables WebP support detection. When the file extension is omitted in the imgproxy URL and browser supports WebP, imgproxy will use it as the resulting format|`false`|
+|**features.formatsSupportDetection.webp.enforced**|Enables WebP support detection and enforces WebP usage. If the browser supports WebP, it will be used as resulting format even if another extension is specified in the imgproxy URL|`false`|
+|**features.formatsSupportDetection.avif.enabled**|Enables AVIF support detection.|`false`|
+|**features.formatsSupportDetection.avif.enforced**|Enables AVIF support detection and enforces AVIF usage|`false`|
 
 ### Imgproxy Client Hints
 
 |Value|Description|Default|
 |-----|-----------|-------|
-|**features.clientHintsSupport.enableClientHints**|Enables Client Hints support when the width is ommited for automatic responsive images|`false`|
+|**features.clientHintsSupport.enabled**|Enables Client Hints support when the width is ommited for automatic responsive images|`false`|
 
 ### Video Thumbnails
 
 |Value|Description|Default|
 |-----|-----------|-------|
-|**features.videoThumbnails.ebableVideoThumbnails**|`PRO:` when true, enables video thumbnails generation|`false`|
-|**features.videoThumbnails.videoThumbnailProbeSize**|`PRO:` the maximum amount of bytes used to determine the format. Lower values can decrease memory usage but can produce inaccurate data or even lead to errors|`5000000`|
-|**features.videoThumbnails.videoThumbnailMaxAnalyzeDuration**|`PRO:` the maximum of milliseconds used to get the stream info. Low values can decrease memory usage but can produce inaccurate data or even lead to errors. When set to 0, the heuristic is used|`0`|
-|**features.videoThumbnails.videoThumbnailSecond**|`PRO:` the timestamp of the frame in seconds that will be used for a thumbnail|`1`|
+|**features.videoThumbnails.enabled**|`PRO:` when true, enables video thumbnails generation|`false`|
+|**features.videoThumbnails.probeSize**|`PRO:` the maximum amount of bytes used to determine the format. Lower values can decrease memory usage but can produce inaccurate data or even lead to errors|`5000000`|
+|**features.videoThumbnails.maxAnalyzeDuration**|`PRO:` the maximum of milliseconds used to get the stream info. Low values can decrease memory usage but can produce inaccurate data or even lead to errors. When set to 0, the heuristic is used|`0`|
+|**features.videoThumbnails.second**|`PRO:` the timestamp of the frame in seconds that will be used for a thumbnail|`1`|
 
 ### Watermark
 
 |Value|Description|Default|
 |-----|-----------|-------|
-|**features.watermark.watermarkData**|Base64-encoded image data||
-|**features.watermark.watermarkPath**|Path to the locally stored image||
-|**features.watermark.watermarkUrl**|Watermark image URL||
-|**features.watermark.watermarkOpacity**|Watermark base opacity||
-|**features.watermark.watermarkCacheSize**|`PRO:` size of custom watermarks cache. When set to 0, watermarks cache is disabled. By default 256 watermarks are cached|`256`|
+|**features.watermark.data**|Base64-encoded image data||
+|**features.watermark.path**|Path to the locally stored image||
+|**features.watermark.url**|Watermark image URL||
+|**features.watermark.opacity**|Watermark base opacity||
+|**features.watermark.cacheSize**|`PRO:` size of custom watermarks cache. When set to 0, watermarks cache is disabled. By default 256 watermarks are cached|`256`|
 
 ### Unsharpening
 
 |Value|Description|Default|
 |-----|-----------|-------|
-|**features.unsharpening.unsharpeningMode**|`PRO:` controls when unsharpenning mask should be applied (`auto`, `none`, `always`).|`auto`|
-|**features.unsharpening.unsharpeningWeight**|`PRO:` a floating-point number that defines how neighbor pixels will affect the current pixel.|`1`|
-|**features.unsharpening.unsharpeningDividor**|`PRO:` a floating-point number that defines the unsharpening strength.|`24`|
+|**features.unsharpening.mode**|`PRO:` controls when unsharpenning mask should be applied (`auto`, `none`, `always`).|`auto`|
+|**features.unsharpening.weight**|`PRO:` a floating-point number that defines how neighbor pixels will affect the current pixel.|`1`|
+|**features.unsharpening.dividor**|`PRO:` a floating-point number that defines the unsharpening strength.|`24`|
 
 ### Fallback Image
 
 |Value|Description|Default|
 |-----|-----------|-------|
-|**features.fallbackImage.fallbackImageData**|Base64-encoded image data. You can easily calculate it with `base64 tmp/fallback.png | tr -d '\n'`||
-|**features.fallbackImage.fallbackImageUrl**|fallback image URL.||
+|**features.fallbackImage.data**|Base64-encoded image data. You can easily calculate it with `base64 tmp/fallback.png | tr -d '\n'`||
+|**features.fallbackImage.url**|fallback image URL.||
 
 ### Skip Processing by imgproxy
 
 |Value|Description|Default|
 |-----|-----------|-------|
-|**features.skipProcessing.skipProcessingFormats**|list of formats that imgproxy shouldn't process, comma-divided.||
+|**features.skipProcessing.formats**|list of formats that imgproxy shouldn't process, comma-divided.||
 
 ### Presets
 
