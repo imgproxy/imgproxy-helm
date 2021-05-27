@@ -1,25 +1,26 @@
-{{- if .Values.ingress.enabled -}}
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- with .Values.resources.ingress -}}
+{{- if .enabled -}}
+{{- if semverCompare ">=1.14-0" $.Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
 apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ template "imgproxy.fullname" . }}
+  name: {{ template "imgproxy.fullname" $ }}
   labels:
-    app: {{ template "imgproxy.fullname" . }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-    release: "{{ .Release.Name }}"
-    heritage: "{{ .Release.Service }}"
-  {{- with .Values.ingress.annotations }}
+    app: {{ template "imgproxy.fullname" $ }}
+    chart: "{{ $.Chart.Name }}-{{ $.Chart.Version }}"
+    release: "{{ $.Release.Name }}"
+    heritage: "{{ $.Release.Service }}"
+  {{- with .annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if .Values.ingress.tls }}
+  {{- if .tls }}
   tls:
-    {{- range .Values.ingress.tls }}
+    {{- range .tls }}
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
@@ -28,13 +29,14 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- range .Values.ingress.hosts }}
+    {{- range .hosts }}
     - host: {{ . | quote }}
       http:
         paths:
-          - path: {{ default "/" $.Values.pathPrefix | quote}}
+          - path: {{ default "/" $.Values.features.server.pathPrefix | quote}}
             backend:
               serviceName: {{ template "imgproxy.fullname" $ }}
               servicePort: 80
-    {{- end }}
-  {{- end }}
+{{- end }}
+{{- end }}
+{{- end -}}

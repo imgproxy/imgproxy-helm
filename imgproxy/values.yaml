@@ -1,392 +1,654 @@
 ---
-# How many instances of imgproxy you desire to spin up.
-replicaCount: 1
-
-# A node selector label.
-nodeSelector: {}
-
-# Node and inter-pod affinity configuration
-affinity: {}
-
-# Toleration for K8s taints
-tolerations: []
-
-# Docker image repository, tag and a policy for Kubernetes to pull it.
+# Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
   tag: v2.15.0
   pullPolicy: IfNotPresent
+  pullSecrets:
+    enabled:  true
+    registry: "foo"
+    username: "bar"
+    password: "baz"
+
+# Configure K8s resources
+resources:
+
+  deployment:
+    annotations: {}
+
+    # How many instances of imgproxy you desire to spin up.
+    replicaCount: 1
+
+    # A node selector label.
+    nodeSelector: {}
+
+    # Node and inter-pod affinity configuration
+    affinity: {}
+
+    # Toleration for K8s taints
+    tolerations: []
+
+    # Set kubernetes specific resource limits
+    resources: {}
+    # limits:
+    #   cpu: 700m
+    #   memory: 700Mi
+    # requests:
+    #   cpu: 700m
+    #   memory: 700Mi
+
+    # Timeuouts and counters options for Readiness probe
+    readinessProbe:
+      initialDelaySeconds: 10
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 5
+
+    # Timeuouts and counters options for Liveness probe
+    livenessProbe:
+      initialDelaySeconds: 50
+      timeoutSeconds: 5
+      successThreshold: 1
+      failureThreshold: 5
+
+  service:
+    type: "ClusterIP"
+
+  serviceAccount:
+
+    # Add custom annotations to the Service Account
+    # in addition to those we already provided for AWS IAM role
+    # (see features.aws.iamRoleName and features.aws.accountId).
+    annotations: {}
+
+  ingress:
+    enabled: false
+    annotations: {}
+    #   kubernetes.io/ingress.class: nginx
+    #   kubernetes.io/tls-acme: "true"
+    hosts: []
+    #   - example.com
+    #   - www.example.com
+    tls: []
+    #   - secretName: example-com-tls
+    #     hosts:
+    #       - example.com
+    #       - www.example.com
+
+  serviceMonitor:
+    honorLabels: true
+    interval: 0
+    namespace: ""
+    selector:
+      release: prometheus-operator
+    targetLabels:
+      - app
+      - release
+
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 0
+    maxUnavailable: 0
+
+  pod:
+    annotations: {}
+
+# Configure imgproxy features
+# https://docs.imgproxy.net/#/configuration
+features:
+
+  # https://docs.imgproxy.net/#/configuration?id=url-signature
+  urlSignature:
+
+    # If URL signature is enabled
+    enabled: true
+
+    # ENV['IMGPROXY_KEY']
+    # Hex-encoded key for URL encoding. CHANGE IT!!!!
+    key: 1b147116e57d9e06df3696b21260169902fe201ccdb9715267999176ccbfaae6f2c2b75b78110d0287643d98cde143e7a3f98a46ec825a1ab7ea10af426c2436
+
+    # ENV['IMGPROXY_SALT']
+    # Hex-encoded salt for URL encoding. CHANGE IT!!!!
+    salt: 1e4483006c56f05f1b42af2f2b61765f64b8a074bf993922dd5b4bca78f49280683beb368308b7f76d522027b071a25e6d4b26138686b43e1faa4be4c9b674ea
+
+    # ENV['IMGPROXY_SIGNATURE_SIZE']
+    # number of bytes to use for signature before encoding to Base64.
+    signatureSize: 32
+
+  # https://docs.imgproxy.net/#/configuration?id=server
+  server:
+
+    # ENV['IMGPROXY_READ_TIMEOUT']
+    # The maximum duration (in seconds) for reading the entire image request, including the body
+    readTimeout: 10
+
+    # ENV['IMGPROXY_WRITE_TIMEOUT']
+    # The maximum duration (in seconds) for writing the response
+    writeTimeout: 10
+
+    # ENV['IMGPROXY_KEEP_ALIVE_TIMEOUT']
+    # the maximum duration (in seconds) to wait for the next request before closing the connection.
+    # When set to 0, keep-alive is disabled.
+    keepAliveTimeout: 10
+
+    # ENV['IMGPROXY_DOWNLOAD_TIMEOUT']
+    # The maximum duration (in seconds) for downloading the source image
+    downloadTimeout: 5
+
+    # ENV['IMGPROXY_CONCURRENCY']
+    # The maximum number of image requests to be processed simultaneously.
+    # Default: double number of CPU cores
+    concurrency: ""
+
+    # ENV['IMGPROXY_MAX_CLIENTS']
+    # The maximum number of simultaneous active connections.
+    # Default: concurrency * 10
+    maxClients: ""
+
+    # ENV['IMGPROXY_TTL']
+    # Duration in seconds sent in Expires and Cache-Control: max-age headers.
+    ttl: 3600
+
+    # ENV['IMGPROXY_CACHE_CONTROL_PASSTHROUGH']
+    # when true and source image response contains Expires or Cache-Control headers, reuse those headers
+    cacheControlPassthrough: false
+
+    # ENV['IMGPROXY_SET_CANONICAL_HEADER']
+    # when true and the source image has http or https scheme, set rel="canonical" HTTP header to the value of the source image URL.
+    setCanonicalHeader: false
+
+    # ENV['IMGPROXY_SO_REUSEPORT']
+    # when true, enables SO_REUSEPORT socket option (currently on linux and darwin only)
+    soReuseport: false
+
+    # ENV['IMGPROXY_PATH_PREFIX']
+    # URL path prefix.
+    # Example: when set to /abc/def, imgproxy URL will be /abc/def/%signature/%processing_options/%source_url
+    pathPrefix: ""
+
+    # ENV['IMGPROXY_USER_AGENT']
+    # User-Agent header that will be sent with source image request.
+    # Default: imgproxy/%current_version
+    userAgent: ""
+
+    # ENV['IMGPROXY_USE_ETAG']
+    # When true, enables using ETag header for the cache control
+    useEtag: false
+
+    # ENV['IMGPROXY_CUSTOM_REQUEST_HEADERS']
+    # PRO: list of custom headers that imgproxy will send while requesting the source image, divided by \;
+    # (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)
+    customRequestHeaders: ""
+
+    # ENV['IMGPROXY_CUSTOM_RESPONSE_HEADERS']
+    # PRO: list of custom response headers, divided by \; (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)
+    customResponseHeaders: ""
+
+    # ENV['IMGPROXY_CUSTOM_HEADERS_SEPARATOR']
+    # PRO: string that will be used as a custom headers separator;
+    customHeadersSeparator: ";"
+
+    # ENV['IMGPROXY_ENABLE_DEBUG_HEADERS']
+    # when true, imgproxy will add X-Origin-Content-Length header with the value is size of the source image.
+    enableDebugHeaders: false
+
+  # https://docs.imgproxy.net/#/configuration?id=security
+  security:
+
+    # ENV['IMGPROXY_SECRET']
+    # the authorization token. If specified, the HTTP request should contain the `Authorization: Bearer %secret%` header
+    secret: ""
+
+    # ENV['IMGPROXY_MAX_SRC_RESOLUTION']
+    # the maximum resolution of the source image, in megapixels. Images with larger actual size will be rejected.
+    maxSrcResolution: "16.8"
+
+    # ENV['IMGPROXY_MAX_SRC_FILE_SIZE']
+    # The maximum size of the source image, in bytes. Images with larger file size will be rejected.
+    # When `0`, file size check is disabled.
+    maxSrcFileSize: 0
+
+    # ENV['IMGPROXY_MAX_ANIMATION_FRAMES']
+    # the maximum of animated image frames to being processed.
+    maxAnimationFrames: 1
+
+    # ENV['IMGPROXY_MAX_SVG_CHECK_BYTES']
+    # the maximum number of bytes imgproxy will read to recognize SVG.
+    # If imgproxy can't recognize your SVG, try to increase this number.
+    maxSvgCheckBytes: 32768 # 32KB
+
+    # ENV['IMGPROXY_ALLOW_ORIGIN']
+    # when set, enables CORS headers with provided origin. CORS headers are disabled by default.
+    allowOrigin: false
+
+    # ENV['IMGPROXY_ALLOWED_SOURCES']
+    # whitelist of source image URLs prefixes divided by comma. When blank, imgproxy allows all source image URLs.
+    # Example: `s3://,https://example.com/,local://`.
+    allowedSources: ""
+
+    # ENV['IMGPROXY_IGNORE_SSL_VERIFICATION']
+    # when true, disables SSL verification, so imgproxy can be used in a development environment with self-signed SSL certificates.
+    ignoreSslVerification: false
+
+    # ENV['IMGPROXY_DEVELOPMENT_ERRORS_MODE']
+    # when true, imgproxy will respond with detailed error messages.
+    # Not recommended for production because some errors may contain stack trace.
+    developmentErrorsMode: ""
+
+  # https://docs.imgproxy.net/#/configuration?id=compression
+  compression:
+
+    # ENV['IMGPROXY_QUALITY']
+    # default quality of the resulting image, percentage.
+    quality: 80
+
+    # ENV['IMGPROXY_FORMAT_QUALITY']
+    # default quality of the resulting image per format, comma divided.
+    # Example: `jpeg=70,avif=40,webp=60`. When value for the resulting format is not set, `IMGPROXY_QUALITY` value is used.
+    formatQuality: ""
+
+    # ENV['IMGPROXY_GZIP_COMPRESSION']
+    # GZip compression level.
+    gzipCompression: 5
+
+    # ENV['IMGPROXY_JPEG_PROGRESSIVE']
+    # when true, enables progressive JPEG compression.
+    jpegProgressive: false
+
+    # ENV['IMGPROXY_JPEG_NO_SUBSAMPLE']
+    # PRO: when true, chrominance subsampling is disabled. This will improve quality at the cost of larger file size.
+    jpegNoSubsample: false
+
+    # ENV['IMGPROXY_JPEG_TRELLIS_QUANT']
+    # PRO: when true, enables trellis quantisation for each 8x8 block. Reduces file size but increases compression time.
+    jpegTrellisQuant: false
+
+    # ENV['IMGPROXY_JPEG_OVERSHOOT_DERINGING']
+    # PRO: when true, enables overshooting of samples with extreme values.
+    # Overshooting may reduce ringing artifacts from compression, in particular in areas where black text appears on a white background.
+    jpegOvershootDeringing: false
+
+    # ENV['IMGPROXY_JPEG_OPTIMIZE_SCANS']
+    # PRO: when true, split the spectrum of DCT coefficients into separate scans.
+    # Reduces file size but increases compression time. Requires `IMGPROXY_JPEG_PROGRESSIVE` to be true.
+    jpegOptimizeScans: false
+
+    # ENV['IMGPROXY_JPEG_QUANT_TABLE']
+    # PRO: quantization table to use. Supported values are 0-8 (see documentation for details)
+    # 0: Table from JPEG Annex K (default);
+    # 1: Flat table;
+    # 2: Table tuned for MSSIM on Kodak image set;
+    # 3: Table from ImageMagick by N. Robidoux;
+    # 4: Table tuned for PSNR-HVS-M on Kodak image set;
+    # 5: Table from Relevance of Human Vision to JPEG-DCT Compression (1992);
+    # 6: Table from DCTune Perceptual Optimization of Compressed Dental X-Rays (1997);
+    # 7: Table from A Visual Detection Model for DCT Coefficient Quantization (1993);
+    # 8: Table from An Improved Detection Model for DCT Coefficient Quantization (1993).
+    jpegQuantTable: 0
+
+    # ENV['IMGPROXY_PNG_INTERLACED']
+    # when true, enables interlaced PNG compression.
+    pngInterlaced: false
+
+    # ENV['IMGPROXY_PNG_QUANTIZE']
+    # when true, enables PNG quantization.
+    pngQuantize: false
+
+    # ENV['IMGPROXY_PNG_QUANTIZATION_COLORS']
+    # maximum number of quantization palette entries. Should be between 2 and 256.
+    pngQuantizationColors: 256
+
+    # ENV['IMGPROXY_GIF_OPTIMIZE_FRAMES']
+    # PRO: when true, enables GIF frames optimization. This may produce a smaller result, but may increase compression time.
+    gifOptimizeFrames: false
+
+    # ENV['IMGPROXY_GIF_OPTIMIZE_TRANSPARENCY']
+    # PRO: when true, enables GIF transparency optimization. This may produce a smaller result, but may increase compression time.
+    gifOptimizeTransparency: false
+
+    # ENV['IMGPROXY_AVIF_SPEED']
+    # controls the CPU effort spent improving compression. 0 slowest - 8 fastest.
+    avifSpeed: 5
+
+  # https://docs.imgproxy.net/#/configuration?id=avifwebp-support-detection
+  formatsSupportDetection:
+
+    # Enforce/enable webP detection/usage
+    webp:
+
+      # ENV['IMGPROXY_ENABLE_WEBP_DETECTION']
+      # enables WebP support detection.
+      # When the file extension is omitted in the imgproxy URL and browser supports WebP, imgproxy will use it as the resulting format
+      enabled: false
+
+      # ENV['IMGPROXY_ENFORCE_WEBP']
+      # enables WebP support detection and enforces WebP usage. If the browser supports WebP, it will be used as resulting format even if another extension is specified in the imgproxy URL.
+      enforced: false
+
+    # Enforce/enable AVIF detection/usage
+    avif:
+
+      # ENV['IMGPROXY_ENABLE_AVIF_DETECTION']
+      # enables AVIF support detection. When the file extension is omitted in the imgproxy URL and browser supports AVIF, imgproxy will use it as the resulting format
+      enabled: false
+
+      # ENV['IMGPROXY_ENFORCE_AVIF']
+      # enables AVIF support detection and enforces AVIF usage. If the browser supports AVIF, it will be used as resulting format even if another extension is specified in the imgproxy URL.
+      enforced: false
+
+  # https://docs.imgproxy.net/#/configuration?id=client-hints-support
+  clientHintsSupport:
+
+    # ENV['IMGPROXY_ENABLE_CLIENT_HINTS']
+    # enables Client Hints support to determine default width and DPR options.
+    enabled: false
+
+  # https://docs.imgproxy.net/#/configuration?id=video-thumbnails
+  videoThumbnails:
+
+    # ENV['IMGPROXY_ENABLE_VIDEO_THUMBNAILS']
+    # PRO: then true, enables video thumbnails generation.
+    enabled: false
+
+    # ENV['IMGPROXY_VIDEO_THUMBNAIL_SECOND']
+    # PRO: the timestamp of the frame in seconds that will be used for a thumbnail.
+    second: 1
+
+    # ENV['IMGPROXY_VIDEO_THUMBNAIL_PROBE_SIZE']
+    # PRO: the maximum amount of bytes used to determine the format. Lower values can decrease memory usage but can produce inaccurate data or even lead to errors.
+    probeSize: 5000000
+
+    # ENV['IMGPROXY_VIDEO_THUMBNAIL_MAX_ANALYZE_DURATION']
+    # PRO: the maximum of milliseconds used to get the stream info. Low values can decrease memory usage but can produce inaccurate data or even lead to errors. When set to 0, the heuristic is used.
+    maxAnalyzeDuration: 0
+
+  # https://docs.imgproxy.net/#/configuration?id=watermark
+  watermark:
+
+    # ENV['IMGPROXY_WATERMARK_DATA']
+    # Base64-encoded image data. You can easily calculate it with `base64 tmp/watermark.png | tr -d '\n'`
+    data: ""
+
+    # ENV['IMGPROXY_WATERMARK_PATH']
+    # path to the locally stored image
+    path: ""
+
+    # ENV['IMGPROXY_WATERMARK_URL']
+    # watermark image URL
+    url: ""
+
+    # ENV['IMGPROXY_WATERMARK_OPACITY']
+    # watermark base opacity
+    opacity: 1
+
+    # ENV['IMGPROXY_WATERMARKS_CACHE_SIZE']
+    # PRO: size of custom watermarks cache. When set to `0`, watermarks cache is disabled.
+    cacheSize: 256
+
+  # https://docs.imgproxy.net/#/configuration?id=unsharpening
+  unsharpening:
+
+    # ENV['IMGPROXY_UNSHARPENING_MODE']
+    # PRO: controls when unsharpenning mask should be applied.
+    # The following modes are supported: `auto`, `none`, `always'
+    mode: auto
+
+    # ENV['IMGPROXY_UNSHARPENING_WEIGHT']
+    # PRO: a floating-point number that defines how neighbor pixels will affect the current pixel.
+    # The greater the value the sharper the image. Should be greater than zero.
+    weight: 1
+
+    # ENV['IMGPROXY_UNSHARPENING_DIVIDOR']
+    # PRO: a floating-point number that defines the unsharpening strength.
+    # The lesser the value the sharper the image. Should be greater than zero.
+    dividor: 24
+
+  # https://docs.imgproxy.net/#/configuration?id=fallback-image
+  fallbackImage:
+
+    # ENV['IMGPROXY_FALLBACK_IMAGE_DATA']
+    # Base64-encoded image data. You can easily calculate it with `base64 tmp/fallback.png | tr -d '\n'`
+    data: ""
+
+    # ENV['IMGPROXY_FALLBACK_IMAGE_URL']
+    # fallback image URL.
+    url: ""
+
+  # https://docs.imgproxy.net/#/configuration?id=skip-processing
+  skipProcessing:
 
-imagePullSecrets: {}
-  # registry: ""
-  # username: ""
-  # password: ""
-
-# Kubernetes service account details
-serviceAccount:
-  enabled: false
-  # name: ""
-  # annotations: {}
-
-# Kubernetes API version to use for imgproxy Deployment
-apiVersion: apps/v1
-
-# Set kubernetes specific resource limits
-resources: {}
-  # limits:
-  #   cpu: 700m
-  #   memory: 700Mi
-  # requests:
-  #   cpu: 700m
-  #   memory: 700Mi
-
-# Kubernetes service type
-serviceType: "ClusterIP"
-
-# Timeuouts and counters options for Liveness & Readiness probes for imgproxy
-# Kubernets Deployment
-readinessProbe:
-  initialDelaySeconds: 10
-  timeoutSeconds: 5
-  successThreshold: 1
-  failureThreshold: 5
-livenessProbe:
-  initialDelaySeconds: 50
-  timeoutSeconds: 5
-  successThreshold: 1
-  failureThreshold: 5
-
-# Configuration parameters for Ingress resource
-ingress:
-  enabled: false
-  annotations: {}
-  #   kubernetes.io/ingress.class: nginx
-  #   kubernetes.io/tls-acme: "true"
-  hosts: []
-  #   - example.com
-  #   - www.example.com
-  tls: []
-  #   - secretName: example-com-tls
-  #     hosts:
-  #       - example.com
-  #       - www.example.com
-
-enablePrometheus: false
-prometheusNamespace: ""
-serviceMonitor:
-  enabled: false
-  honorLabels: true
-  interval: 0
-  namespace: ""
-  selector:
-    release: prometheus-operator
-  targetLabels:
-    - app
-    - release
-
-podDisruptionBudget:
-  enabled: true
-  minAvailable: 0
-  maxUnavailable: 0
-
-# Pod annotations
-pod:
-  annotations: {}
-
-# Deployment annotations
-deployment:
-  annotations: {}
+    # ENV['IMGPROXY_SKIP_PROCESSING_FORMATS']
+    # list of formats that imgproxy shouldn't process, comma-divided.
+    formats: ""
 
-# Hex-encoded key for URL encoding. CHANGE IT!!!!
-key: 1b147116e57d9e06df3696b21260169902fe201ccdb9715267999176ccbfaae6f2c2b75b78110d0287643d98cde143e7a3f98a46ec825a1ab7ea10af426c2436
+  # https://docs.imgproxy.net/#/configuration?id=presets
+  presets:
 
-# Hex-encoded salt for URL encoding. CHANGE IT!!!!
-salt: 1e4483006c56f05f1b42af2f2b61765f64b8a074bf993922dd5b4bca78f49280683beb368308b7f76d522027b071a25e6d4b26138686b43e1faa4be4c9b674ea
-
-# number of bytes to use for signature before encoding to Base64.
-signatureSize: 32
-
-# The maximum duration (in seconds) for reading the entire image request, including the body
-readTimeout: 10
-
-# The maximum duration (in seconds) for writing the response
-writeTimeout: 10
-
-# the maximum duration (in seconds) to wait for the next request before closing the connection. When set to 0, keep-alive is disabled.
-keepAliveTimeout: 10
-
-# The maximum duration (in seconds) for downloading the source image
-downloadTimeout: 5
+    # ENV['IMGPROXY_PRESETS']
+    # set of preset definitions, comma-divided.
+    # Example: `default=resizing_type:fill/enlarge:1,sharp=sharpen:0.7,blurry=blur:2`.
+    definitions: ""
 
-# The maximum number of image requests to be processed simultaneously. Default: double number of CPU cores
-concurrency: ""
+    # ENV['IMGPROXY_ONLY_PRESETS']
+    # disable all URL formats and enable presets-only mode.
+    onlyPresets: false
 
-# The maximum number of simultaneous active connections. Default: concurrency * 10
-maxClients: ""
+  # https://docs.imgproxy.net/#/configuration?id=serving-files-from-amazon-s3
+  aws:
 
-# Duration in seconds sent in Expires and Cache-Control: max-age headers.
-ttl: 3600
+    # ENV['IMGPROXY_USE_S3']
+    # when `true`, enables image fetching from Amazon S3 buckets.
+    enabled: false
 
-#when true and source image response contains Expires or Cache-Control headers, reuse those headers
-cacheControlPassthrough: false
+    # AWS account id (required for authentication using IAM Role)
+    accountId: ""
 
-# when true, enables SO_REUSEPORT socket option (currently on linux and darwin only);
-soReuseport: false
+    # ENV['AWS_ACCESS_KEY_ID']
+    # AWS key
+    accessKeyId: ""
 
-# URL path prefix. Example: when set to /abc/def, imgproxy URL will be /abc/def/%signature/%processing_options/%source_url
-pathPrefix: ""
+    # ENV['AWS_SECRET_ACCESS_KEY']
+    # AWS secret
+    secretAccessKey: ""
 
-# User-Agent header that will be sent with source image request. Default: imgproxy/%current_version
-userAgent: ""
+    # If enabled then the IAM Role is used for the authentication
+    iamRoleName: ""
 
-# When true, enables using ETag header for the cache control
-useEtag: false
+    # ENV['IMGPROXY_S3_REGION']
+    # AWS region
+    s3Region: ""
 
-# PRO: list of custom headers that imgproxy will send while requesting the source image, divided by \; (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)
-customRequestHeaders: ""
+    # ENV['IMGPROXY_S3_ENDPOINT']
+    # custom S3 endpoint to being used by imgproxy.
+    s3Endpoint: ""
 
-# PRO: list of custom response headers, divided by \; (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)
-customResponseHeaders: ""
+  # https://docs.imgproxy.net/#/configuration?id=serving-files-from-google-cloud-storage
+  gcs:
 
-# PRO: string that will be used as a custom headers separator; default '\;'
-customHeadersSeparator: ""
+    # Enable GCS as backend for images
+    enabled: false
 
-# Root of the local filesystem. See [Serving local files](https://github.com/darthsim/imgproxy#serving-local-files). Keep empty to disable serving of local files.
-localFileSystemRoot: false
+    # ENV['IMGPROXY_GCS_KEY']
+    # Google Cloud JSON key.
+    jsonKey: ""
 
-# The maximum resolution of the source image, in megapixels. Images with larger real size will be rejected
-maxSrcResolution: "16.8"
+  # https://docs.imgproxy.net/#/configuration?id=serving-files-from-azure-blob-storage
+  abs:
 
-# the maximum size of the source image, in bytes. Images with larger file size will be rejected. When 0, file size check is disabled.
-maxSrcFileSize: 0
+    # ENV['IMGPROXY_USE_ABS']
+    # when `true`, enables image fetching from Azure Blob Storage (ABS) containers.
+    enabled: false
 
-# the maximum of animated image frames to being processed.
-maxAnimationFrames: 1
+    # ENV['IMGPROXY_ABS_NAME']
+    # Azure account name.
+    accountName: ""
 
-# The authorization token. If specified, request should contain the `Authorization: Bearer %secret%` header
-secret: ""
+    # ENV['IMGPROXY_ABS_KEY']
+    # Azure account key.
+    accountKey: ""
 
-# When set, enables CORS headers with provided origin. CORS headers are disabled by default.
-allowOrigin: ""
+    # ENV['IMGPROXY_ABS_ENDPOINT']
+    # custom Azure Blob Storage endpoint to be used by imgproxy.
+    endpoint: ""
 
-# whitelist of source image URLs prefixes divided by comma. When blank, imgproxy allows all source image URLs. Example: s3://,https://example.com/,local://.
-allowedSources: ""
+  # https://docs.imgproxy.net/#/configuration?id=new-relic-metrics
+  newRelic:
 
-# When true, disables SSL verification
-ignoreSslVerification: false
+    enabled: false
 
-# when true, imgproxy will respond with detailed error messages. Not recommended for production because some errors may contain stack trace.
-developmentErrorsMode: false
+    # ENV['IMGPROXY_NEW_RELIC_KEY']
+    # New Relic license key
+    licenseKey: ""
 
-# Quality of the resulting image, percentage
-quality: 80
+    # ENV['IMGPROXY_NEW_RELIC_APP_NAME']
+    # New Relic application name. Default: `imgproxy`.
+    appName: ""
 
-# GZip compression level
-gzipCompression: 5
+  # https://docs.imgproxy.net/#/configuration?id=prometheus-metrics
+  prometheus:
 
-# When true, enables progressive compression of JPEG
-jpegProgressive: false
+    enabled: false
 
-# PRO: when true, chrominance subsampling is disabled. This will improve quality at the cost of larger file size.
-jpegNoSubsample: false
+    # ENV['IMGPROXY_PROMETHEUS_NAMESPACE']
+    # Namespace (prefix) for imgproxy metrics.
+    namespace: ""
 
-# PRO: when true, enables trellis quantisation for each 8x8 block. Reduces file size but increases compression time.
-jpegTrellisQuant: false
+    # ENV['IMGPROXY_PROMETHEUS_BIND']
+    # This value is set to ':8081' (not editable)
 
-# PRO: when true, enables overshooting of samples with extreme values. Overshooting may reduce ringing artifacts from compression, in particular in areas where black text appears on a white background.
-jpegOvershootDeringing: false
+  # https://docs.imgproxy.net/#/configuration?id=error-reporting
+  errorReporting:
 
-# PRO: when true, split the spectrum of DCT coefficients into separate scans. Reduces file size but increases compression time. Requires IMGPROXY_JPEG_PROGRESSIVE to be true.
-jpegOptimizeScans: false
+    # Integration to Bugsnag
+    bugsnag:
 
-# PRO: quantization table to use. Supported values are:
-# 0: Table from JPEG Annex K (default);
-# 1: Flat table;
-# 2: Table tuned for MSSIM on Kodak image set;
-# 3: Table from ImageMagick by N. Robidoux;
-# 4: Table tuned for PSNR-HVS-M on Kodak image set;
-# 5: Table from Relevance of Human Vision to JPEG-DCT Compression (1992);
-# 6: Table from DCTune Perceptual Optimization of Compressed Dental X-Rays (1997);
-# 7: Table from A Visual Detection Model for DCT Coefficient Quantization (1993);
-# 8: Table from An Improved Detection Model for DCT Coefficient Quantization (1993).
-jpegQuantTable: 0
+      # When provided, enables error reporting to Bugsnag
+      enabled: false
 
-# When true, enables interlaced compression of PNG
-pngInterlaced: false
+      # ENV['IMGPROXY_BUGSNAG_KEY']
+      # Bugsnag API key
+      key: ""
 
-# when true, enables PNG quantization. libvips should be built with libimagequant support.
-pngQuantize: false
+      # ENV['IMGPROXY_BUGSNAG_STAGE']
+      # Bugsnag stage to report to.
+      env: "production"
 
-# maximum number of quantization palette entries. Should be between 2 and 256.
-pngQuantizationColors: 256
+    # Integration to Honeybadger
+    honeybadger:
 
-# PRO: when true, enables GIF frames optimization. This may produce a smaller result, but may increase compression time
-gifOptimizeFrames: false
+      # When provided, enables error reporting to Honeybadger
+      enabled: false
 
-# PRO: when true, enables GIF transparency optimization. This may produce a smaller result, but may increase compression time
-gifOptimizeTransparency: false
+      # ENV['IMGPROXY_HONEYBADGER_KEY']
+      # Honeybadger API key.
+      key: ""
 
-# Enables WebP support detection. When the file extension is omitted in the imgproxy URL and browser supports WebP, imgproxy will use it as the resulting format
-enableWebpDetection: false
+      # ENV['IMGPROXY_HONEYBADGER_ENV']
+      # Honeybadger env to report to.
+      env: "production"
 
-# Enables WebP support detection and enforces WebP usage. If the browser supports WebP, it will be used as resulting format even if another extension is specified in the imgproxy URL
-enforceWebp: false
+    # Integration to Sentry
+    sentry:
 
-# Enables Client Hints support when the width is ommited for automatic responsive images
-enableClientHints: false
+      #  When provided, enables error reporting to Sentry
+      enabled: false
 
-# PRO: when true, enables video thumbnails generation
-enableVideoThumbnails: false
+      # ENV['IMGPROXY_SENTRY_DSN']
+      # Sentry project DSN.
+      dsn: ""
 
-# PRO: the maximum amount of bytes used to determine the format. Lower values can decrease memory usage but can produce inaccurate data or even lead to errors
-videoThumbnailProbeSize: 5000000
+      # ENV['IMGPROXY_SENTRY_ENVIRONMENT']
+      # Sentry environment to report to. Default: `production`
+      env: "production"
 
-# PRO: the maximum of milliseconds used to get the stream info. Low values can decrease memory usage but can produce inaccurate data or even lead to errors. When set to 0, the heuristic is used.
-videoThumbnailMaxAnalyzeDuration: 0
+      # ENV['IMGPROXY_SENTRY_RELEASE']
+      # Sentry release to report to. Default: `imgproxy/{imgproxy version}`
+      release: ""
 
-# PRO: the timestamp of the frame in seconds that will be used for a thumbnail
-videoThumbnailSecond: 1
+    # ENV['IMGPROXY_REPORT_DOWNLOADING_ERRORS']
+    # when `true`, imgproxy will report downloading errors.
+    reportDownloadingErrors: true
 
-# Base64-encoded image data
-watermarkData: ""
+  # https://docs.imgproxy.net/#/configuration?id=log
+  logging:
 
-# Path to the locally stored image
-watermarkPath: ""
+    # ENV['IMGPROXY_LOG_FORMAT']
+    # the log format. The following formats are supported: pretty, structured, json
+    # - pretty: (default) colored human-readable format;
+    # - structured: machine-readable format;
+    # - json: JSON format;
+    format: "pretty"
 
-# Watermark image URL
-watermarkUrl: ""
+    # ENV['IMGPROXY_LOG_LEVEL']
+    # the log level. The following levels are supported `error`, `warn`, `info` and `debug`.
+    level: "info"
 
-# Watermark base opacity
-watermarkOpacity: 1
+    # Enable Syslog integration
+    # 
+    syslog:
 
-#PRO: size of custom watermarks cache. When set to 0, watermarks cache is disabled. By default 256 watermarks are cached.
-watermarkCacheSize: 256
+      # ENV['IMGPROXY_SYSLOG_ENABLE']
+      # when `true`, enables sending logs to syslog
+      enabled: false
 
-# Base64-encoded image data. You can easily calculate it with `base64 tmp/fallback.png | tr -d '\n'`
-fallbackImageData: ""
+      # ENV['IMGPROXY_SYSLOG_LEVEL']
+      # maximum log level to send to syslog. Known levels are: `crit`, `error`, `warning` and `info`.
+      level: "info"
 
-# path to the locally stored image
-fallbackImagePath: ""
+      # ENV['IMGPROXY_SYSLOG_NETWORK']
+      # network that will be used to connect to syslog. When blank, the local syslog server will be used. Known networks are `tcp`, `tcp4`, `tcp6`, `udp`, `udp4`, `udp6`, `ip`, `ip4`, `ip6`, `unix`, `unixgram` and `unixpacket`.
+      network: "tcp"
 
-# fallback image URL
-fallbackImageUrl: ""
+      # ENV['IMGPROXY_SYSLOG_ADDRESS']
+      # address of the syslog service. Not used if `IMGPROXY_SYSLOG_NETWORK` is blank.
+      address: ""
 
-# Set of preset definitions, comma-divided
-presets: ""
+      # ENV['IMGPROXY_SYSLOG_TAG']
+      # specific syslog tag.
+      tag: "imgproxy"
 
-# disable all URL formats and enable presets-only mode.
-onlyPresets: false
+  # https://docs.imgproxy.net/#/configuration?id=memory-usage-tweaks
+  memoryUsageTweaks:
 
-# When true, enables image fetching from Amazon S3 buckets
-useS3: false
+    # ENV['IMGPROXY_DOWNLOAD_BUFFER_SIZE']
+    # the initial size (in bytes) of a single download buffer. When zero, initializes empty download buffers.
+    downloadBufferSize: 0
 
-# AWS key
-awsKey: ""
+    # ENV['IMGPROXY_GZIP_BUFFER_SIZE']
+    # the initial size (in bytes) of a single GZip buffer. When zero, initializes empty GZip buffers. Makes sense only when GZip compression is enabled.
+    gzipBufferSize: 0
 
-# AWS secret
-awsSecret: ""
+    # ENV['IMGPROXY_FREE_MEMORY_INTERVAL']
+    # the interval (in seconds) at which unused memory will be returned to the OS.
+    freeMemoryInterval: 10
 
-# AWS region
-awsRegion: ""
+    # ENV['IMGPROXY_BUFFER_POOL_CALIBRATION_THRESHOLD']
+    # the number of buffers that should be returned to a pool before calibration.
+    bufferPoolCalibrationThreshold: 1024
 
-# Custom S3 endpoint to being used by imgproxy
-s3Endpoint: ""
+  # https://docs.imgproxy.net/#/configuration?id=miscellaneous
+  miscellaneous:
 
-# Enable GCS as backend for images
-useGcs: false
+    # ENV['IMGPROXY_BASE_URL']
+    # base URL prefix that will be added to every requested image URL. For example, if the base URL is `http://example.com/images` and `/path/to/image.png` is requested, imgproxy will download the source image from `http://example.com/images/path/to/image.png`.
+    baseUrl: ""
 
-# Google Cloud JSON key. When set, enables image fetching from Google Cloud Storage buckets
-gcsKey: ""
+    # ENV['IMGPROXY_USE_LINEAR_COLORSPACE']
+    # when `true`, imgproxy will process images in linear colorspace. This will slow down processing. Note that images won't be fully processed in linear colorspace while shrink-on-load is enabled (see below).
+    useLinearColorspace: false
 
-# Enable ABS as backend for images
-useAbs: false
+    # ENV['IMGPROXY_DISABLE_SHRINK_ON_LOAD']
+    # when `true`, disables shrink-on-load for JPEG and WebP. Allows to process the whole image in linear colorspace but dramatically slows down resizing and increases memory usage when working with large images.
+    disableShrinkOnLoad: false
 
-# ABS key
-absKey: ""
+    # ENV['IMGPROXY_STRIP_METADATA']
+    # when `true`, imgproxy will strip all metadata (EXIF, IPTC, etc.) from JPEG and WebP output images.
+    stripMetadata: true
 
-# ABS name
-absName: ""
+    # ENV['IMGPROXY_STRIP_COLOR_PROFILE']
+    # when `true`, imgproxy will transform the embedded color profile (ICC) to sRGB and remove it from the image. Otherwise, imgproxy will try to keep it as is.
+    stripColorProfile: true
 
-# ABS endpoint
-absEndpoint: ""
-
-# New Relic license key
-newRelicKey: ""
-
-# New Relic application name. Default: imgproxy
-newRelicAppName: ""
-
-# Bugsnag API key. When provided, enables errors reporting to Bugsnag
-bugsnagKey: ""
-
-# Bugsnag stage to report to.
-bugsnagStage: "production"
-
-# Honeybadger API key. When provided, enables errors reporting to Honeybadger
-honeybadgerKey: ""
-
-# Honeybadger env to report to.
-honeybadgerEnv: "production"
-
-# Sentry project DSN. When provided, enables error reporting to Sentry
-sentryDsn: ""
-
-# Sentry environment to report to.
-sentryEnvironment: "production"
-
-# Sentry release to report to.  Default: imgproxy/{imgproxy version};
-sentryRelease: ""
-
-# when true, imgproxy will report downloading errors
-reportDownloadingErrors: true
-
-# the log format. The following formats are supported:
-# - pretty: (default) colored human-readable format;
-# - structured: machine-readable format;
-# - json: JSON format;
-logFormat: "pretty"
-
-# the log level. The following levels are supported error, warn, info and debug.
-logLevel: "info"
-
-# when true, enables sending logs to syslog
-syslogEnable: false
-
-# maximum log level to send to syslog. Known levels are: crit, error, warning and info
-syslogLevel: "info"
-
-# network that will be used to connect to syslog. When blank, the local syslog server will be used. Known networks are tcp, tcp4, tcp6, udp, udp4, udp6, ip, ip4, ip6, unix, unixgram and unixpacket
-syslogNetwork: ""
-
-# address of the syslog service. Not used if IMGPROXY_SYSLOG_NETWORK is blank
-syslogAddress: ""
-
-# specific syslog tag
-syslogTag: "imgproxy"
-
-# the initial size (in bytes) of a single download buffer. When zero, initializes empty download buffers
-downloadBufferSize: 0
-
-# the initial size (in bytes) of a single GZip buffer. When zero, initializes empty GZip buffers. Makes sense only when GZip compression is enabled
-gzipBufferSize: 0
-
-# the interval (in seconds) at which unused memory will be returned to the OS
-freeMemoryInterval: 10
-
-# the number of buffers that should be returned to a pool before calibration
-bufferPoolCalibrationThreshold: 1024
-
-# Base URL part which will be added to every requestsd image URL. For example, if base URL is `http://example.com/images` and `/path/to/image.png` is requested, imgproxy will download the image from `http://example.com/images/path/to/image.png`
-baseUrl: ""
-
-# when true, imgproxy will process images in linear colorspace. This will slow down processing. Note that images won’t be fully processed in linear colorspace while shrink-on-load is enabled (see below)
-useLinearColorspace: false
-
-# when true, disables shrink-on-load for JPEG and WebP. Allows to process the whole image in linear colorspace but dramatically slows down resizing and increases memory usage when working with large images
-disableShrinkOnLoad: false
-
-# PRO: when true, imgproxy will apply unsharpen masking to the resulting image if one is smaller than the source
-applyUnsharpenMasking: true
-
-# whether to strip all metadata (EXIF, IPTC, etc.) from JPEG and WebP output images
-stripMetadata: true
+    # ENV['IMGPROXY_AUTO_ROTATE']
+    # when `true`, imgproxy will auto rotate images based on the EXIF Orientation parameter (if available in the image meta data). The orientation tag will be removed from the image anyway.
+    autoRotate: true
