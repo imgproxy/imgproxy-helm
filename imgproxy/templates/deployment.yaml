@@ -26,11 +26,8 @@ spec:
       {{- if .Values.image.pullSecrets.enabled }}
       imagePullSecrets:
         - name: "{{ .Release.Name }}-docker-registry-secret"
-      {{- if .Values.serviceAccount.enabled }}
-      serviceAccountName: {{ .Values.serviceAccount.name | quote }}
       {{- end }}
-      {{- end }}
-      {{- if (and .Values.features.aws.enabled .Values.features.aws.iamRoleName) }}
+      {{- if (include "serviceAccount.enabled" $) }}
       serviceAccountName: "{{ template "imgproxy.fullname" $ }}-service-account"
       {{- end }}
       containers:

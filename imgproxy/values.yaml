@@ -54,6 +54,13 @@ resources:
   service:
     type: "ClusterIP"
 
+  serviceAccount:
+
+    # Add custom annotations to the Service Account
+    # in addition to those we already provided for AWS IAM role
+    # (see features.aws.iamRoleName and features.aws.accountId).
+    annotations: {}
+
   ingress:
     enabled: false
     annotations: {}

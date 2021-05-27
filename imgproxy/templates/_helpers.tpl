@@ -30,6 +30,15 @@ Template to generate secrets for a private Docker repository for K8s to use
 {{- end -}}
 
 {{/*
+Template to decide if the serviceAccount must be built
+*/}}
+{{- define "serviceAccount.enabled" }}
+{{- $awsIamRoleDefined := and .Values.features.aws.enabled .Values.features.aws.iamRoleName -}}
+{{- $customAnnotations := .Values.resources.serviceAccount.annotations -}}
+{{- or $awsIamRoleDefined $customAnnotations -}}
+{{- end }}
+
+{{/*
 Template to generate service account annotation for AWS IAM Role
 https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.html
 */}}
