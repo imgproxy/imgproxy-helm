@@ -589,7 +589,7 @@ features:
 
       # ENV['IMGPROXY_SYSLOG_ENABLE']
       # when `true`, enables sending logs to syslog
-      enabled: true
+      enabled: false
 
       # ENV['IMGPROXY_SYSLOG_LEVEL']
       # maximum log level to send to syslog. Known levels are: `crit`, `error`, `warning` and `info`.

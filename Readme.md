@@ -290,36 +290,37 @@ Deployment specific options.
 
 |Value|Description|Default|
 |-----|-----------|-------|
-|**affinity**|Node and inter-pod affinity configuration||
-|**annotations**|Custom annotations for imgproxy pods|`{}`|
 |**image.pullSecrets.password**|Password to your private registry|``|
 |**image.pullSecrets.registry**|URL of a private registry you want to authorize to|``|
 |**image.pullSecrets.username**|Login to your private registry|``|
-|**livenessProbe**|Timeouts and counters for the liveness probe||
-|**nodeSelector**|A node selector labels||
-|**podDisruptionBudget.enabled**|Enable or disable a disruprion budget policy|`false`|
-|**podDisruptionBudget.maxUnavailable**|maxUnavailable option for the PodDisruptionBudget|`0`|
-|**podDisruptionBudget.minAvailable**|minAvailable option for the PodDisruptionBudget|`0`|
-|**readinessProbe**|Timeouts and counters for the readiness probe||
-|**replicaCount**|How many pods with imgproxy should be running simultaneously|`1`|
-|**resources**|Hash of resource limits for your pods|`{}`|
+|**resources.deployment.affinity**|Node and inter-pod affinity configuration||
+|**resources.deployment.annotations**|Custom annotations for imgproxy deployment|`{}`|
+|**resources.pod.annotations**|Custom annotations for imgproxy pod|`{}`|
+|**resources.deployment.readinessProbe**|Timeouts and counters for the readiness probe||
+|**resources.deployment.livenessProbe**|Timeouts and counters for the liveness probe||
+|**resources.deployment.nodeSelector**|A node selector labels||
+|**resources.podDisruptionBudget.enabled**|Enable or disable a disruprion budget policy|`false`|
+|**resources.podDisruptionBudget.maxUnavailable**|maxUnavailable option for the PodDisruptionBudget|`0`|
+|**resources.podDisruptionBudget.minAvailable**|minAvailable option for the PodDisruptionBudget|`0`|
+|**resources.deployment.replicaCount**|How many pods with imgproxy should be running simultaneously|`1`|
+|**resources.deployment.resources**|Hash of resource limits for your pods|`{}`|
+|**resources.deployment.tolerations**|Tolerations for Kubernetes taints||
 |**resources.serviceAccount.annotations**|Annotations for the Kubernetes service account for imgproxy|``|
-|**serviceType**|Kubernetes service type for imgproxy|`ClusterIP`|
-|**tolerations**|Tolerations for Kubernetes taints||
+|**resources.service.type**|Kubernetes service type for imgproxy|`ClusterIP`|
 
 ### Ingress configuration
 
 |Value|Description|Default|
 |-----|-----------|-------|
-|**ingress.acme**|Enables the ingress resource annotation which tells cert-manager to issue a Let's Encrypt certificate|`false`|
-|**ingress.annotations**|Additional annotations for the ingress resource||
-|**ingress.enabled**|When true, enables ingress resource for imgproxy|`false`|
-|**ingress.health.whitelist**|Comma separated string of CIDR addresses that are allowed to access `/health` url of imgproxy||
-|**ingress.host**|Hostname for the ingress resource to use|`example.com`|
-|**ingress.tls.crt**|Certificate file for the ingress tls secret||
-|**ingress.tls.enabled**|When true, enables tls support in the ingress resource|`false`|
-|**ingress.tls.key**|Key file for the ingress tls secret||
-|**ingress.tls.secretName**|Name of the k8s Secret resource which stores crt & key for the ingress resource||
+|**resources.ingress.acme**|Enables the ingress resource annotation which tells cert-manager to issue a Let's Encrypt certificate|`false`|
+|**resources.ingress.annotations**|Additional annotations for the ingress resource||
+|**resources.ingress.enabled**|When true, enables ingress resource for imgproxy|`false`|
+|**resources.ingress.health.whitelist**|Comma separated string of CIDR addresses that are allowed to access `/health` url of imgproxy||
+|**resources.ingress.host**|Hostname for the ingress resource to use|`example.com`|
+|**resources.ingress.tls.crt**|Certificate file for the ingress tls secret||
+|**resources.ingress.tls.enabled**|When true, enables tls support in the ingress resource|`false`|
+|**resources.ingress.tls.key**|Key file for the ingress tls secret||
+|**resources.ingress.tls.secretName**|Name of the k8s Secret resource which stores crt & key for the ingress resource||
 
 ### Monitoring
 
@@ -329,12 +330,11 @@ Options to configure ServiceMonitor for Prometheus Operator.
 |-----|-----------|-------|
 |**features.prometheus.enabled**|Set IMGPROXY_PROMETHEUS_BIND environment variable to bind metrics to port 8081|`false`|
 |**features.prometheus.namespace**|Set IMGPROXY_PROMETHEUS_NAMESPACE environment variable to prepend prefix to the names of metrics|`""`|
-|**serviceMonitor.enabled**|Enables ServiceMonitor manifest|`false`|
-|**serviceMonitor.honorLabels**|Chooses the metric's labels on collisions with target labels|`true`|
-|**serviceMonitor.interval**|Interval at which metrics should be scraped (if it differs from default one)|`0`|
-|**serviceMonitor.namespace**|Namespace with PrometheusOperator|`monitoring`|
-|**serviceMonitor.selector**|Selector to select Pods|`release: prometheus-operator`|
-|**serviceMonitor.targetLabels**|Transfers mentioned labels on the Kubernetes Service onto the target|`["app","release"]`|
+|**resources.serviceMonitor.honorLabels**|Chooses the metric's labels on collisions with target labels|`true`|
+|**resources.serviceMonitor.interval**|Interval at which metrics should be scraped (if it differs from default one)|`0`|
+|**resources.serviceMonitor.namespace**|Namespace with PrometheusOperator|`monitoring`|
+|**resources.serviceMonitor.selector**|Selector to select Pods|`release: prometheus-operator`|
+|**resources.serviceMonitor.targetLabels**|Transfers mentioned labels on the Kubernetes Service onto the target|`["app","release"]`|
 
 See `values.yaml` for some more Kubernetes-specific configuration options.
 

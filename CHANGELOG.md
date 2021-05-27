@@ -1,6 +1,7 @@
-## 0.7.0 (to be released)
+## 0.7.0 (2021-05-27)
 
 * (Breaking) rearrange keys in `values.yaml`
+* (Breaking) add opinionated service account annotiations for AWS IAM role
 * (New) add support for the following env variables
   - IMGPROXY_SET_CANONICAL_HEADER
   - IMGPROXY_ENABLE_DEBUG_HEADERS
