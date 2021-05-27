@@ -22,6 +22,12 @@ imagePullSecrets: {}
   # username: ""
   # password: ""
 
+# Kubernetes service account details
+serviceAccount:
+  enabled: false
+  # name: ""
+  # annotations: {}
+
 # Kubernetes API version to use for imgproxy Deployment
 apiVersion: apps/v1
 
