@@ -1,3 +1,7 @@
+## 0.6.4 (2021-05-27)
+
+* (Add) support for service accounts
+
 ## 0.6.3 (2021-05-21)
 
 * (Fix) enable `IMGPROXY_REPORT_DOWNLOADING_ERRORS` to be set to `false` explicitly
