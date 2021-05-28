@@ -2,13 +2,13 @@
 # Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v2.15.0
+  tag: v2.16.3
   pullPolicy: IfNotPresent
   pullSecrets:
-    enabled:  true
-    registry: "foo"
-    username: "bar"
-    password: "baz"
+    enabled:  false
+    registry: ""
+    username: ""
+    password: ""
 
 # Configure K8s resources
 resources:
