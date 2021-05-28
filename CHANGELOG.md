@@ -1,3 +1,7 @@
+## 0.7.1 (2021-05-28)
+
+* (Fix) .Values.image updated in `values.yaml`
+
 ## 0.7.0 (2021-05-27)
 
 * (Breaking) rearrange keys in `values.yaml`
