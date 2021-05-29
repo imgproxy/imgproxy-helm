@@ -1,0 +1,34 @@
+{{- if .Values.features.prometheus.enabled }}
+{{- with .Values.resources.serviceMonitor }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ template "imgproxy.fullname" $  }}
+  {{- if .namespace }}
+  namespace: {{ .namespace }}
+  {{- end }}
+  labels:
+    {{- range $key, $value := .selector }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  endpoints:
+    - port: metrics
+      {{- if .interval }}
+      interval: {{ .interval }}
+      {{- end }}
+      honorLabels: {{ .honorLabels }}
+  namespaceSelector:
+    matchNames:
+      - {{ $.Release.Namespace | quote }}
+  selector:
+    matchLabels:
+      app: {{ $.Release.Name | quote }}
+  {{- if .targetLabels }}
+  targetLabels:
+  {{- range $label := .targetLabels }}
+    - {{ $label }}
+  {{- end }}
+  {{- end }}
+{{- end -}}
+{{- end -}}
