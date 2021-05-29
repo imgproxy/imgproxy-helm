@@ -345,3 +345,17 @@ See `values.yaml` for some more Kubernetes-specific configuration options.
 |-----|-----------|-------|
 |**nameOverride**|String to partially override imgproxy.fullname template with a string (will be appended to the release name)|`nil`|
 |**fullnameOverride**|String to fully override imgproxy.fullname template with a string (will be used as pod name prefix instead of release name)|`nil`|
+
+You can also add custom env variables for the latest version of imgproxy:
+
+```yaml
+# values.yml
+---
+# ...
+features:
+  # ...
+  custom:
+    FOO: bar
+```
+
+Notice, that all custom env variables are sent through the secret (encoded to base64 under the hood).
