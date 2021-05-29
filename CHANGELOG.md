@@ -1,3 +1,7 @@
+## 0.7.2 (to be released)
+
+* (New) add custom labels to pods
+
 ## 0.7.1 (2021-05-28)
 
 * (Fix) .Values.image updated in `values.yaml`
