@@ -92,6 +92,7 @@ resources:
 
   pod:
     annotations: {}
+    labels: {}
 
 # Configure imgproxy features
 # https://docs.imgproxy.net/#/configuration

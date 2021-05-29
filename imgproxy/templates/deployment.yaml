@@ -15,10 +15,12 @@ spec:
       app: {{ template "imgproxy.fullname" $ }}
   template:
     metadata:
-      labels:
+      {{- with .Values.resources.pod }}
+      labels: {{ toYaml .labels | nindent 8 }}
         app: {{ template "imgproxy.fullname" $ }}
-        release: {{ .Release.Name | quote }}
-      annotations: {{ .Values.resources.pod.annotations | toYaml | nindent 8 }}
+        release: {{ $.Release.Name | quote }}
+      annotations: {{ .annotations | toYaml | nindent 8 }}
+      {{- end }}
     spec:
       affinity: {{ .Values.resources.deployment.affinity | toYaml | nindent 8 }}
       tolerations: {{ .Values.resources.deployment.tolerations | toYaml | nindent 8 }}

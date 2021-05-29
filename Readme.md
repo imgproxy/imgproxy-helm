@@ -296,6 +296,7 @@ Deployment specific options.
 |**resources.deployment.affinity**|Node and inter-pod affinity configuration||
 |**resources.deployment.annotations**|Custom annotations for imgproxy deployment|`{}`|
 |**resources.pod.annotations**|Custom annotations for imgproxy pod|`{}`|
+|**resources.pod.labels**|Custom labels for imgproxy pods|`{}`|
 |**resources.deployment.readinessProbe**|Timeouts and counters for the readiness probe||
 |**resources.deployment.livenessProbe**|Timeouts and counters for the liveness probe||
 |**resources.deployment.nodeSelector**|A node selector labels||
