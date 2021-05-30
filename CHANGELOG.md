@@ -1,7 +1,54 @@
+## 0.7.2 (to be released)
+
+* (New) add custom labels to pods
+* (New) support for custom env variables
+
+## 0.7.1 (2021-05-28)
+
+* (Fix) .Values.image updated in `values.yaml`
+
+## 0.7.0 (2021-05-27)
+
+* (Breaking) rearrange keys in `values.yaml`
+* (Breaking) add opinionated service account annotiations for AWS IAM role
+* (New) add support for the following env variables
+  - IMGPROXY_SET_CANONICAL_HEADER
+  - IMGPROXY_ENABLE_DEBUG_HEADERS
+  - IMGPROXY_MAX_SVG_CHECK_BYTES
+  - IMGPROXY_ALLOW_ORIGIN
+  - IMGPROXY_FORMAT_QUALITY
+  - IMGPROXY_AVIF_SPEED
+  - IMGPROXY_ENABLE_AVIF_DETECTION
+  - IMGPROXY_ENFORCE_AVIF
+  - IMGPROXY_UNSHARPENING_WEIGHT
+  - IMGPROXY_UNSHARPENING_DIVIDOR
+  - IMGPROXY_SKIP_PROCESSING_FORMATS
+  - IMGPROXY_STRIP_COLOR_PROFILE
+  - IMGPROXY_AUTO_ROTATE
+* (Fix) add serviceMonitor only when Prometheus is enabled
+* (Fix) readme file
+
+## 0.6.4 (2021-05-27)
+
+* (Add) support for service accounts
+
+## 0.6.3 (2021-05-21)
+
+* (Fix) enable `IMGPROXY_REPORT_DOWNLOADING_ERRORS` to be set to `false` explicitly
+
+## 0.6.2 (2021-05-20)
+
+* (New) Azure Blob Storage options (`useAbs`, `absName`, `absKey`, `absEndpoint`)
+
+## 0.6.1 (2020-11-28)
+
+* (Fix) readiness probe configuration when using pathPrefix
+* (Fix) readme file
+
 ## 0.6.0 (2020-11-22)
 
 * (Fix) deployment indentations
-* (New) pod annotations values were ranamed
+* (New) pod annotations values were renamed
 
 ## 0.5.11 (2020-11-20)
 
