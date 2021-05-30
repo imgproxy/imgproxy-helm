@@ -51,8 +51,13 @@ resources:
       successThreshold: 1
       failureThreshold: 5
 
-  service:
-    type: "ClusterIP"
+    service:
+      type: "ClusterIP"
+      loadBalancerIP: ""
+      externalTrafficPolicy: Cluster
+      loadBalancerSourceRanges: []
+      #   - 192.168.1.1/24
+      #   - 10.0.0.1/20
 
   serviceAccount:
 

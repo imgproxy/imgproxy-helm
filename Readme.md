@@ -308,6 +308,9 @@ Deployment specific options.
 |**resources.deployment.tolerations**|Tolerations for Kubernetes taints||
 |**resources.serviceAccount.annotations**|Annotations for the Kubernetes service account for imgproxy|``|
 |**resources.service.type**|Kubernetes service type for imgproxy|`ClusterIP`|
+|**resources.service.loadBalancerIP**|Load balancer ip for service type "LoadBalancer"|''|
+|**resources.service.loadBalancerSourceRanges**| Load balancer source ranges for service type "LoadBalancer"|`[]|
+|**resources.service.externalTrafficPolicy**| Enable client source IP preservation |`Cluster`|
 
 ### Ingress configuration
 

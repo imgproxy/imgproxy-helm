@@ -8,6 +8,17 @@ metadata:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     app: {{ .Release.Name | quote }}
 spec:
+  {{- with .Values.resources.service }}
+  type: {{ default "ClusterIP" .type }}
+  {{- if eq .type "LoadBalancer" }}
+  loadBalancerIP: {{ .loadBalancerIP | default "" | quote }}
+  {{- end }}
+  {{- if and (eq .type "LoadBalancer") .loadBalancerSourceRanges }}
+  loadBalancerSourceRanges: {{ .loadBalancerSourceRanges | toYaml | nindent 4 }}
+  {{- end }}
+  {{- if (or (eq .type "LoadBalancer") (eq .type "NodePort")) }}
+  externalTrafficPolicy: {{ .externalTrafficPolicy | quote }}
+  {{- end }}
   selector:
     app: {{ template "imgproxy.fullname" $ }}
   ports:
@@ -15,10 +26,10 @@ spec:
     port: 80
     protocol: TCP
     targetPort: 8080
+  {{- end }}
   {{- if .Values.features.prometheus.enabled }}
   - name: metrics
     port: 8081
     protocol: TCP
     targetPort: 8081
   {{- end }}
-  type: {{ default "ClusterIP" .Values.resources.service.type }}
