@@ -3,6 +3,7 @@
 * (New) add custom labels to pods
 * (New) support for custom env variables
 * (New) support for external load balancer
+* (New) support for ingress in k8s v1.22+
 
 ## 0.7.1 (2021-05-28)
 
