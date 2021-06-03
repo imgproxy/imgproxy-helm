@@ -89,3 +89,8 @@ spec:
             successThreshold: {{ .successThreshold | default 1 }}
             failureThreshold: {{ .failureThreshold | default 5 }}
             {{- end }}
+      {{- with .Values.resources.deployment.priority }}
+      {{- if (.level | or .name | and ($.Capabilities.APIVersions.Has "scheduling.k8s.io/v1")) }}
+      priorityClassName: {{ default (include "imgproxy.fullname" $ | printf "%s-priority") .name }}
+      {{- end }}
+      {{- end }}

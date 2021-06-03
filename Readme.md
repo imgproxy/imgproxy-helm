@@ -300,7 +300,10 @@ Deployment specific options.
 |**resources.deployment.readinessProbe**|Timeouts and counters for the readiness probe||
 |**resources.deployment.livenessProbe**|Timeouts and counters for the liveness probe||
 |**resources.deployment.nodeSelector**|A node selector labels||
-|**resources.podDisruptionBudget.enabled**|Enable or disable a disruprion budget policy|`false`|
+|**resources.deployment.priority.name**|The name of the priority class||
+|**resources.deployment.priority.level**|The level of the pod priority|`0`|
+|**resources.deployment.priority.preempting**|If the pod should be preempting (k8s v1.19+)|`true`|
+|**resources.podDisruptionBudget.enabled**|Enable or disable a disruption budget policy|`false`|
 |**resources.podDisruptionBudget.maxUnavailable**|maxUnavailable option for the PodDisruptionBudget|`0`|
 |**resources.podDisruptionBudget.minAvailable**|minAvailable option for the PodDisruptionBudget|`0`|
 |**resources.deployment.replicaCount**|How many pods with imgproxy should be running simultaneously|`1`|

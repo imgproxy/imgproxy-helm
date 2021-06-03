@@ -14,6 +14,25 @@ image:
 resources:
 
   deployment:
+    # https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority
+    priority:
+
+      # The name of the priority class to be used in both pod.PriorityClassName
+      # and the PriorityClass (when a level is above 0).
+      # When a level is not set, or set to 0 (default), then the definition
+      # of the corresponding PriorityClass is up to the user.
+      # You can use system names like `set-cluster-critical` and `set-node-critical` as well,
+      # in this case the class won't be created and level is ignored.
+      name: ""
+
+      # If the level is above 0, then a correspoding PriorityClass will be created
+      # and assigned to the pod by the `PriorityClassName`
+      level: 0
+
+      # This setting is supported in K8s v1.19+, otherwise it will be ignored
+      # https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/#non-preempting-priority-class
+      preempting: true
+
     annotations: {}
 
     # How many instances of imgproxy you desire to spin up.

@@ -1,0 +1,21 @@
+{{- if $.Capabilities.APIVersions.Has "scheduling.k8s.io/v1" }}
+{{- with .Values.resources.deployment.priority }}
+{{- $name := default (include "imgproxy.fullname" $ | printf "%s-priority") .name }}
+{{- $systemNames := (list "set-cluster-critical" "set-node-critical") }}
+{{- if ($systemNames | has $name | not) }}
+{{- if .level }}
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: {{ $name }}
+value: {{ (.level | max 0 | min 1000000000) }}
+globalDefault: false
+description: "This priority class should be used for '{{ template "imgproxy.fullname" $ }}' pods only."
+{{- if ($.Capabilities.KubeVersion.GitVersion | semverCompare ">= 1.19" | and (not .preempting)) }}
+preemptionPolicy: Never
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
