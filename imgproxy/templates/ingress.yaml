@@ -46,7 +46,7 @@ spec:
           {{- $path := default "/" $.Values.features.server.pathPrefix }}
           {{- if eq $apiVersion "networking.k8s.io/v1" }}
           - path: {{ $path | quote }}
-            pathType: Exact
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ $name | quote }}
