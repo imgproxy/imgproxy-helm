@@ -1,4 +1,4 @@
-## 0.7.2 (to be released)
+## 0.7.2 (2021-06-04)
 
 * (New) add custom labels to pods
 * (New) support for custom env variables
