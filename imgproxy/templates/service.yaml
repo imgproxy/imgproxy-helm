@@ -1,24 +1,39 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "imgproxy.fullname" $ }}
+  name: "{{ template "imgproxy.fullname" $ }}"
   labels:
     heritage: {{ .Release.Service | quote }}
     release: {{ .Release.Name | quote }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     app: {{ .Release.Name | quote }}
+{{- with .Values.resources.service }}
 spec:
-  selector:
-    app: {{ template "imgproxy.fullname" $ }}
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: 8080
-  {{- if .Values.features.prometheus.enabled }}
-  - name: metrics
-    port: 8081
-    protocol: TCP
-    targetPort: 8081
+  type: {{ .type | default "ClusterIP" | quote }}
+  {{- if eq .type "LoadBalancer" }}
+  loadBalancerIP: {{ .loadBalancerIP | default "" | quote }}
+  {{- if .loadBalancerSourceRanges }}
+  loadBalancerSourceRanges: {{ .loadBalancerSourceRanges | toYaml | nindent 4 }}
   {{- end }}
-  type: {{ default "ClusterIP" .Values.resources.service.type }}
+  {{- if .externalTrafficPolicy }}
+  externalTrafficPolicy: {{ .externalTrafficPolicy | quote }}
+  {{- end }}
+  {{- else if eq .type "NodePort" }}
+  {{- if .externalTrafficPolicy }}
+  externalTrafficPolicy: {{ .externalTrafficPolicy | quote }}
+  {{- end }}
+  {{- end }}
+  selector:
+    app: "{{ template "imgproxy.fullname" $ }}"
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+    {{- if $.Values.features.prometheus.enabled }}
+    - name: metrics
+      port: 8081
+      protocol: TCP
+      targetPort: 8081
+    {{- end }}
+{{- end }}

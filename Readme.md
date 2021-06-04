@@ -296,10 +296,14 @@ Deployment specific options.
 |**resources.deployment.affinity**|Node and inter-pod affinity configuration||
 |**resources.deployment.annotations**|Custom annotations for imgproxy deployment|`{}`|
 |**resources.pod.annotations**|Custom annotations for imgproxy pod|`{}`|
+|**resources.pod.labels**|Custom labels for imgproxy pods|`{}`|
 |**resources.deployment.readinessProbe**|Timeouts and counters for the readiness probe||
 |**resources.deployment.livenessProbe**|Timeouts and counters for the liveness probe||
 |**resources.deployment.nodeSelector**|A node selector labels||
-|**resources.podDisruptionBudget.enabled**|Enable or disable a disruprion budget policy|`false`|
+|**resources.deployment.priority.name**|The name of the priority class||
+|**resources.deployment.priority.level**|The level of the pod priority|`0`|
+|**resources.deployment.priority.preempting**|If the pod should be preempting (k8s v1.19+)|`true`|
+|**resources.podDisruptionBudget.enabled**|Enable or disable a disruption budget policy|`false`|
 |**resources.podDisruptionBudget.maxUnavailable**|maxUnavailable option for the PodDisruptionBudget|`0`|
 |**resources.podDisruptionBudget.minAvailable**|minAvailable option for the PodDisruptionBudget|`0`|
 |**resources.deployment.replicaCount**|How many pods with imgproxy should be running simultaneously|`1`|
@@ -307,6 +311,9 @@ Deployment specific options.
 |**resources.deployment.tolerations**|Tolerations for Kubernetes taints||
 |**resources.serviceAccount.annotations**|Annotations for the Kubernetes service account for imgproxy|``|
 |**resources.service.type**|Kubernetes service type for imgproxy|`ClusterIP`|
+|**resources.service.loadBalancerIP**|Load balancer ip for service type "LoadBalancer"|''|
+|**resources.service.loadBalancerSourceRanges**| Load balancer source ranges for service type "LoadBalancer"|`[]|
+|**resources.service.externalTrafficPolicy**| Enable client source IP preservation |`Cluster`|
 
 ### Ingress configuration
 
@@ -344,3 +351,17 @@ See `values.yaml` for some more Kubernetes-specific configuration options.
 |-----|-----------|-------|
 |**nameOverride**|String to partially override imgproxy.fullname template with a string (will be appended to the release name)|`nil`|
 |**fullnameOverride**|String to fully override imgproxy.fullname template with a string (will be used as pod name prefix instead of release name)|`nil`|
+
+You can also add custom env variables for the latest version of imgproxy:
+
+```yaml
+# values.yml
+---
+# ...
+features:
+  # ...
+  custom:
+    FOO: bar
+```
+
+Notice, that all custom env variables are sent through the secret (encoded to base64 under the hood).

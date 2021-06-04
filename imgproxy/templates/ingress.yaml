@@ -1,10 +1,19 @@
-{{- with .Values.resources.ingress -}}
-{{- if .enabled -}}
-{{- if semverCompare ">=1.14-0" $.Capabilities.KubeVersion.GitVersion -}}
-apiVersion: networking.k8s.io/v1beta1
+{{/* Current apiVersion of ingress */}}
+{{- $apiVersion := "" }}
+{{- $gitVersion := $.Capabilities.KubeVersion.GitVersion -}}
+{{- $apiVersions := $.Capabilities.APIVersions -}}
+{{- if and ($apiVersions.Has "networking.k8s.io/v1") (semverCompare ">= 1.19.x" $gitVersion) -}}
+{{- $apiVersion := "networking.k8s.io/v1" -}}
+{{- else if and ($apiVersions.Has "networking.k8s.io/v1beta1") (semverCompare ">=1.14-0" $gitVersion) -}}
+{{- $apiVersion := "networking.k8s.io/v1beta1" -}}
 {{- else -}}
-apiVersion: extensions/v1beta1
-{{- end }}
+{{- $apiVersion := "extensions/v1beta1" -}}
+{{- end -}}
+
+{{/* Resource definition */}}
+{{- with .Values.resources.ingress }}
+{{- if .enabled }}
+apiVersion: {{ $apiVersion }}
 kind: Ingress
 metadata:
   name: {{ template "imgproxy.fullname" $ }}
@@ -33,10 +42,22 @@ spec:
     - host: {{ . | quote }}
       http:
         paths:
-          - path: {{ default "/" $.Values.features.server.pathPrefix | quote}}
+          {{- $name := include "imgproxy.fullname" $ }}
+          {{- $path := default "/" $.Values.features.server.pathPrefix }}
+          {{- if eq $apiVersion "networking.k8s.io/v1" }}
+          - path: {{ $path | quote }}
+            pathType: ImplementationSpecific
             backend:
-              serviceName: {{ template "imgproxy.fullname" $ }}
+              service:
+                name: {{ $name | quote }}
+                port:
+                  number: 80
+          {{- else }}
+          - path: {{ $path | quote }}
+            backend:
+              serviceName: {{ $name | quote }}
               servicePort: 80
+          {{- end }}
 {{- end }}
 {{- end }}
-{{- end -}}
+{{- end }}

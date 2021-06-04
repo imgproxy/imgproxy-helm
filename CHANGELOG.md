@@ -1,3 +1,11 @@
+## 0.7.2 (to be released)
+
+* (New) add custom labels to pods
+* (New) support for custom env variables
+* (New) support for external load balancer
+* (New) support for ingress in k8s v1.22+
+* (New) add priority class and level to pods
+
 ## 0.7.1 (2021-05-28)
 
 * (Fix) .Values.image updated in `values.yaml`

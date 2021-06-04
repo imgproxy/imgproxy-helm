@@ -15,10 +15,18 @@ spec:
       app: {{ template "imgproxy.fullname" $ }}
   template:
     metadata:
+      {{- with .Values.resources.pod }}
       labels:
         app: {{ template "imgproxy.fullname" $ }}
-        release: {{ .Release.Name | quote }}
-      annotations: {{ .Values.resources.pod.annotations | toYaml | nindent 8 }}
+        release: {{ $.Release.Name | quote }}
+        {{- if .labels }}
+        {{- .labels | toYaml | nindent 8 }}
+        {{- end }}
+      {{- if .annotations }}
+      annotations:
+        {{- .annotations | toYaml | nindent 8 }}
+      {{- end }}
+      {{- end }}
     spec:
       affinity: {{ .Values.resources.deployment.affinity | toYaml | nindent 8 }}
       tolerations: {{ .Values.resources.deployment.tolerations | toYaml | nindent 8 }}
@@ -81,3 +89,8 @@ spec:
             successThreshold: {{ .successThreshold | default 1 }}
             failureThreshold: {{ .failureThreshold | default 5 }}
             {{- end }}
+      {{- with .Values.resources.deployment.priority }}
+      {{- if (.level | or .name | and ($.Capabilities.APIVersions.Has "scheduling.k8s.io/v1")) }}
+      priorityClassName: {{ default (include "imgproxy.fullname" $ | printf "%s-priority") .name }}
+      {{- end }}
+      {{- end }}
