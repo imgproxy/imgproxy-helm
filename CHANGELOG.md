@@ -1,3 +1,7 @@
+## 0.7.3 (2021-06-10)
+
+* (Fix) apiVersion checkup in ingress config
+
 ## 0.7.2 (2021-06-04)
 
 * (New) add custom labels to pods
