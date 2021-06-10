@@ -1,13 +1,11 @@
 {{/* Current apiVersion of ingress */}}
-{{- $apiVersion := "" }}
+{{- $apiVersion := "extensions/v1beta1" }}
 {{- $gitVersion := $.Capabilities.KubeVersion.GitVersion -}}
 {{- $apiVersions := $.Capabilities.APIVersions -}}
-{{- if and ($apiVersions.Has "networking.k8s.io/v1") (semverCompare ">= 1.19.x" $gitVersion) -}}
+{{- if and ($apiVersions.Has "networking.k8s.io/v1") (semverCompare ">= 1.19" $gitVersion) -}}
 {{- $apiVersion := "networking.k8s.io/v1" -}}
 {{- else if and ($apiVersions.Has "networking.k8s.io/v1beta1") (semverCompare ">=1.14-0" $gitVersion) -}}
 {{- $apiVersion := "networking.k8s.io/v1beta1" -}}
-{{- else -}}
-{{- $apiVersion := "extensions/v1beta1" -}}
 {{- end -}}
 
 {{/* Resource definition */}}
