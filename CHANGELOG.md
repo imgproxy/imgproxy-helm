@@ -1,3 +1,7 @@
+## 0.7.4 (2021-06-17)
+
+* (Fix) prometheus bind port
+
 ## 0.7.3 (2021-06-10)
 
 * (Fix) apiVersion checkup in ingress config
