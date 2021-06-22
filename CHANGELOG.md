@@ -1,3 +1,7 @@
+## 0.7.5 (2021-06-22)
+
+* (Fix) versioning of k8s resources
+
 ## 0.7.4 (2021-06-17)
 
 * (Fix) prometheus bind port
