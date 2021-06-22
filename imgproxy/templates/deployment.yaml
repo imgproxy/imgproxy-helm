@@ -1,3 +1,6 @@
+{{- $priorityClassName := include "imgproxy.resources.priorityClassName" . }}
+{{- $priorityClassVersion := include "imgproxy.versions.priorityClass" . }}
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -89,8 +92,6 @@ spec:
             successThreshold: {{ .successThreshold | default 1 }}
             failureThreshold: {{ .failureThreshold | default 5 }}
             {{- end }}
-      {{- with .Values.resources.deployment.priority }}
-      {{- if (.level | or .name | and ($.Capabilities.APIVersions.Has "scheduling.k8s.io/v1")) }}
-      priorityClassName: {{ default (include "imgproxy.fullname" $ | printf "%s-priority") .name }}
-      {{- end }}
+      {{- if ($priorityClassName | and $priorityClassVersion) }}
+      priorityClassName: {{ $priorityClassName | quote }}
       {{- end }}

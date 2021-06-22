@@ -1,15 +1,6 @@
-{{/* Current apiVersion of ingress */}}
-{{- $apiVersion := "extensions/v1beta1" }}
-{{- $apiVersions := $.Capabilities.APIVersions -}}
-{{- if $apiVersions.Has "networking.k8s.io/v1" -}}
-{{- $apiVersion = "networking.k8s.io/v1" -}}
-{{- else if $apiVersions.Has "networking.k8s.io/v1beta1" -}}
-{{- $apiVersion = "networking.k8s.io/v1beta1" -}}
-{{- end -}}
-
-{{/* Resource definition */}}
+{{- $apiVersion := include "imgproxy.versions.ingress" . }}
 {{- with .Values.resources.ingress }}
-{{- if .enabled }}
+{{- if (.enabled | and $apiVersion) }}
 apiVersion: {{ $apiVersion }}
 kind: Ingress
 metadata:

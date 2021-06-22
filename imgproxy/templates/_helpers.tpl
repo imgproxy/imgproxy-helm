@@ -50,3 +50,28 @@ https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.ht
 {{- printf "eks.amazonaws.com/role-arn: %s" (quote $value) }}
 {{- end }}
 {{- end -}}
+
+{{/* Name of the priority class */}}
+{{- define "imgproxy.resources.priorityClassName" }}
+    {{- with .Values.resources.deployment.priority }}
+       {{- $systemNames := list "set-cluster-critical" "set-node-critical" }}
+       {{- if (include "imgproxy.versions.priorityClass" $) }}
+            {{- $defaultName := (include "imgproxy.fullname" $ | printf "%s-priority") }}
+            {{- $name := default $defaultName .name }}
+            {{- if (has $name $systemNames | or .level) }}
+                {{- $name }}
+            {{- end }}
+       {{- end }}
+    {{- end }}
+{{- end -}}
+
+{{/* Check if the priority class should be build */}}
+{{- define "imgproxy.resources.explicitPriorityClassName" }}
+    {{- with .Values.resources.deployment.priority }}
+        {{- $systemNames := list "set-cluster-critical" "set-node-critical" }}
+        {{- $name := include "imgproxy.resources.priorityClassName" $ }}
+        {{- if ($name | and (not (has $name $systemNames))) }}
+            {{- $name }}
+        {{- end }}
+    {{- end }}
+{{- end -}}
