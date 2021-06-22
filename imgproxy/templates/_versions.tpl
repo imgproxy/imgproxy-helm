@@ -6,9 +6,9 @@
     {{- $kubeVersion := $.Capabilities.KubeVersion.Version }}
     {{- $apiVersions := $.Capabilities.APIVersions }}
 
-    {{- if ($kubeVersion | semverCompare "<1.14" | and ($apiVersions.Has "extensions/v1beta1")) -}}
+    {{- if ($kubeVersion | semverCompare "<1.14.0-0" | and ($apiVersions.Has "extensions/v1beta1")) -}}
         {{- "extensions/v1beta1" -}}
-    {{- else if ($kubeVersion | semverCompare "<1.20" | and ($apiVersions.Has "networking.k8s.io/v1beta1")) -}}
+    {{- else if ($kubeVersion | semverCompare "<1.20.0-0" | and ($apiVersions.Has "networking.k8s.io/v1beta1")) -}}
         {{- "networking.k8s.io/v1beta1" -}}
     {{- else if $apiVersions.Has "networking.k8s.io/v1" -}}
         {{- "networking.k8s.io/v1" -}}
@@ -20,7 +20,7 @@
     {{- $kubeVersion := $.Capabilities.KubeVersion.Version }}
     {{- $apiVersions := $.Capabilities.APIVersions }}
 
-    {{- if ($kubeVersion | semverCompare "<1.14" | and ($apiVersions.Has "scheduling.k8s.io/v1beta1")) -}}
+    {{- if ($kubeVersion | semverCompare "<1.14.0-0" | and ($apiVersions.Has "scheduling.k8s.io/v1beta1")) -}}
         {{- "scheduling.k8s.io/v1beta1" -}}
     {{- else if $apiVersions.Has "scheduling.k8s.io/v1" }}
         {{- "scheduling.k8s.io/v1" -}}
@@ -29,5 +29,5 @@
 
 {{/* Check if preemption policy is supported for PriorityClass. */}}
 {{- define "imgproxy.versions.features.priorityClassPreemptionPolicy" -}}
-    {{- $.Capabilities.KubeVersion.Version | semverCompare ">= 1.19" }}
+    {{- $.Capabilities.KubeVersion.Version | semverCompare ">= 1.19.0-0" }}
 {{- end }}

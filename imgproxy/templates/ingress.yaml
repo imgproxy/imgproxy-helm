@@ -1,6 +1,7 @@
 {{- $apiVersion := include "imgproxy.versions.ingress" . }}
 {{- with .Values.resources.ingress }}
 {{- if (.enabled | and $apiVersion) }}
+---
 apiVersion: {{ $apiVersion }}
 kind: Ingress
 metadata:
