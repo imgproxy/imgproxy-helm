@@ -6,12 +6,16 @@
     {{- $kubeVersion := $.Capabilities.KubeVersion.Version }}
     {{- $apiVersions := $.Capabilities.APIVersions }}
 
-    {{- if ($kubeVersion | semverCompare "<1.14.0-0" | and ($apiVersions.Has "extensions/v1beta1")) -}}
-        {{- "extensions/v1beta1" -}}
-    {{- else if ($kubeVersion | semverCompare "<1.20.0-0" | and ($apiVersions.Has "networking.k8s.io/v1beta1")) -}}
-        {{- "networking.k8s.io/v1beta1" -}}
-    {{- else if $apiVersions.Has "networking.k8s.io/v1" -}}
+    {{- if ($kubeVersion | semverCompare ">=1.22.0-0") -}}
+        {{- if $apiVersions.Has "networking.k8s.io/v1" -}}
+            {{- "networking.k8s.io/v1" -}}
+        {{- end -}}
+    {{- else if ($kubeVersion | semverCompare ">=1.19.0-0" | and ($apiVersions.Has "networking.k8s.io/v1")) -}}
         {{- "networking.k8s.io/v1" -}}
+    {{- else if ($kubeVersion | semverCompare ">=1.14.0-0" | and ($apiVersions.Has "networking.k8s.io/v1beta1")) -}}
+        {{- "networking.k8s.io/v1beta1" -}}
+    {{- else if $apiVersions.Has "extensions/v1beta1" -}}
+        {{- "extensions/v1beta1" -}}
     {{- end -}}
 {{- end -}}
 
