@@ -256,8 +256,8 @@ The above command installs a specified version of imgproxy.
 
 |Value|Description|Default|
 |-----|-----------|-------|
-|**features.logging.logFormat**|the log format. The following formats are supported: ['pretty', 'structured', 'json']|`pretty`|
-|**features.logging.logLevel**|the log level. The following levels are supported error, warn, info and debug|`info`|
+|**features.logging.format**|the log format. The following formats are supported: ['pretty', 'structured', 'json']|`pretty`|
+|**features.logging.level**|the log level. The following levels are supported error, warn, info and debug|`info`|
 |**features.logging.syslog.enabled**|when true, enables sending logs to syslog|`false`|
 |**features.logging.syslog.level**|maximum log level to send to syslog. Known levels are: crit, error, warning and info|`info`|
 |**features.logging.syslog.network**|network that will be used to connect to syslog. When blank, the local syslog server will be used. Known networks are tcp, tcp4, tcp6, udp, udp4, udp6, ip, ip4, ip6, unix, unixgram and unixpacket||

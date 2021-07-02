@@ -1,6 +1,7 @@
 ## to be released
 
 * (Fix) versioning of Ingress for k8s 1.19+
+* (Fix) docs
 
 ## 0.7.5 (2021-06-22)
 
