@@ -323,7 +323,7 @@ Deployment specific options.
 |**resources.ingress.annotations**|Additional annotations for the ingress resource||
 |**resources.ingress.enabled**|When true, enables ingress resource for imgproxy|`false`|
 |**resources.ingress.health.whitelist**|Comma separated string of CIDR addresses that are allowed to access `/health` url of imgproxy||
-|**resources.ingress.host**|Hostname for the ingress resource to use|`example.com`|
+|**resources.ingress.hosts**|Hostnames for the ingress resource to use|`["example.com"]`|
 |**resources.ingress.tls.crt**|Certificate file for the ingress tls secret||
 |**resources.ingress.tls.enabled**|When true, enables tls support in the ingress resource|`false`|
 |**resources.ingress.tls.key**|Key file for the ingress tls secret||
