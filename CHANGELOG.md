@@ -1,3 +1,7 @@
+## 0.7.7 (2021-07-08)
+
+* Add the chart-specific opinionated label `imgproxy: true` to all resources.
+
 ## 0.7.6 (2021-07-02)
 
 * (Fix) versioning of Ingress for k8s 1.19+
