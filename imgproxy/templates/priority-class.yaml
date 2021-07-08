@@ -7,6 +7,8 @@ apiVersion: {{ include "imgproxy.versions.priorityClass" $ | quote }}
 kind: PriorityClass
 metadata:
   name: "{{ $name }}"
+  labels:
+    imgproxy: "true"
 value: {{ (.level | max 0 | min 1000000000) }}
 globalDefault: false
 description: "This priority class should be used for '{{ template "imgproxy.fullname" $ }}' pods only."

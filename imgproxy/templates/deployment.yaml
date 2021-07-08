@@ -21,6 +21,7 @@ spec:
       {{- with .Values.resources.pod }}
       labels:
         app: {{ template "imgproxy.fullname" $ }}
+        imgproxy: "true"
         release: {{ $.Release.Name | quote }}
         {{- if .labels }}
         {{- .labels | toYaml | nindent 8 }}

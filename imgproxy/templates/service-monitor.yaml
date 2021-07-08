@@ -8,6 +8,7 @@ metadata:
   namespace: {{ .namespace }}
   {{- end }}
   labels:
+    imgproxy: "true"
     {{- range $key, $value := .selector }}
     {{ $key }}: {{ $value | quote }}
     {{- end }}
@@ -24,6 +25,7 @@ spec:
   selector:
     matchLabels:
       app: {{ $.Release.Name | quote }}
+      imgproxy: "true"
   {{- if .targetLabels }}
   targetLabels:
   {{- range $label := .targetLabels }}
