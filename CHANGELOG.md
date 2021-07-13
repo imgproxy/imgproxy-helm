@@ -1,3 +1,7 @@
+## 0.7.8 (2021-07-13)
+
+* Support a whitelist of ip-addresses for a health probe.
+
 ## 0.7.7 (2021-07-08)
 
 * Add the chart-specific opinionated label `imgproxy: true` to all resources.
