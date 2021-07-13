@@ -87,6 +87,8 @@ resources:
 
   ingress:
     enabled: false
+    health:
+      whitelist: # 127.0.0.1/32
     annotations: {}
     #   kubernetes.io/ingress.class: nginx
     #   kubernetes.io/tls-acme: "true"
