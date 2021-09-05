@@ -1,3 +1,8 @@
+## 0.7.9 (2021-09-05)
+
+* Fix README concerning the `urlSignature.enabled` default value.
+* Update app version to `2.16.6`.
+
 ## 0.7.8 (2021-07-13)
 
 * Support a whitelist of ip-addresses for a health probe.

@@ -77,7 +77,7 @@ The above command installs a specified version of imgproxy.
 
 |Value|Description|Default|
 |-----|-----------|-------|
-|**features.urlSignature.enabled**|enable URL encoding|`false`|
+|**features.urlSignature.enabled**|enable URL encoding|`true`|
 |**features.urlSignature.key**|hex-encoded key for URL encoding|**CHANGE IT!!!**|
 |**features.urlSignature.salt**|hex-encoded salt for URL encoding|**CHANGE IT!!!**|
 |**features.urlSignature.signatureSize**|number of bytes to use for signature before encoding to Base64|`32`|
