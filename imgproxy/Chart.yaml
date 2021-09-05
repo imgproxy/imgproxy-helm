@@ -5,16 +5,40 @@ icon: https://cdn.rawgit.com/imgproxy/imgproxy/master/logo.svg
 version: 0.8.0
 appVersion: 2.17.0
 keywords:
-- imgproxy
-- image
-- processing
+  - imgproxy
+  - image
+  - processing
 home: https://github.com/imgproxy/imgproxy
 sources:
-- https://github.com/imgproxy/imgproxy
+  - https://github.com/imgproxy/imgproxy
 maintainers:
-- name: darthsim
-  email: darthsim@evilmartians.com
-- name: dragonsmith
-  email: agon.smith@gmail.com
-- name: nepalez
-  email: nepalez@evilmartians.com
+  - name: darthsim
+    email: darthsim@evilmartians.com
+  - name: dragonsmith
+    email: agon.smith@gmail.com
+  - name: nepalez
+    email: nepalez@evilmartians.com
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: Support for the ArtifactHub
+  artifacthub.io/containsSecurityUpdates: "false"
+  artifacthub.io/images: |
+    - name: impgroxy
+      image: darthsim/imgproxy:v2.16.6
+  artifacthub.io/license: MIT-open-group
+  artifacthub.io/links: |
+    - name: imgproxy-helm chart on Github
+      url: https://github.com/imgproxy/imgproxy-helm
+    - name: the source code of imgproxy on Github
+      url: https://github.com/imgproxy/imgproxy
+    - name: the project documentation
+      url: https://imgproxy.net/
+  artifacthub.io/prerelease: "false"
+  artifacthub.io/maintainers: |
+    - name: darthsim
+      email: darthsim@evilmartians.com
+    - name: dragonsmith
+      email: agon.smith@gmail.com
+    - name: nepalez
+      email: nepalez@evilmartians.com
