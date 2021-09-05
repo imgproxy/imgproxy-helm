@@ -3,7 +3,7 @@ description: A fast and secure standalone server for resizing and converting rem
 name: imgproxy
 icon: https://cdn.rawgit.com/imgproxy/imgproxy/master/logo.svg
 version: 0.7.8
-appVersion: 2.15.0
+appVersion: 2.16.6
 keywords:
 - imgproxy
 - image
