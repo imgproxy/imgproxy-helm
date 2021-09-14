@@ -1,5 +1,6 @@
 {{- $priorityClassName := include "imgproxy.resources.priorityClassName" . }}
 {{- $priorityClassVersion := include "imgproxy.versions.priorityClass" . }}
+{{- $checksumEnv := include (print $.Template.BasePath "/env-secret.yaml") . | sha256sum -}}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -18,7 +19,6 @@ spec:
       app: {{ template "imgproxy.fullname" $ }}
   template:
     metadata:
-      {{- $checksumEnv := include (print $.Template.BasePath "/env-secret.yaml") . | sha256sum -}}
       {{- with .Values.resources.pod }}
       labels:
         app: {{ template "imgproxy.fullname" $ }}
@@ -29,9 +29,9 @@ spec:
         {{- end }}
       annotations:
         checksum/env: {{ $checksumEnv }}
-      {{- if .annotations }}
+        {{- if .annotations }}
         {{- .annotations | toYaml | nindent 8 }}
-      {{- end }}
+        {{- end }}
       {{- end }}
     spec:
       affinity: {{ .Values.resources.deployment.affinity | toYaml | nindent 8 }}

@@ -1,3 +1,7 @@
+## 0.8.0 (to be released)
+
+* Add checksum/env annotation to deployment to enable redeploy after changing secrets.
+
 ## 0.7.9 (2021-09-05)
 
 * Fix README concerning the `urlSignature.enabled` default value.
