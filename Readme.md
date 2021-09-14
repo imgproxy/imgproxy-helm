@@ -219,7 +219,7 @@ The above command installs a specified version of imgproxy.
 |**features.gcs.enabled**|When true, enables image fetching from Google Cloud Storage|`false`|
 |**features.gcs.jsonKey**|Google Cloud JSON key. When set, enables image fetching from Google Cloud Storage buckets||
 
-### MS Azure Blob Storate support
+### MS Azure Blob Storage support
 
 |Value|Description|Default|
 |-----|-----------|-------|
