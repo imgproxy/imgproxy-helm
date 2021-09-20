@@ -5,7 +5,7 @@ metadata:
   labels:
     heritage: {{ .Release.Service | quote }}
     release: {{ .Release.Name | quote }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    chart: {{ template "imgproxy.chart" $ }}
     app: {{ .Release.Name | quote }}
     imgproxy: "true"
 {{- with .Values.resources.service }}

@@ -8,7 +8,7 @@ metadata:
   name: {{ template "imgproxy.fullname" $ }}
   labels:
     app: {{ template "imgproxy.fullname" $ }}
-    chart: "{{ $.Chart.Name }}-{{ $.Chart.Version }}"
+    chart: {{ template "imgproxy.chart" $ }}
     release: "{{ $.Release.Name }}"
     heritage: "{{ $.Release.Service }}"
     imgproxy: "true"
