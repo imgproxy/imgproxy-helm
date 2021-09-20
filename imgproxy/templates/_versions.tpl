@@ -31,6 +31,20 @@
     {{- end -}}
 {{- end -}}
 
+{{/* API version of HorizontalPodAutoscaler. */}}
+{{- define "imgproxy.versions.horizontalPodAutoscaler" -}}
+    {{- $kubeVersion := $.Capabilities.KubeVersion.Version }}
+    {{- $apiVersions := $.Capabilities.APIVersions }}
+
+    {{- if $kubeVersion | semverCompare ">=1.19.0-0" -}}
+        {{- "autoscaling/v2beta2" -}}
+    {{- else if $kubeVersion | semverCompare ">=1.12.0-0" | and ($apiVersions.Has "autoscaling/v2beta2") -}}
+        {{- "autoscaling/v2beta2" -}}
+    {{- else if $apiVersions.Has "autoscaling/v2beta1" }}
+        {{- "autoscaling/v2beta1" -}}
+    {{- end -}}
+{{- end -}}
+
 {{/* Check if preemption policy is supported for PriorityClass. */}}
 {{- define "imgproxy.versions.features.priorityClassPreemptionPolicy" -}}
     {{- $.Capabilities.KubeVersion.Version | semverCompare ">= 1.19.0-0" }}

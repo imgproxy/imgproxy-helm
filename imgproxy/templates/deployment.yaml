@@ -13,7 +13,7 @@ metadata:
     app: {{ template "imgproxy.fullname" $ }}
   annotations: {{ .Values.resources.deployment.annotations | toYaml | nindent 4 }}
 spec:
-  replicas: {{ .Values.resources.deployment.replicaCount }}
+  replicas: {{ (.Values.resources.deployment.replicas | default dict).minCount | default 1 | int }}
   selector:
     matchLabels:
       app: {{ template "imgproxy.fullname" $ }}

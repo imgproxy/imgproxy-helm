@@ -1,0 +1,37 @@
+{{- $apiVersion := include "imgproxy.versions.horizontalPodAutoscaler" $ }}
+{{- with .Values.resources.deployment.replicas | default dict -}}
+{{- $minCount := .minCount | default 1 | int }}
+{{- $maxCount := .maxCount | default $minCount | int }}
+{{- if gt $maxCount $minCount -}}
+---
+apiVersion: {{ $apiVersion }}
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ template "imgproxy.fullname" $ }}-autoscaling
+  labels:
+    heritage: {{ $.Release.Service | quote }}
+    release: {{ $.Release.Name | quote }}
+    chart: {{ template "imgproxy.chart" $ }}
+    app: {{ template "imgproxy.fullname" $ }}
+spec:
+  minReplicas: {{ $minCount }}
+  maxReplicas: {{ $maxCount }}
+  scaleTargetRef:
+    kind: Deployment
+    name: {{ template "imgproxy.fullname" $ }}
+    apiVersion: apps/v1
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: {{ .stabilizationInterval | default 300 | max 0 | min 3600 }}
+    scaleUp:
+      stabilizationWindowSeconds: {{ .stabilizationInterval | default 300 | max 0 | min 3600 }}
+  metrics:
+    - type: ContainerResource
+    - containerResource:
+        container: imgproxy
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .cpuUtilization | default 0.8 }}
+{{- end }}
+{{- end }}

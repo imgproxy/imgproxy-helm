@@ -3,6 +3,7 @@
 * Add checksum/env annotation to deployment to enable redeploy after changing secrets.
 * Support environment variables passed to the pods through custom secrets.
 * Support PVC for local files usage.
+* Support horizontal pod autoscaling based on average cpu utilization.
 
 ## 0.7.9 (2021-09-05)
 
