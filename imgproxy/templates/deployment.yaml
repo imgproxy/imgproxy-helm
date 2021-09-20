@@ -9,7 +9,7 @@ metadata:
   labels:
     heritage: {{ .Release.Service | quote }}
     release: {{ .Release.Name | quote }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    chart: {{ template "imgproxy.chart" $ }}
     app: {{ template "imgproxy.fullname" $ }}
   annotations: {{ .Values.resources.deployment.annotations | toYaml | nindent 4 }}
 spec:
