@@ -1,6 +1,7 @@
 ## 0.8.0 (to be released)
 
 * Add checksum/env annotation to deployment to enable redeploy after changing secrets.
+* Support environment variables passed to the pods through custom secrets.
 
 ## 0.7.9 (2021-09-05)
 
