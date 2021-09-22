@@ -51,6 +51,10 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ template "imgproxy.fullname" $ }}-env-secrets
+            {{- range $secretName := .Values.resources.addSecrets }}
+            - secretRef:
+                name: {{ $secretName }}
+            {{- end }}
           {{- if .Values.resources.deployment.resources }}
           resources: {{ .Values.resources.deployment.resources | toYaml | nindent 16 }}
           {{- end }}

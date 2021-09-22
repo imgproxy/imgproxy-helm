@@ -70,6 +70,20 @@ resources:
       successThreshold: 1
       failureThreshold: 5
 
+  # List names of the custom secrets with env variables to be added
+  # from the external resources (like Vault, AWS etc.)
+  #
+  # You're up to generating those secrets in any way, either manually
+  # or via some CRD like https://github.com/external-secrets/kubernetes-external-secrets
+  # We won't make any suggestions about the content of the secrets,
+  # it will be added to the imgproxy pods as a plain lists of environment variables.
+  # These variables would overload those passed through the secret provided by the chart.
+  #
+  # Example:
+  #   externalSecrets:
+  #     - my_manual_secret
+  addSecrets: []
+
   service:
     type: ClusterIP
     loadBalancerIP: ""
