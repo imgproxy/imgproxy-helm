@@ -75,3 +75,12 @@ https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.ht
         {{- end }}
     {{- end }}
 {{- end -}}
+
+{{/* Return name for persistent volume claim */}}
+{{- define "imgproxy.pvcName" -}}
+{{- if .Values.persistence.existingClaim }}
+{{- print .Values.persistence.existingClaim }}
+{{- else -}}
+{{- print .Values.persistence.name }}
+{{- end -}}
+{{- end -}}

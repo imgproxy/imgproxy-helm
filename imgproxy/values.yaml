@@ -120,6 +120,36 @@ resources:
     annotations: {}
     labels: {}
 
+# Configure persistence
+persistence:
+  # If persistence is enabled
+  enabled: false
+
+  # PVC name
+  name: "imgproxy-data"
+
+  # If existing claim should be used
+  existingClaim: ""
+
+  # Volume mount path in imgproxy deployment
+  mountPath: "/images"
+
+  # Persistent volume sub path
+  subPath: ""
+
+  # Access modes for PV
+  accessModes:
+    - ReadWriteOnce
+
+  # Storage size
+  size: 10Gi
+
+  # Storage Class for PVC
+  storageClass: ""
+
+  # Create new PV from data source
+  dataSource: ""
+
 # Configure imgproxy features
 # https://docs.imgproxy.net/#/configuration
 features:
