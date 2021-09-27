@@ -2,6 +2,7 @@
 
 * Add checksum/env annotation to deployment to enable redeploy after changing secrets.
 * Support environment variables passed to the pods through custom secrets.
+* Support PVC for local files usage.
 
 ## 0.7.9 (2021-09-05)
 

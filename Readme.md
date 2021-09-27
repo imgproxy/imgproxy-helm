@@ -344,6 +344,22 @@ Options to configure ServiceMonitor for Prometheus Operator.
 
 See `values.yaml` for some more Kubernetes-specific configuration options.
 
+### Persistence
+
+Options to mount a persistent volume.
+
+|Value|Description|Default|
+|-----|-----------|-------|
+|**persistence.enabled**|Enable persistence for deployment.|`false`|
+|**persistence.name**|Set name for persistent volume claim.|`imgproxy-data`|
+|**persistence.existingClaim**|Reference an existing PVC instead of creating a new one.|`""`|
+|**persistence.mountPath**|Mount path for PVC in the imgproxy pod.|`/images`|
+|**persistence.subPath**|Mount sub path of the persistent volume.|`""`|
+|**persistence.accessModes**|Access modes for the persistent volume.|`- ReadWriteOnce`|
+|**persistence.size**|Storage size of the PV.|`10Gi`|
+|**persistence.storageClass**|Set the storageClass for the persistent volume claim.|`""`|
+|**persistence.dataSource**|Create a PV from a data source (e.g. snapshot).|`""`|
+
 ### Other
 
 |Value|Description|Default|

@@ -44,6 +44,12 @@ spec:
       {{- if (include "serviceAccount.enabled" $) }}
       serviceAccountName: "{{ template "imgproxy.fullname" $ }}-service-account"
       {{- end }}
+      {{- if .Values.persistence.enabled }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "imgproxy.pvcName" . }}
+      {{- end }}
       containers:
         - name: "imgproxy"
           image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
@@ -57,6 +63,14 @@ spec:
             {{- end }}
           {{- if .Values.resources.deployment.resources }}
           resources: {{ .Values.resources.deployment.resources | toYaml | nindent 16 }}
+          {{- end }}
+          {{- if .Values.persistence.enabled }}
+          volumeMounts:
+            - name: data
+              mountPath: {{ .Values.persistence.mountPath }}
+              {{- if .Values.persistence.subPath }}
+              subPath: {{ .Values.persistence.subPath }}
+              {{- end }}
           {{- end }}
           ports:
             - containerPort: 8080
