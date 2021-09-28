@@ -1,9 +1,10 @@
-## 0.8.0 (to be released)
+## 0.8.0 (2021-09-28)
 
 * Add checksum/env annotation to deployment to enable redeploy after changing secrets.
 * Support environment variables passed to the pods through custom secrets.
 * Support PVC for local files usage.
 * Support horizontal pod autoscaling based on average cpu utilization.
+* Update app version to `2.17.0`.
 
 ### Deprecated values
 
