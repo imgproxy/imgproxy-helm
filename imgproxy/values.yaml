@@ -65,12 +65,12 @@ resources:
       # The setting is used if `minCount < maxCount` only (default 300).
       stabilizationInterval: 300
 
-      # The average % of CPU utilization by imgproxy containers.
+      # The average % of CPU utilization by imgproxy pod.
       # The value is relative to the requested CPU utilization
       # (resources.deployment.resources.requests.cpu).
       #
       # The setting MUST be set if `minCount < maxCount` only.
-      cpuUtilization: 0.8
+      cpuUtilization: 80
 
     # A node selector label.
     nodeSelector: {}
@@ -689,7 +689,7 @@ features:
     level: "info"
 
     # Enable Syslog integration
-    # 
+    #
     syslog:
 
       # ENV['IMGPROXY_SYSLOG_ENABLE']
