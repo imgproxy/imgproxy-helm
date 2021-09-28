@@ -26,9 +26,8 @@ spec:
     scaleUp:
       stabilizationWindowSeconds: {{ .stabilizationInterval | default 300 | max 0 | min 3600 }}
   metrics:
-    - type: ContainerResource
-    - containerResource:
-        container: imgproxy
+    - type: Resource
+      resource:
         name: cpu
         target:
           type: Utilization
