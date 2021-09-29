@@ -1,6 +1,7 @@
 ## 0.8.1 (2021-09-29)
 
-* Add annotations for ArtifactHub
+* Add annotations for ArtifactHub.
+* Fix average CPU utilization in horizontal pod autoscaler.
 
 ## 0.8.0 (2021-09-28)
 
