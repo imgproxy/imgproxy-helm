@@ -1,3 +1,7 @@
+## 0.8.1 (2021-09-29)
+
+* Add annotations for ArtifactHub
+
 ## 0.8.0 (2021-09-28)
 
 * Add checksum/env annotation to deployment to enable redeploy after changing secrets.
