@@ -33,7 +33,7 @@ spec:
       http:
         paths:
           {{- $name := include "imgproxy.fullname" $ }}
-          {{- $path := default "/" $.Values.features.server.pathPrefix }}
+          {{- $path := default "/" $.Values.resources.ingress.path }}
           {{- if eq $apiVersion "networking.k8s.io/v1" }}
           - path: {{ $path | quote }}
             pathType: ImplementationSpecific

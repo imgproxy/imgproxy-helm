@@ -1,3 +1,7 @@
+## 0.8.2 (2021-10-01)
+
+* Add `path` definition for ingress object to be able to not use `pathPrefix` environment variable.
+
 ## 0.8.1 (2021-09-29)
 
 * Add annotations for ArtifactHub.

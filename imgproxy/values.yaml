@@ -143,6 +143,7 @@ resources:
     hosts: []
     #   - example.com
     #   - www.example.com
+    path: "/"
     tls: []
     #   - secretName: example-com-tls
     #     hosts:
