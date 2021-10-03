@@ -58,11 +58,25 @@ resources:
       # Values less then `minCount` are ignored!
       maxCount: 1
 
+      # The number of pods to be added or removed (1 by default).
+      #
+      # The setting is used if `minCount < maxCount` only.
+      stepCount: 1
+
+      # The period (1 - 1800 seconds) during which the step is applied
+      # (60 seconds by default).
+      #
+      # For example, default settings (step: 1, period: 60) means
+      # that the scaling rate is no more than 1 pod a minute.
+      #
+      # The setting is used if `minCount < maxCount` only.
+      stepSeconds: 60
+
       # The number of seconds for which past recommendations
       # should be considered while scaling up or scaling down (0 - 3600).
       # The period will be the same for both up- and downscaling.
       #
-      # The setting is used if `minCount < maxCount` only (default 300).
+      # The setting is used if `minCount < maxCount` only (default 300 seconds).
       stabilizationInterval: 300
 
       # The average % of CPU utilization by imgproxy pod.

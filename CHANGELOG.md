@@ -1,3 +1,11 @@
+## 0.8.3 (2021-10-03)
+
+* Fix horizontal pod autoscaler by adding explicit policies.
+
+## 0.8.2 (2021-09-30)
+
+* Add Readme.
+
 ## 0.8.1 (2021-09-29)
 
 * Add annotations for ArtifactHub.
