@@ -1,6 +1,7 @@
 ## 0.8.4 (to be released)
 
 * Support imgproxy v3.0.0.beta1
+* Fix azure usage in secrets, use correct feature values
 
 ## 0.8.3 (2021-10-03)
 
