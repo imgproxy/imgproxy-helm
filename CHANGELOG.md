@@ -1,3 +1,7 @@
+## 0.9.0 (to be released)
+
+* Support imgproxy v3.0.0+
+
 ## 0.8.3 (2021-10-03)
 
 * Fix horizontal pod autoscaler by adding explicit policies.

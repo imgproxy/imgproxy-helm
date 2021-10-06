@@ -367,7 +367,7 @@ features:
     formatQuality: ""
 
     # ENV['IMGPROXY_GZIP_COMPRESSION']
-    # GZip compression level.
+    # GZip compression level (skipped in imgproxy v3.0.0+)
     gzipCompression: 5
 
     # ENV['IMGPROXY_JPEG_PROGRESSIVE']
@@ -428,6 +428,72 @@ features:
     # ENV['IMGPROXY_AVIF_SPEED']
     # controls the CPU effort spent improving compression. 0 slowest - 8 fastest.
     avifSpeed: 5
+
+  # PRO, v3+: calculate quality for your resulting images so they fit the selected metric the best.
+  # https://docs.imgproxy.net/autoquality?id=autoquality
+  autoquality:
+
+    # ENV['IMGPROXY_AUTOQUALITY_METHOD']
+    # Enabled values: none | size | dssim | ml
+    # Default: none
+    method: none
+
+    # ENV['IMGPROXY_AUTOQUALITY_TARGET']
+    # desired value of the autoquality method metric. Default: 0.02.
+    # MUST be positive unless the method is 'none'
+    targetValue: 0.02
+
+    # ENV['IMGPROXY_AUTOQUALITY_MIN']
+    # Minimal quality imgproxy can use. Default: 70.
+    # Change value to the desired size in bytes
+    minValue: 70
+
+    # ENV['IMGPROXY_AUTOQUALITY_MAX']
+    # Maximal quality imgproxy can use. Default: 80.
+    # Change value to the desired size in bytes
+    maxValue: 80
+
+    # ENV['IMGPROXY_AUTOQUALITY_FORMAT_MIN']
+    # Minimal quality imgproxy can use per format, comma divided. Default: 'avif=40'
+    # @example Quality 40 for AVIF is pretty the same as 70 for JPEG
+    #  formatMin: "avif=40,jpeg=70"
+    formatMin: "avif=40"
+
+    # ENV['IMGPROXY_AUTOQUALITY_FORMAT_MAX']
+    # Maximal quality imgproxy can use per format, comma divided. Default: 'avif=50'
+    # @example Quality 50 for AVIF is pretty the same as 80 for JPEG
+    #  formatMax: "avif=50,jpeg=80"
+    formatMax: "avif=50"
+
+    # ENV['IMGPROXY_AUTOQUALITY_ALLOWED_ERROR']
+    # allowed IMGPROXY_AUTOQUALITY_TARGET error. Applicable only to dssim and ml methods.
+    # Default: 0.001.
+    allowedError: 0.001
+
+    # ENV['IMGPROXY_AUTOQUALITY_MAX_RESOLUTION']
+    # When value is greater then zero and the result resolution exceeds the value, autoquality won’t be used.
+    # Default: 0.
+    maxResolution: 0
+
+    # Neural networks paths for JPEG, WebP, and AVIF:
+
+    # ENV['IMGPROXY_AUTOQUALITY_JPEG_NET']
+    # Neural networks path for JPEG (applied to 'ml' method only).
+    # Example:
+    #   webpNet: "/networks/autoquality-jpeg.pb")
+    jpegNet:
+
+    # ENV['IMGPROXY_AUTOQUALITY_WEBP_NET']
+    # Neural networks path for WEBP (applied to 'ml' method only).
+    # Example:
+    #   webpNet: "/networks/autoquality-webp.pb")
+    webpNet:
+
+    # ENV['IMGPROXY_AUTOQUALITY_AVIF_NET']
+    # Neural networks path for AVIF (applied to 'ml' method only).
+    # Example:
+    #   webpNet: "/networks/autoquality-avif.pb")
+    avifNet:
 
   # https://docs.imgproxy.net/#/configuration?id=avifwebp-support-detection
   formatsSupportDetection:
@@ -522,6 +588,44 @@ features:
     # The lesser the value the sharper the image. Should be greater than zero.
     dividor: 24
 
+  # PRO, v3+: Detect objects on the image and use them for smart crop,
+  # bluring the detections, or drawing the detections.
+  # https://docs.imgproxy.net/configuration?id=object-detection
+  objectDetection:
+
+    # If the object detection is enabled
+    enabled: false
+
+    # ENV['IMGPROXY_OBJECT_DETECTION_CONFIG']
+    # Path to the neural network config.
+    # Required if detection is enabled.
+    config:
+
+    # ENV['IMGPROXY_OBJECT_DETECTION_WEIGHTS']
+    # Path to the neural network weights.
+    # Required if detection is enabled.
+    weights:
+
+    # ENV['IMGPROXY_OBJECT_DETECTION_CLASSES']
+    # Path to the text file with the classes names, one by line.
+    # Required if detection is enabled.
+    classes:
+
+    # ENV['IMGPROXY_OBJECT_DETECTION_NET_SIZE']
+    # The size of the neural network input.
+    # The width and the heights of the inputs should be the same,
+    # so this config value should be a single number. Default: 416.
+    netSize: 416
+
+    # ENV['IMGPROXY_OBJECT_DETECTION_CONFIDENCE_THRESHOLD']
+    # The detections with confidences below this value will be discarded. Default: 0.2.
+    confidenceThreshold: 0.2
+
+    # ENV['IMGPROXY_OBJECT_DETECTION_NMS_THRESHOLD']
+    # Non max supression threshold. Don’t change this if you don’t know what you’re doing.
+    # Default: 0.4.
+    nmsThreshold: 0.4
+
   # https://docs.imgproxy.net/#/configuration?id=fallback-image
   fallbackImage:
 
@@ -532,6 +636,16 @@ features:
     # ENV['IMGPROXY_FALLBACK_IMAGE_URL']
     # fallback image URL.
     url: ""
+
+    # ENV['IMGPROXY_FALLBACK_IMAGE_HTTP_CODE']
+    # (v3+) HTTP code for the fallback image response. Default: 200
+    httpCode: 200
+
+    # ENV['IMGPROXY_FALLBACK_IMAGES_CACHE_SIZE']
+    # PRO v3+: size of custom fallback images cache.
+    #   When set to 0, fallback images cache is disabled.
+    #   By default 256 fallback images are cached.
+    cacheSize: 256
 
   # https://docs.imgproxy.net/#/configuration?id=skip-processing
   skipProcessing:
@@ -634,6 +748,69 @@ features:
 
     # ENV['IMGPROXY_PROMETHEUS_BIND']
     # This value is set to ':8081' (not editable)
+
+  # Integration to Datadog (v3+)
+  # https://docs.imgproxy.net/configuration?id=datadog-metrics
+  datadog:
+
+    # ENV['IMGPROXY_DATADOG_ENABLE']
+    # When provided, enables error reporting to Datadog
+    enabled: false
+
+    # ENV['DD_AGENT_HOST']
+    # Sets the address to connect to for sending metrics to the Datadog Agent.
+    # Default: localhost
+    agentHost: localhost
+
+    # ENV['DD_TRACE_AGENT_PORT']
+    # Sets the Datadog Agent Trace port. Default: 8126
+    agentPort: 8126
+
+    # ENV['DD_DOGSTATSD_PORT']
+    # Set the DogStatsD port. Default: 8125
+    dogStatsdPort: 8125
+
+    # ENV['DD_SERVICE']
+    # Sets desired application name. Default: imgproxy
+    service: imgproxy
+
+    # ENV['DD_ENV']
+    # Sets the environment to which all traces will be submitted. Default: empty
+    env:
+
+    # ENV['DD_TRACE_REPORT_HOSTNAME']
+    # When true, sets hostname to Hostname() with which to mark outgoing traces.
+    # Default: false
+    reportHostname: false
+
+    # ENV['DD_TRACE_SOURCE_HOSTNAME']
+    # Allows specifying the hostname with which to mark outgoing traces. Default: empty
+    sourceHostname:
+
+    # ENV['DD_TAGS']
+    # Sets a key/value pair which will be set as a tag on all traces. Default: empty
+    # Example:
+    #   DD_TAGS=datacenter:njc,key2:value2.
+    tags:
+
+    # ENV['DD_TRACE_ANALYTICS_ENABLED']
+    # Allows specifying whether Trace Search & Analytics should be enabled for integrations.
+    # Default: false
+    analyticsEnabled: false
+
+    # ENV['DD_RUNTIME_METRICS_ENABLED']
+    # Enables automatic collection of runtime metrics every 10 seconds.
+    # Default: false
+    metricsEnabled: false
+
+    # ENV['DD_TRACE_STARTUP_LOGS']
+    # Causes various startup info to be written when the tracer starts.
+    # Default: true
+    traceStartupLogs: true
+
+    # ENV['DD_TRACE_DEBUG']
+    # Enables detailed logs. Default: false
+    traceDebug: false
 
   # https://docs.imgproxy.net/#/configuration?id=error-reporting
   errorReporting:
