@@ -124,7 +124,7 @@ The above command installs a specified version of imgproxy.
 |-----|-----------|-------|
 |**features.compression.quality**|quality of the resulting image, percentage|`80`|
 |**features.compression.formatQuality**|default quality of the resulting image per format, comma divided.||
-|**features.compression.gzipCompression**|GZip compression level|`5`|
+|**features.compression.gzipCompression**|GZip compression level (removed in `v3`)|`5`|
 |**features.compression.jpegProgressive**|when true, enables progressive compression of JPEG|`false`|
 |**features.compression.jpegNoSubsample**|`PRO:` when true, chrominance subsampling is disabled. This will improve quality at the cost of larger file size|`false`|
 |**features.compression.jpegTrellisQuant**|`PRO:` when true, enables trellis quantisation for each 8x8 block. Reduces file size but increases compression time|`false`|
@@ -137,6 +137,22 @@ The above command installs a specified version of imgproxy.
 |**features.compression.gifOptimizeFrames**|`PRO:` when true, enables GIF frames optimization; this may produce a smaller result, but may increase compression time|`false`|
 |**features.compression.gifOptimizeTransparency**|`PRO:` when true, enables GIF transparency optimization; this may produce a smaller result, but may increase compression time|`false`|
 |**features.compression.avifSpeed**|controls the CPU effort spent improving compression (0-8).|`5`|
+
+### `PRO:` Resulting images quality calculation (v3+)
+
+|Value|Description|Default|
+|-----|-----------|-------|
+|**features.autoquality.method**|Calcuation method (none, size, dssim, ml).|`none`|
+|**features.autoquality.targetValue**|Desired value of the autoquality method metric..|`0.02`|
+|**features.autoquality.minValue**|Minimal quality imgproxy can use.|`70`|
+|**features.autoquality.maxValue**|Maximal quality imgproxy can use.|`80`|
+|**features.autoquality.formatMin**|Minimal quality imgproxy can use per format, comma divided.|`avif=40`|
+|**features.autoquality.formatMax**|Maximal quality imgproxy can use per format, comma divided.|`avif=50`|
+|**features.autoquality.allowedError**|Allowed quality target error. Applicable only to `dssim` and `ml` methods.|`0.001`|
+|**features.autoquality.maxResolution**|When value is greater then zero and the result resolution exceeds the value, autoquality won’t be used.|`0`|
+|**features.autoquality.jpegNet**|Neural networks path for JPEG (applied to 'ml' method only).||
+|**features.autoquality.webpNet**|Neural networks path for WEBP (applied to 'ml' method only).||
+|**features.autoquality.avifNet**|Neural networks path for AVIF (applied to 'ml' method only).||
 
 ### Detection of WEBP/Avif Support by Browsers
 
@@ -180,12 +196,26 @@ The above command installs a specified version of imgproxy.
 |**features.unsharpening.weight**|`PRO:` a floating-point number that defines how neighbor pixels will affect the current pixel.|`1`|
 |**features.unsharpening.dividor**|`PRO:` a floating-point number that defines the unsharpening strength.|`24`|
 
+### `PRO:` Objects Detection
+
+|Value|Description|Default|
+|-----|-----------|-------|
+|**features.objectDetection.enabled**|If the object detection is enabled.|`false`|
+|**features.objectDetection.config**|Path to the neural network config.||
+|**features.objectDetection.weights**|Path to the neural network weights.||
+|**features.objectDetection.classes**|Path to the text file with the classes names, one by line.||
+|**features.objectDetection.netSize**|The size of the neural network input.|`416`|
+|**features.objectDetection.confidenceThreshold**|The detections with confidences below this value will be discarded.|`0.2`|
+|**features.objectDetection.nmsThreshold**|Non max supression threshold. Don’t change this if you don’t know what you’re doing.|`0.4`|
+
 ### Fallback Image
 
 |Value|Description|Default|
 |-----|-----------|-------|
 |**features.fallbackImage.data**|Base64-encoded image data. You can easily calculate it with `base64 tmp/fallback.png | tr -d '\n'`||
 |**features.fallbackImage.url**|fallback image URL.||
+|**features.fallbackImage.url**|HTTP code for the fallback image response. (`v3+`)|`200`|
+|**features.fallbackImage.url**|`PRO:` Size of custom fallback images cache.|`256`|
 
 ### Skip Processing by imgproxy
 
@@ -235,6 +265,24 @@ The above command installs a specified version of imgproxy.
 |**features.newRelic.enabled**|Enables New Relic integration|`false`|
 |**features.newRelic.licenseKey**|New Relic license key||
 |**features.newRelic.appName**|New Relic application name||
+
+### Integration to Datadog (v3+)
+
+|Value|Description|Default|
+|-----|-----------|-------|
+|**features.datadog.enabled**|Enables error reporting to Datadog|`false`|
+|**features.datadog.agentHost**|Set the address to connect to for sending metrics to the Datadog Agent.|`localhost`|
+|**features.datadog.agentHost**|Set the Datadog Agent Trace port.|`8126`|
+|**features.datadog.dogStatsdPort**|Set the DogStatsD port.|`8125`|
+|**features.datadog.service**|Set desired application name.|`imgproxy`|
+|**features.datadog.env**|Set the environment to which all traces will be submitted.||
+|**features.datadog.reportHostname**|When true, sets hostname with which to mark outgoing traces.|`false`|
+|**features.datadog.sourceHostname**|Allows specifying the hostname with which to mark outgoing traces.||
+|**features.datadog.tags**|Set a key/value pair which will be set as a tag on all traces.||
+|**features.datadog.analyticsEnabled**|Allows specifying whether Trace Search & Analytics should be enabled for integrations.|`false`|
+|**features.datadog.metricsEnabled**|Enables automatic collection of runtime metrics every 10 seconds.|`false`|
+|**features.datadog.traceStartupLogs**|Causes various startup info to be written when the tracer starts.|`true`|
+|**features.datadog.traceDebug**|Enables detailed logs.|`false`|
 
 ### Error Reporting
 
