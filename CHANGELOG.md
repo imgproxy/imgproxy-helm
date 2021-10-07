@@ -1,7 +1,8 @@
-## 0.8.4 (2021-10-06)
+## 0.8.4 (2021-10-07)
 
 * Support imgproxy v3.0.0.beta1
-* Fix azure usage in secrets, use correct feature values
+* Fix use of values for Azure integration
+* Add commented ENV values to secret for debugging
 
 ## 0.8.3 (2021-10-03)
 
