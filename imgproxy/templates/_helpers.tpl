@@ -86,3 +86,19 @@ https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.ht
 {{- .existingClaim | default .name | print }}
 {{- end -}}
 {{- end -}}
+
+{{/* Builds the resources claim for the deployment */}}
+{{- define "imgproxy.podResources" -}}
+
+{{- $default := dict -}}
+{{- with $.Values.resources.deployment.replicas | default dict -}}
+{{- $minCount := .minCount | default 1 | int }}
+{{- $maxCount := .maxCount | default $minCount | int }}
+{{- if gt $maxCount $minCount -}}
+{{- $default = dict "requests" (dict "cpu" 1) "limits" (dict "cpu" 1) -}}
+{{- end -}}
+{{- end -}}
+
+{{- $custom := $.Values.resources.deployment.resources | default dict -}}
+{{- merge $custom $default | toYaml -}}
+{{- end -}}

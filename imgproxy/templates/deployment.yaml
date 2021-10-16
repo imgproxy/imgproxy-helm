@@ -62,9 +62,7 @@ spec:
             - secretRef:
                 name: {{ $secretName }}
             {{- end }}
-          {{- if .Values.resources.deployment.resources }}
-          resources: {{ .Values.resources.deployment.resources | toYaml | nindent 16 }}
-          {{- end }}
+          resources: {{ include "imgproxy.podResources" $ | nindent 12 }}
           {{- if .Values.persistence.enabled }}
           volumeMounts:
             - name: data

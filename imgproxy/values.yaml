@@ -95,7 +95,8 @@ resources:
     # Toleration for K8s taints
     tolerations: []
 
-    # Set kubernetes specific resource limits
+    # Set kubernetes specific resource limits.
+    # We claim `cpu: 1` for both limits and requests by default.
     resources: {}
     # limits:
     #   cpu: 700m
