@@ -1,6 +1,16 @@
-## 0.8.2 (2021-10-01)
+## 0.8.4 (2021-10-07)
 
-* Add `path` definition for ingress object to be able to not use `pathPrefix` environment variable.
+* Support imgproxy v3.0.0.beta1
+* Fix use of values for Azure integration
+* Add commented ENV values to secret for debugging
+
+## 0.8.3 (2021-10-03)
+
+* Fix horizontal pod autoscaler by adding explicit policies.
+
+## 0.8.2 (2021-09-30)
+
+* Add Readme.
 
 ## 0.8.1 (2021-09-29)
 

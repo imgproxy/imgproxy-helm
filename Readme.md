@@ -306,7 +306,14 @@ Deployment specific options.
 |**resources.podDisruptionBudget.enabled**|Enable or disable a disruption budget policy|`false`|
 |**resources.podDisruptionBudget.maxUnavailable**|maxUnavailable option for the PodDisruptionBudget|`0`|
 |**resources.podDisruptionBudget.minAvailable**|minAvailable option for the PodDisruptionBudget|`0`|
-|**resources.deployment.replicaCount**|How many pods with imgproxy should be running simultaneously|`1`|
+|**resources.deployment.replicaCount**|How many pods with imgproxy should be running simultaneously (DEPRECATED, use replicas.default instead!)|`1`|
+|**resources.deployment.replicas.default**|How many pods with imgproxy should be running after deployment|`1`|
+|**resources.deployment.replicas.minCount**|The minimal number of pods the imgproxy can be scaled to.|`1`|
+|**resources.deployment.replicas.maxCount**|The maximum number of pods the imgproxy can be scaled to.|`1`|
+|**resources.deployment.replicas.stepCount**|The max number of pods to be added/dropped during autoscaling step.|`1`|
+|**resources.deployment.replicas.stepSeconds**|The period in seconds (1-1800) during which up to `stepCount` pods can be added or dropped by autoscaler.|`60`|
+|**resources.deployment.replicas.stabilizationInterval**|The number of seconds for which past recommendations should be considered while scaling up or scaling down (0 - 3600) to prevent flapping.|`300`|
+|**resources.deployment.replicas.cpuUtilization**|The target percentage for the average CPU utilization by pods after which they should be scaled.|`80`|
 |**resources.deployment.resources**|Hash of resource limits for your pods|`{}`|
 |**resources.deployment.tolerations**|Tolerations for Kubernetes taints||
 |**resources.serviceAccount.annotations**|Annotations for the Kubernetes service account for imgproxy|``|
