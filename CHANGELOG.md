@@ -1,3 +1,7 @@
+## 0.8.5 (2021-10-20)
+
+* Enforce default CPU resource settings
+
 ## 0.8.4 (2021-10-07)
 
 * Support imgproxy v3.0.0.beta1
