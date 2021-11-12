@@ -341,6 +341,7 @@ Deployment specific options.
 |**image.pullSecrets.password**|Password to your private registry|``|
 |**image.pullSecrets.registry**|URL of a private registry you want to authorize to|``|
 |**image.pullSecrets.username**|Login to your private registry|``|
+|**image.addPullSecrets**|List of existing image pull secrets|`[]`|
 |**resources.deployment.affinity**|Node and inter-pod affinity configuration||
 |**resources.deployment.annotations**|Custom annotations for imgproxy deployment|`{}`|
 |**resources.pod.annotations**|Custom annotations for imgproxy pod|`{}`|

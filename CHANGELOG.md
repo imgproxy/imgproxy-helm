@@ -1,3 +1,7 @@
+## 0.8.6 (2021-11-12)
+
+* Add ability to use existing image pull secrets
+
 ## 0.8.5 (2021-10-20)
 
 * Enforce default CPU resource settings
