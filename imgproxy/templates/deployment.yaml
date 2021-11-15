@@ -38,9 +38,16 @@ spec:
       affinity: {{ .Values.resources.deployment.affinity | toYaml | nindent 8 }}
       tolerations: {{ .Values.resources.deployment.tolerations | toYaml | nindent 8 }}
       nodeSelector: {{ .Values.resources.deployment.nodeSelector | toYaml | nindent 8 }}
-      {{- if .Values.image.pullSecrets.enabled }}
+      {{- if or .Values.image.pullSecrets.enabled .Values.image.addPullSecrets }}
       imagePullSecrets:
+        {{- if .Values.image.pullSecrets.enabled}}
         - name: "{{ .Release.Name }}-docker-registry-secret"
+        {{- end }}
+        {{- if .Values.image.addPullSecrets}}
+        {{- range $secretName := .Values.image.addPullSecrets }}
+        - name: {{ $secretName | quote }}
+        {{- end }}
+        {{- end }}
       {{- end }}
       {{- if (include "serviceAccount.enabled" $) }}
       serviceAccountName: "{{ template "imgproxy.fullname" $ }}-service-account"

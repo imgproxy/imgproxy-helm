@@ -4,11 +4,14 @@ image:
   repo: darthsim/imgproxy
   tag: v3.0.0.beta1
   pullPolicy: IfNotPresent
+  # create new image-pull-secret if enabled: true
   pullSecrets:
-    enabled:  false
+    enabled: false
     registry: ""
     username: ""
     password: ""
+  # list of existing image-pull-secrets
+  addPullSecrets: []
 
 # Configure K8s resources
 resources:
