@@ -1,3 +1,7 @@
+## 0.8.7 (2021-11-16)
+
+* Add ability to set IMGPROXY_USE_S3=true without AWS credentials
+
 ## 0.8.6 (2021-11-12)
 
 * Add ability to use existing image pull secrets
