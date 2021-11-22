@@ -118,6 +118,13 @@ The above command installs a specified version of imgproxy.
 |**features.security.ignoreSslVerification**|When true, disables SSL verification|`false`|
 |**features.security.developmentErrorsMode**|when true, imgproxy will respond with detailed error messages. Not recommended for production because some errors may contain stack trace|`false`|
 
+### Cookies-related Settings
+
+|Value|Description|Default|
+|-----|-----------|-------|
+|**features.cookies.enabled**|when true, incoming cookies will be passed through to the image request if they are applicable for the image URL|`false`|
+|**features.cookies.baseUrl**|when set, assume that cookies have a scope of this URL for the incoming request (instead of using the request headers).||
+
 ### Image Compression Settings
 
 |Value|Description|Default|

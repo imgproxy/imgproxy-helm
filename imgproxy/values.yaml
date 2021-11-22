@@ -2,7 +2,7 @@
 # Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v3.0.0.beta1
+  tag: v3.0.0.beta2
   pullPolicy: IfNotPresent
   # create new image-pull-secret if enabled: true
   pullSecrets:
@@ -357,6 +357,21 @@ features:
     # when true, imgproxy will respond with detailed error messages.
     # Not recommended for production because some errors may contain stack trace.
     developmentErrorsMode: ""
+
+  # https://docs.imgproxy.net/configuration?id=cookies
+  cookies:
+
+    # ENV['IMGPROXY_COOKIE_PASSTHROUGH']
+    # when true, incoming cookies will be passed through to the image request
+    # if they are applicable for the image URL
+    enabled: false
+
+    # ENV['IMGPROXY_COOKIE_BASE_URL']
+    # when set, assume that cookies have a scope of this URL for the incoming request
+    # (instead of using the request headers).
+    # If the cookies are applicable to the image URL too,
+    # they will be passed along in the image request.
+    baseUrl: ""
 
   # https://docs.imgproxy.net/#/configuration?id=compression
   compression:
