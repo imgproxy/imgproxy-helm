@@ -169,6 +169,15 @@ resources:
     #       - example.com
     #       - www.example.com
 
+    # Enable customization of pathType.
+    #
+    # This customization can be necessary because the default
+    # `ImplementationSpecific` path type with AWS ELB Controllers
+    # works as `Exact` type rather than `Prefix`.
+    #
+    # @see https://github.com/imgproxy/imgproxy-helm/issues/59
+    pathType: ImplementationSpecific
+
   serviceMonitor:
     honorLabels: true
     interval: 0
