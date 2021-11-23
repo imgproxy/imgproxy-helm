@@ -17,6 +17,9 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- if .ingressClassName }}
+  ingressClassName: {{ .ingressClassName | quote }}
+  {{- end }}
   {{- if .tls }}
   tls:
     {{- range .tls }}
