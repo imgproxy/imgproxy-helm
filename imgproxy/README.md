@@ -384,6 +384,7 @@ Deployment specific options.
 |-----|-----------|-------|
 |**resources.ingress.acme**|Enables the ingress resource annotation which tells cert-manager to issue a Let's Encrypt certificate|`false`|
 |**resources.ingress.annotations**|Additional annotations for the ingress resource||
+|**resources.ingress.className**|Custom name for the ingress resource||
 |**resources.ingress.enabled**|When true, enables ingress resource for imgproxy|`false`|
 |**resources.ingress.health.whitelist**|Comma separated string of CIDR addresses that are allowed to access `/health` url of imgproxy||
 |**resources.ingress.hosts**|Hostnames for the ingress resource to use|`["example.com"]`|

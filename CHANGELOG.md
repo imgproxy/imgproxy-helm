@@ -1,6 +1,7 @@
 ## 0.8.8 (to be released)
 
 * Support imgproxy v3.0.0.beta2
+* Enable customization of ingress class name
 
 ## 0.8.7 (2021-11-16)
 

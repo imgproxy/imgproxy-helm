@@ -153,6 +153,8 @@ resources:
 
   ingress:
     enabled: false
+    # the custom name for the ingress resource
+    className:
     health:
       whitelist: # 127.0.0.1/32
     annotations: {}
