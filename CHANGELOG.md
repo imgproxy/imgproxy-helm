@@ -1,3 +1,8 @@
+## 0.8.8 (to be released)
+
+* Support imgproxy v3.0.0.beta2
+* Enable customization of ingress class name (`className`) and path type (`pathType`)
+
 ## 0.8.7 (2021-11-16)
 
 * Add ability to set IMGPROXY_USE_S3=true without AWS credentials

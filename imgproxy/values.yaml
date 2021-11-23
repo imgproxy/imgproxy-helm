@@ -2,7 +2,7 @@
 # Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v3.0.0.beta1
+  tag: v3.0.0.beta2
   pullPolicy: IfNotPresent
   # create new image-pull-secret if enabled: true
   pullSecrets:
@@ -153,6 +153,8 @@ resources:
 
   ingress:
     enabled: false
+    # the custom name for the ingress resource
+    className:
     health:
       whitelist: # 127.0.0.1/32
     annotations: {}
@@ -166,6 +168,15 @@ resources:
     #     hosts:
     #       - example.com
     #       - www.example.com
+
+    # Enable customization of pathType.
+    #
+    # This customization can be necessary because the default
+    # `ImplementationSpecific` path type with AWS ELB Controllers
+    # works as `Exact` type rather than `Prefix`.
+    #
+    # @see https://github.com/imgproxy/imgproxy-helm/issues/59
+    pathType: ImplementationSpecific
 
   serviceMonitor:
     honorLabels: true
@@ -357,6 +368,21 @@ features:
     # when true, imgproxy will respond with detailed error messages.
     # Not recommended for production because some errors may contain stack trace.
     developmentErrorsMode: ""
+
+  # https://docs.imgproxy.net/configuration?id=cookies
+  cookies:
+
+    # ENV['IMGPROXY_COOKIE_PASSTHROUGH']
+    # when true, incoming cookies will be passed through to the image request
+    # if they are applicable for the image URL
+    enabled: false
+
+    # ENV['IMGPROXY_COOKIE_BASE_URL']
+    # when set, assume that cookies have a scope of this URL for the incoming request
+    # (instead of using the request headers).
+    # If the cookies are applicable to the image URL too,
+    # they will be passed along in the image request.
+    baseUrl: ""
 
   # https://docs.imgproxy.net/#/configuration?id=compression
   compression:
