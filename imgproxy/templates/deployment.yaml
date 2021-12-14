@@ -1,7 +1,11 @@
 {{- $priorityClassName := include "imgproxy.resources.priorityClassName" . }}
 {{- $priorityClassVersion := include "imgproxy.versions.priorityClass" . }}
 {{- $checksumEnv := include (print $.Template.BasePath "/env-secret.yaml") . | sha256sum -}}
-{{- $replicaCount := (.Values.resources.deployment.replicas | default dict).default | default .Values.resources.deployment.replicaCount }}
+
+{{- $replicas := .Values.resources.deployment.replicas | default dict -}}
+{{- $minCount := $replicas.minCount | default 1 | int }}
+{{- $maxCount := $replicas.maxCount | default $minCount | int }}
+{{- $replicaCount := $replicas.default | default .Values.resources.deployment.replicaCount }}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -14,7 +18,9 @@ metadata:
     app: {{ template "imgproxy.fullname" $ }}
   annotations: {{ .Values.resources.deployment.annotations | toYaml | nindent 4 }}
 spec:
+  {{- if (eq $minCount $maxCount) }}
   replicas: {{ $replicaCount | default 1 | int }}
+  {{- end }}
   selector:
     matchLabels:
       app: {{ template "imgproxy.fullname" $ }}
