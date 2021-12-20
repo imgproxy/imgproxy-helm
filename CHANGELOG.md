@@ -1,3 +1,7 @@
+## 0.8.9 (to be released)
+
+* Fix deployment by removing `spec.replicas` in presence of HPA
+
 ## 0.8.8 (2021-11-23)
 
 * Support imgproxy v3.0.0.beta2
