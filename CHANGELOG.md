@@ -1,4 +1,4 @@
-## 0.8.9 (to be released)
+## 0.8.9 (2021-12-20)
 
 * Fix deployment by removing `spec.replicas` in presence of HPA
 
