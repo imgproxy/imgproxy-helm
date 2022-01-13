@@ -1,3 +1,7 @@
+## 0.8.10 (2022-01-13)
+
+* Fix unquoted numerics in `.Values.features`
+
 ## 0.8.9 (2021-12-20)
 
 * Fix deployment by removing `spec.replicas` in presence of HPA
