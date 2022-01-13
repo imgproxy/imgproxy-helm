@@ -73,6 +73,9 @@ The above command installs a specified version of imgproxy.
 
 ## Supported Chart values
 
+> In order to avoid mistakes, you'd better quote all numerics in the `features` part of the `values.yaml`.
+> This is necessary because (as [Ingo Brand](https://github.com/pyromaniac3010) explained in [this issue](https://github.com/imgproxy/imgproxy-helm/issues/68)), Helm converts large numeric values to scientific notation which does not work as ENV values of the imgproxy.
+
 ### URL Signature Settings
 
 |Value|Description|Default|

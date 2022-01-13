@@ -247,27 +247,27 @@ features:
 
     # ENV['IMGPROXY_SIGNATURE_SIZE']
     # number of bytes to use for signature before encoding to Base64.
-    signatureSize: 32
+    signatureSize: "32"
 
   # https://docs.imgproxy.net/#/configuration?id=server
   server:
 
     # ENV['IMGPROXY_READ_TIMEOUT']
     # The maximum duration (in seconds) for reading the entire image request, including the body
-    readTimeout: 10
+    readTimeout: "10"
 
     # ENV['IMGPROXY_WRITE_TIMEOUT']
     # The maximum duration (in seconds) for writing the response
-    writeTimeout: 10
+    writeTimeout: "10"
 
     # ENV['IMGPROXY_KEEP_ALIVE_TIMEOUT']
     # the maximum duration (in seconds) to wait for the next request before closing the connection.
     # When set to 0, keep-alive is disabled.
-    keepAliveTimeout: 10
+    keepAliveTimeout: "10"
 
     # ENV['IMGPROXY_DOWNLOAD_TIMEOUT']
     # The maximum duration (in seconds) for downloading the source image
-    downloadTimeout: 5
+    downloadTimeout: "5"
 
     # ENV['IMGPROXY_CONCURRENCY']
     # The maximum number of image requests to be processed simultaneously.
@@ -281,7 +281,7 @@ features:
 
     # ENV['IMGPROXY_TTL']
     # Duration in seconds sent in Expires and Cache-Control: max-age headers.
-    ttl: 3600
+    ttl: "3600"
 
     # ENV['IMGPROXY_CACHE_CONTROL_PASSTHROUGH']
     # when true and source image response contains Expires or Cache-Control headers, reuse those headers
@@ -340,16 +340,16 @@ features:
     # ENV['IMGPROXY_MAX_SRC_FILE_SIZE']
     # The maximum size of the source image, in bytes. Images with larger file size will be rejected.
     # When `0`, file size check is disabled.
-    maxSrcFileSize: 0
+    maxSrcFileSize: "0"
 
     # ENV['IMGPROXY_MAX_ANIMATION_FRAMES']
     # the maximum of animated image frames to being processed.
-    maxAnimationFrames: 1
+    maxAnimationFrames: "1"
 
     # ENV['IMGPROXY_MAX_SVG_CHECK_BYTES']
     # the maximum number of bytes imgproxy will read to recognize SVG.
     # If imgproxy can't recognize your SVG, try to increase this number.
-    maxSvgCheckBytes: 32768 # 32KB
+    maxSvgCheckBytes: "32768" # 32KB
 
     # ENV['IMGPROXY_ALLOW_ORIGIN']
     # when set, enables CORS headers with provided origin. CORS headers are disabled by default.
@@ -389,7 +389,7 @@ features:
 
     # ENV['IMGPROXY_QUALITY']
     # default quality of the resulting image, percentage.
-    quality: 80
+    quality: "80"
 
     # ENV['IMGPROXY_FORMAT_QUALITY']
     # default quality of the resulting image per format, comma divided.
@@ -398,7 +398,7 @@ features:
 
     # ENV['IMGPROXY_GZIP_COMPRESSION']
     # GZip compression level (skipped in imgproxy v3.0.0+)
-    gzipCompression: 5
+    gzipCompression: "5"
 
     # ENV['IMGPROXY_JPEG_PROGRESSIVE']
     # when true, enables progressive JPEG compression.
@@ -433,7 +433,7 @@ features:
     # 6: Table from DCTune Perceptual Optimization of Compressed Dental X-Rays (1997);
     # 7: Table from A Visual Detection Model for DCT Coefficient Quantization (1993);
     # 8: Table from An Improved Detection Model for DCT Coefficient Quantization (1993).
-    jpegQuantTable: 0
+    jpegQuantTable: "0"
 
     # ENV['IMGPROXY_PNG_INTERLACED']
     # when true, enables interlaced PNG compression.
@@ -445,7 +445,7 @@ features:
 
     # ENV['IMGPROXY_PNG_QUANTIZATION_COLORS']
     # maximum number of quantization palette entries. Should be between 2 and 256.
-    pngQuantizationColors: 256
+    pngQuantizationColors: "256"
 
     # ENV['IMGPROXY_GIF_OPTIMIZE_FRAMES']
     # PRO: when true, enables GIF frames optimization. This may produce a smaller result, but may increase compression time.
@@ -457,7 +457,7 @@ features:
 
     # ENV['IMGPROXY_AVIF_SPEED']
     # controls the CPU effort spent improving compression. 0 slowest - 8 fastest.
-    avifSpeed: 5
+    avifSpeed: "5"
 
   # PRO, v3+: calculate quality for your resulting images so they fit the selected metric the best.
   # https://docs.imgproxy.net/autoquality?id=autoquality
@@ -471,17 +471,17 @@ features:
     # ENV['IMGPROXY_AUTOQUALITY_TARGET']
     # desired value of the autoquality method metric. Default: 0.02.
     # MUST be positive unless the method is 'none'
-    targetValue: 0.02
+    targetValue: "0.02"
 
     # ENV['IMGPROXY_AUTOQUALITY_MIN']
     # Minimal quality imgproxy can use. Default: 70.
     # Change value to the desired size in bytes
-    minValue: 70
+    minValue: "70"
 
     # ENV['IMGPROXY_AUTOQUALITY_MAX']
     # Maximal quality imgproxy can use. Default: 80.
     # Change value to the desired size in bytes
-    maxValue: 80
+    maxValue: "80"
 
     # ENV['IMGPROXY_AUTOQUALITY_FORMAT_MIN']
     # Minimal quality imgproxy can use per format, comma divided. Default: 'avif=40'
@@ -498,12 +498,12 @@ features:
     # ENV['IMGPROXY_AUTOQUALITY_ALLOWED_ERROR']
     # allowed IMGPROXY_AUTOQUALITY_TARGET error. Applicable only to dssim and ml methods.
     # Default: 0.001.
-    allowedError: 0.001
+    allowedError: "0.001"
 
     # ENV['IMGPROXY_AUTOQUALITY_MAX_RESOLUTION']
     # When value is greater then zero and the result resolution exceeds the value, autoquality won’t be used.
     # Default: 0.
-    maxResolution: 0
+    maxResolution: "0"
 
     # Neural networks paths for JPEG, WebP, and AVIF:
 
@@ -567,15 +567,15 @@ features:
 
     # ENV['IMGPROXY_VIDEO_THUMBNAIL_SECOND']
     # PRO: the timestamp of the frame in seconds that will be used for a thumbnail.
-    second: 1
+    second: "1"
 
     # ENV['IMGPROXY_VIDEO_THUMBNAIL_PROBE_SIZE']
     # PRO: the maximum amount of bytes used to determine the format. Lower values can decrease memory usage but can produce inaccurate data or even lead to errors.
-    probeSize: 5000000
+    probeSize: "5000000"
 
     # ENV['IMGPROXY_VIDEO_THUMBNAIL_MAX_ANALYZE_DURATION']
     # PRO: the maximum of milliseconds used to get the stream info. Low values can decrease memory usage but can produce inaccurate data or even lead to errors. When set to 0, the heuristic is used.
-    maxAnalyzeDuration: 0
+    maxAnalyzeDuration: "0"
 
   # https://docs.imgproxy.net/#/configuration?id=watermark
   watermark:
@@ -594,11 +594,11 @@ features:
 
     # ENV['IMGPROXY_WATERMARK_OPACITY']
     # watermark base opacity
-    opacity: 1
+    opacity: "1"
 
     # ENV['IMGPROXY_WATERMARKS_CACHE_SIZE']
     # PRO: size of custom watermarks cache. When set to `0`, watermarks cache is disabled.
-    cacheSize: 256
+    cacheSize: "256"
 
   # https://docs.imgproxy.net/#/configuration?id=unsharpening
   unsharpening:
@@ -611,12 +611,12 @@ features:
     # ENV['IMGPROXY_UNSHARPENING_WEIGHT']
     # PRO: a floating-point number that defines how neighbor pixels will affect the current pixel.
     # The greater the value the sharper the image. Should be greater than zero.
-    weight: 1
+    weight: "1"
 
     # ENV['IMGPROXY_UNSHARPENING_DIVIDOR']
     # PRO: a floating-point number that defines the unsharpening strength.
     # The lesser the value the sharper the image. Should be greater than zero.
-    dividor: 24
+    dividor: "24"
 
   # PRO, v3+: Detect objects on the image and use them for smart crop,
   # bluring the detections, or drawing the detections.
@@ -645,16 +645,16 @@ features:
     # The size of the neural network input.
     # The width and the heights of the inputs should be the same,
     # so this config value should be a single number. Default: 416.
-    netSize: 416
+    netSize: "416"
 
     # ENV['IMGPROXY_OBJECT_DETECTION_CONFIDENCE_THRESHOLD']
     # The detections with confidences below this value will be discarded. Default: 0.2.
-    confidenceThreshold: 0.2
+    confidenceThreshold: "0.2"
 
     # ENV['IMGPROXY_OBJECT_DETECTION_NMS_THRESHOLD']
     # Non max supression threshold. Don’t change this if you don’t know what you’re doing.
     # Default: 0.4.
-    nmsThreshold: 0.4
+    nmsThreshold: "0.4"
 
   # https://docs.imgproxy.net/#/configuration?id=fallback-image
   fallbackImage:
@@ -669,13 +669,13 @@ features:
 
     # ENV['IMGPROXY_FALLBACK_IMAGE_HTTP_CODE']
     # (v3+) HTTP code for the fallback image response. Default: 200
-    httpCode: 200
+    httpCode: "200"
 
     # ENV['IMGPROXY_FALLBACK_IMAGES_CACHE_SIZE']
     # PRO v3+: size of custom fallback images cache.
     #   When set to 0, fallback images cache is disabled.
     #   By default 256 fallback images are cached.
-    cacheSize: 256
+    cacheSize: "256"
 
   # https://docs.imgproxy.net/#/configuration?id=skip-processing
   skipProcessing:
@@ -794,11 +794,11 @@ features:
 
     # ENV['DD_TRACE_AGENT_PORT']
     # Sets the Datadog Agent Trace port. Default: 8126
-    agentPort: 8126
+    agentPort: "8126"
 
     # ENV['DD_DOGSTATSD_PORT']
     # Set the DogStatsD port. Default: 8125
-    dogStatsdPort: 8125
+    dogStatsdPort: "8125"
 
     # ENV['DD_SERVICE']
     # Sets desired application name. Default: imgproxy
@@ -938,19 +938,19 @@ features:
 
     # ENV['IMGPROXY_DOWNLOAD_BUFFER_SIZE']
     # the initial size (in bytes) of a single download buffer. When zero, initializes empty download buffers.
-    downloadBufferSize: 0
+    downloadBufferSize: "0"
 
     # ENV['IMGPROXY_GZIP_BUFFER_SIZE']
     # the initial size (in bytes) of a single GZip buffer. When zero, initializes empty GZip buffers. Makes sense only when GZip compression is enabled.
-    gzipBufferSize: 0
+    gzipBufferSize: "0"
 
     # ENV['IMGPROXY_FREE_MEMORY_INTERVAL']
     # the interval (in seconds) at which unused memory will be returned to the OS.
-    freeMemoryInterval: 10
+    freeMemoryInterval: "10"
 
     # ENV['IMGPROXY_BUFFER_POOL_CALIBRATION_THRESHOLD']
     # the number of buffers that should be returned to a pool before calibration.
-    bufferPoolCalibrationThreshold: 1024
+    bufferPoolCalibrationThreshold: "1024"
 
   # https://docs.imgproxy.net/#/configuration?id=miscellaneous
   miscellaneous:
