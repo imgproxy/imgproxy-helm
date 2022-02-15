@@ -9,6 +9,9 @@ metadata:
     app: {{ .Release.Name | quote }}
     imgproxy: "true"
 {{- with .Values.resources.service }}
+  {{- if .annotations }}
+  annotations: {{ .annotations | toYaml | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .type | default "ClusterIP" | quote }}
   {{- if eq .type "LoadBalancer" }}

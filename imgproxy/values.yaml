@@ -137,6 +137,7 @@ resources:
   addSecrets: []
 
   service:
+    annotations: {}
     type: ClusterIP
     loadBalancerIP: ""
     externalTrafficPolicy: Cluster

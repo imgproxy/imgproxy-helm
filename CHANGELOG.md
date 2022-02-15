@@ -1,3 +1,7 @@
+## 0.8.11 to be released
+
+* Support custom annotations to the service (`resources.service.annotations`).
+
 ## 0.8.10 (2022-01-13)
 
 * Fix unquoted numerics in `.Values.features`
