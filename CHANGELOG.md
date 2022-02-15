@@ -1,4 +1,4 @@
-## 0.8.11 to be released
+## 0.8.11 (2022-02-15)
 
 * Support custom annotations to the service (`resources.service.annotations`).
 
