@@ -1,3 +1,7 @@
+## 0.8.12 (2022-02-21)
+
+* Add `ingressClassName` field for `ingress-health.yaml`.
+
 ## 0.8.11 (2022-02-15)
 
 * Support custom annotations to the service (`resources.service.annotations`).
