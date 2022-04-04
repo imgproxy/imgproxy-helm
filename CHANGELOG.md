@@ -1,3 +1,7 @@
+## 0.8.13 (2022-04-04)
+
+* Add common labels to be used by every resource of the chart.
+
 ## 0.8.12 (2022-02-21)
 
 * Add `ingressClassName` field for `ingress-health.yaml`.
