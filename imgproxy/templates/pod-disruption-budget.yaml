@@ -6,6 +6,7 @@ metadata:
   name: {{ template "imgproxy.fullname" $ }}-pdb
   labels:
     imgproxy: "true"
+    <<: {{ $.Values.resources.common.labels | default dict | toYaml | nindent 6 }}
 spec:
   {{- if .minAvailable }}
   minAvailable: {{ .minAvailable }}

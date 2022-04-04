@@ -3,11 +3,12 @@ kind: Service
 metadata:
   name: "{{ template "imgproxy.fullname" $ }}"
   labels:
-    heritage: {{ .Release.Service | quote }}
-    release: {{ .Release.Name | quote }}
-    chart: {{ template "imgproxy.chart" $ }}
     app: {{ .Release.Name | quote }}
+    chart: {{ template "imgproxy.chart" $ }}
+    heritage: {{ .Release.Service | quote }}
     imgproxy: "true"
+    release: {{ .Release.Name | quote }}
+    <<: {{ $.Values.resources.common.labels | default dict | toYaml | nindent 6 }}
 {{- with .Values.resources.service }}
   {{- if .annotations }}
   annotations: {{ .annotations | toYaml | nindent 4 }}
