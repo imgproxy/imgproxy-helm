@@ -381,6 +381,7 @@ Deployment specific options.
 |**resources.service.loadBalancerIP**|Load balancer ip for service type "LoadBalancer"| ''          |
 |**resources.service.loadBalancerSourceRanges**| Load balancer source ranges for service type "LoadBalancer"| `[]         |
 |**resources.service.externalTrafficPolicy**| Enable client source IP preservation | `Cluster`   |
+|**resources.service.tlsEnabled**| Enable a TLS listener for the Service if it's of type "LoadBalancer"| `false`   |
 
 ### Ingress configuration
 
