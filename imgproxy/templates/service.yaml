@@ -35,6 +35,14 @@ spec:
       port: 80
       protocol: TCP
       targetPort: 8080
+    {{- if eq .type "LoadBalancer" }}
+    {{- if .tlsEnabled }}
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: 8080
+    {{- end }}
+    {{- end }}
     {{- if $.Values.features.prometheus.enabled }}
     - name: metrics
       port: 8081
