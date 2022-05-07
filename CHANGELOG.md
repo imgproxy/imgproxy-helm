@@ -1,3 +1,7 @@
+## 0.8.14 (2022-05-07)
+
+* Fix YAML syntax for common labels
+
 ## 0.8.13 (2022-04-04)
 
 * Add common labels to be used by every resource of the chart.
