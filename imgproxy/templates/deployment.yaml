@@ -16,7 +16,9 @@ metadata:
     release: {{ .Release.Name | quote }}
     chart: {{ template "imgproxy.chart" $ }}
     app: {{ template "imgproxy.fullname" $ }}
-    <<: {{ .Values.resources.common.labels | default dict | toYaml | nindent 6 }}
+    {{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
   annotations: {{ .Values.resources.deployment.annotations | toYaml | nindent 4 }}
 spec:
   {{- if (eq $minCount $maxCount) }}
@@ -32,8 +34,12 @@ spec:
         app: {{ template "imgproxy.fullname" $ }}
         imgproxy: "true"
         release: {{ $.Release.Name | quote }}
-        <<: {{ $.Values.resources.common.labels | default dict | toYaml | nindent 10 }}
-        <<: {{ .labels | default dict | toYaml | nindent 10 }}
+        {{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end }}
+        {{- range $key, $val := (.labels | default dict) }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end }}
       annotations:
         checksum/env: {{ $checksumEnv }}
         {{- if .annotations }}

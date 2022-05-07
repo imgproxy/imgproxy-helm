@@ -8,7 +8,9 @@ metadata:
     heritage: {{ .Release.Service | quote }}
     imgproxy: "true"
     release: {{ .Release.Name | quote }}
-    <<: {{ $.Values.resources.common.labels | default dict | toYaml | nindent 6 }}
+    {{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
 {{- with .Values.resources.service }}
   {{- if .annotations }}
   annotations: {{ .annotations | toYaml | nindent 4 }}

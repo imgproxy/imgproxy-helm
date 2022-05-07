@@ -9,8 +9,12 @@ metadata:
   {{- end }}
   labels:
     imgproxy: "true"
-    <<: {{ .selector | default dict | toYaml | nindent 6 }}
-    <<: {{ $.Values.resources.common.labels | default dict | toYaml | nindent 6 }}
+    {{- range $key, $val := (.selector | default dict) }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
+    {{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
 spec:
   endpoints:
     - port: metrics

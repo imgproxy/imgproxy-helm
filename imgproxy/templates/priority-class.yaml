@@ -9,7 +9,9 @@ metadata:
   name: "{{ $name }}"
   labels:
     imgproxy: "true"
-    <<: {{ $.Values.resources.common.labels | default dict | toYaml | nindent 6 }}
+    {{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
 value: {{ (.level | max 0 | min 1000000000) }}
 globalDefault: false
 description: "This priority class should be used for '{{ template "imgproxy.fullname" $ }}' pods only."
