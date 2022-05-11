@@ -84,25 +84,27 @@ The above command installs a specified version of imgproxy.
 
 ### Imgproxy Server Settings
 
-|Value|Description|Default|
-|-----|-----------|-------|
-|**features.server.readTimeout**|the maximum duration (in seconds) for reading the entire image request, including the body|`10`|
-|**features.server.writeTimeout**|the maximum duration (in seconds) for writing the response|`10`|
-|**features.server.keepAliveTimeout**|the maximum duration (in seconds) to wait for the next request before closing the connection. When set to 0, keep-alive is disabled|`10`|
-|**features.server.downloadTimeout**|the maximum duration (in seconds) for downloading the source image|`5`|
-|**features.server.concurrency**|the maximum number of image requests to be processed simultaneously|`double number of CPU cores`|
-|**features.server.maxClients**|the maximum number of simultaneous active connections|`concurrency * 10`|
-|**features.server.ttl**|duration in seconds sent in Expires and Cache-Control: max-age headers|`3600`|
-|**features.server.setCanonicalHeader**|when true and the source image has http or https scheme, set rel="canonical" HTTP header to the value of the source image URL.|`false`|
-|**features.server.cacheControlPassthrough**|when true and source image response contains Expires or Cache-Control headers, reuse those header|`false`|
-|**features.server.soReuseport**|when true, enables SO_REUSEPORT socket option (currently on linux and darwin only)|`false`|
-|**features.server.pathPrefix**|URL path prefix.||
-|**features.server.userAgent**|User-Agent header that will be sent with source image request|`imgproxy/%current_version`|
-|**features.server.useEtag**|when true, enables using ETag header for the cache control|`false`|
-|**features.server.customRequestHeaders**|`PRO:` list of custom headers that imgproxy will send while requesting the source image, divided by `\;` (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)||
-|**features.server.customResponseHeaders**|`PRO:` list of custom response headers, divided by \; (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)||
-|**features.server.customHeadersSeparator**|`PRO:` string that will be used as a custom headers separator|`\;`|
-|**features.server.enableDebugHeaders**|when true, imgproxy will add X-Origin-Content-Length header with the value is size of the source image.|`false`|
+| Value                                       |Description|Default|
+|---------------------------------------------|-----------|------|
+| **features.server.readTimeout**             |the maximum duration (in seconds) for reading the entire image request, including the body|`10`|
+| **features.server.writeTimeout**            |the maximum duration (in seconds) for writing the response|`10`|
+| **features.server.keepAliveTimeout**        |the maximum duration (in seconds) to wait for the next request before closing the connection. When set to 0, keep-alive is disabled|`10`|
+| **features.server.downloadTimeout**         |the maximum duration (in seconds) for downloading the source image|`5`|
+| **features.server.concurrency**             |the maximum number of image requests to be processed simultaneously|`double number of CPU cores`|
+| **features.server.maxClients**              |the maximum number of simultaneous active connections|`concurrency * 10`|
+| **features.server.ttl**                     |duration in seconds sent in Expires and Cache-Control: max-age headers|`3600`|
+| **features.server.setCanonicalHeader**      |when true and the source image has http or https scheme, set rel="canonical" HTTP header to the value of the source image URL.|`false`|
+| **features.server.cacheControlPassthrough** |when true and source image response contains Expires or Cache-Control headers, reuse those header|`false`|
+| **features.server.soReuseport**             |when true, enables SO_REUSEPORT socket option (currently on linux and darwin only)|`false`|
+| **features.server.pathPrefix**              |URL path prefix.||
+| **features.server.userAgent**               |User-Agent header that will be sent with source image request|`imgproxy/%current_version`|
+| **features.server.useEtag**                 |when true, enables using ETag header for the cache control|`false`|
+| **features.server.etagBuster**              |Change this to change ETags for all the images||
+| **features.server.customRequestHeaders**    |`PRO:` list of custom headers that imgproxy will send while requesting the source image, divided by `\;` (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)||
+| **features.server.customResponseHeaders**   |`PRO:` list of custom response headers, divided by \; (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)||
+| **features.server.customHeadersSeparator**  |`PRO:` string that will be used as a custom headers separator|`\;`|
+| **features.server.enableDebugHeaders**      |when true, imgproxy will add X-Origin-Content-Length header with the value is size of the source image.|`false`|
+| **features.server.name**                    |`PRO:` The Server header value.|`imgproxy`|
 
 ### Imgproxy Security Settings
 
@@ -183,9 +185,11 @@ The above command installs a specified version of imgproxy.
 ### Fallback Image
 
 |Value|Description|Default|
-|-----|-----------|-------|
+|-----|-----------|------|
 |**features.fallbackImage.data**|Base64-encoded image data. You can easily calculate it with `base64 tmp/fallback.png | tr -d '\n'`||
 |**features.fallbackImage.url**|fallback image URL.||
+|**features.fallbackImage.httpCode**|HTTP code for the fallback image response.|`200`|
+|**features.fallbackImage.ttl**|A duration (in seconds) sent via the Expires and Cache-Control:max-age HTTP headers when a fallback image was used.When blank or 0, the value from IMGPROXY_TTL is used.||
 
 ### Skip Processing by imgproxy
 
@@ -214,10 +218,11 @@ The above command installs a specified version of imgproxy.
 
 ### Google Cloud Storage support
 
-|Value|Description|Default|
-|-----|-----------|-------|
-|**features.gcs.enabled**|When true, enables image fetching from Google Cloud Storage|`false`|
-|**features.gcs.jsonKey**|Google Cloud JSON key. When set, enables image fetching from Google Cloud Storage buckets||
+| Value                     |Description|Default|
+|---------------------------|-----------|-------|
+| **features.gcs.enabled**  |When true, enables image fetching from Google Cloud Storage|`false`|
+| **features.gcs.jsonKey**  |Google Cloud JSON key. When set, enables image fetching from Google Cloud Storage buckets||
+| **features.gcs.endpoint** |A custom Google Cloud Storage endpoint to being used by imgproxy.||
 
 ### MS Azure Blob Storage support
 
@@ -275,14 +280,18 @@ The above command installs a specified version of imgproxy.
 
 ### Miscellaneous imgproxy Settings
 
-|Value|Description|Default|
-|-----|-----------|-------|
-|**features.miscellaneous.baseUrl**|base URL part which will be added to every requestsd image URL.||
-|**features.miscellaneous.useLinearColorspace**|when true, imgproxy will process images in linear colorspace. This will slow down processing. Note that images won’t be fully processed in linear colorspace while shrink-on-load is enabled (see below)|`false`|
-|**features.miscellaneous.disableShrinkOnLoad**|when true, disables shrink-on-load for JPEG and WebP. Allows to process the whole image in linear colorspace but dramatically slows down resizing and increases memory usage when working with large images|`false`|
-|**features.miscellaneous.stripColorProfile**|when `true`, imgproxy will transform the embedded color profile (ICC) to sRGB and remove it from the image.|`true`|
-|**features.miscellaneous.autoRotate**|when `true`, imgproxy will auto rotate images based on the EXIF Orientation parameter (if available in the image meta data).|`true`|
-|**features.miscellaneous.stripMetadata**|whether to strip all metadata (EXIF, IPTC, etc.) from JPEG and WebP output images|`true`|
+| Value                                          | Description                                                                                                                                                                                                 | Default |
+|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
+| **features.miscellaneous.baseUrl**             | base URL part which will be added to every requestsd image URL.                                                                                                                                             ||
+| **features.miscellaneous.useLinearColorspace** | when true, imgproxy will process images in linear colorspace. This will slow down processing. Note that images won’t be fully processed in linear colorspace while shrink-on-load is enabled (see below)    | `false` |
+| **features.miscellaneous.disableShrinkOnLoad** | when true, disables shrink-on-load for JPEG and WebP. Allows to process the whole image in linear colorspace but dramatically slows down resizing and increases memory usage when working with large images | `false` |
+| **features.miscellaneous.stripColorProfile**   | when `true`, imgproxy will transform the embedded color profile (ICC) to sRGB and remove it from the image.                                                                                                 | `true`  |
+| **features.miscellaneous.autoRotate**          | when `true`, imgproxy will auto rotate images based on the EXIF Orientation parameter (if available in the image meta data).                                                                                | `true`  |
+| **features.miscellaneous.stripMetadata**       | whether to strip all metadata (EXIF, IPTC, etc.) from JPEG and WebP output images                                                                                                                           | `true`  |
+| **features.miscellaneous.keepCopyright**       | When `true`, imgproxy will not remove copyright info while stripping metadata                                                                                                                               | `true`  |
+| **features.miscellaneous.enforceThumbnail**    | When `true` and the source image has an embedded thumbnail, imgproxy will always use the embedded thumbnail instead of the main image. Currently, only thumbnails embedded in `heic` and `avif` are supported.| `false` |
+| **features.miscellaneous.healthCheck.message** |The content of the health check response||
+| **features.miscellaneous.healthCheck.path**    |An additional path of the health check.||
 
 ### k8s deployment
 

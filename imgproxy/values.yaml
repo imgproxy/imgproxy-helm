@@ -2,7 +2,7 @@
 # Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v3.0.0.beta2
+  tag: v3.5.0
   pullPolicy: IfNotPresent
   # create new image-pull-secret if enabled: true
   pullSecrets:
@@ -314,6 +314,10 @@ features:
     # When true, enables using ETag header for the cache control
     useEtag: false
 
+    # ENV['IMGPROXY_ETAG_BUSTER']
+    # (v3.1+) Change this to change ETags for all the images.
+    etagBuster: ""
+
     # ENV['IMGPROXY_CUSTOM_REQUEST_HEADERS']
     # PRO: list of custom headers that imgproxy will send while requesting the source image, divided by \;
     # (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)
@@ -330,6 +334,10 @@ features:
     # ENV['IMGPROXY_ENABLE_DEBUG_HEADERS']
     # when true, imgproxy will add X-Origin-Content-Length header with the value is size of the source image.
     enableDebugHeaders: false
+
+    # ENV['IMGPROXY_SERVER_NAME']
+    # (v3.3+, Pro) The Server header value. Default: `imgproxy`
+    name: ""
 
   # https://docs.imgproxy.net/#/configuration?id=security
   security:
@@ -355,6 +363,11 @@ features:
     # the maximum number of bytes imgproxy will read to recognize SVG.
     # If imgproxy can't recognize your SVG, try to increase this number.
     maxSvgCheckBytes: "32768" # 32KB
+
+    # ENV['IMGPROXY_MAX_REDIRECTS']
+    # (v3.3+) Requests to some image sources may go through too many redirects or enter an infinite loop.
+    # The max number of redirects imgproxy can follow while requesting the source image.
+    maxRedirects: ""
 
     # ENV['IMGPROXY_ALLOW_ORIGIN']
     # when set, enables CORS headers with provided origin. CORS headers are disabled by default.
@@ -676,6 +689,12 @@ features:
     # (v3+) HTTP code for the fallback image response. Default: 200
     httpCode: "200"
 
+    # ENV['IMGPROXY_FALLBACK_IMAGE_TTL']
+    # (v3.4+) A duration (in seconds) sent via the Expires and Cache-Control:
+    # max-age HTTP headers when a fallback image was used.
+    # When blank or 0, the value from IMGPROXY_TTL is used.
+    ttl: ""
+
     # ENV['IMGPROXY_FALLBACK_IMAGES_CACHE_SIZE']
     # PRO v3+: size of custom fallback images cache.
     #   When set to 0, fallback images cache is disabled.
@@ -739,6 +758,10 @@ features:
     # ENV['IMGPROXY_GCS_KEY']
     # Google Cloud JSON key.
     jsonKey: ""
+
+    # ENV['IMGPROXY_GCS_ENDPOINT']
+    # (v3.4+) A custom Google Cloud Storage endpoint to being used by imgproxy.
+    endpoint: ""
 
   # https://docs.imgproxy.net/#/configuration?id=serving-files-from-azure-blob-storage
   abs:
@@ -976,6 +999,10 @@ features:
     # when `true`, imgproxy will strip all metadata (EXIF, IPTC, etc.) from JPEG and WebP output images.
     stripMetadata: true
 
+    # ENV['IMGPROXY_KEEP_COPYRIGHT']
+    # (v3.5+) When `true`, imgproxy will not remove copyright info while stripping metadata. Default: `true`
+    keepCopyright: true
+
     # ENV['IMGPROXY_STRIP_COLOR_PROFILE']
     # when `true`, imgproxy will transform the embedded color profile (ICC) to sRGB and remove it from the image. Otherwise, imgproxy will try to keep it as is.
     stripColorProfile: true
@@ -983,6 +1010,21 @@ features:
     # ENV['IMGPROXY_AUTO_ROTATE']
     # when `true`, imgproxy will auto rotate images based on the EXIF Orientation parameter (if available in the image meta data). The orientation tag will be removed from the image anyway.
     autoRotate: true
+
+    # ENV['IMGPROXY_ENFORCE_THUMBNAIL']
+    # (v3.5+) When `true` and the source image has an embedded thumbnail, imgproxy will always use the embedded thumbnail instead of the main image.
+    # Currently, only thumbnails embedded in `heic` and `avif` are supported. Default: `false`
+    enforceThumbnail: false
+
+    healthCheck:
+
+      # ENV['IMGPROXY_HEALTH_CHECK_MESSAGE']
+      # (v3.3+, Pro) The content of the health check response
+      message: ""
+
+      # ENV['IMGPROXY_HEALTH_CHECK_PATH']
+      # (v3.3+) An additional path of the health check.
+      path: ""
 
   # In this section you can add custom env variables
   # to support newest features of imgproxy in the older versions of imgproxy-helm

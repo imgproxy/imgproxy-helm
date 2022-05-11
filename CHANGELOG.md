@@ -1,3 +1,7 @@
+## 0.8.15 (2022-05-11)
+
+* Support imgproxy v3.5.0
+
 ## 0.8.14 (2022-05-07)
 
 * Fix YAML syntax for common labels
