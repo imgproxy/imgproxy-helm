@@ -1,6 +1,8 @@
+{{- $apiVersion := include "imgproxy.versions.podDisruptionBudget" . }}
 {{- with .Values.resources.podDisruptionBudget -}}
-{{- if .enabled }}
-apiVersion: policy/v1beta1
+{{- if (.enabled | and $apiVersion) }}
+---
+apiVersion: {{ $apiVersion }}
 kind: PodDisruptionBudget
 metadata:
   name: {{ template "imgproxy.fullname" $ }}-pdb

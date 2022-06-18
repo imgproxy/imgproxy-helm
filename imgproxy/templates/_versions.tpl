@@ -45,6 +45,20 @@
     {{- end -}}
 {{- end -}}
 
+{{/* API version of pod disrutption budget */}}
+{{- define "imgproxy.versions.podDisruptionBudget" }}
+    {{- $kubeVersion := $.Capabilities.KubeVersion.Version }}
+    {{- $apiVersions := $.Capabilities.APIVersions }}
+
+    {{- if $kubeVersion | semverCompare ">=1.21.0-0" -}}
+        {{- "policy/v1" -}}
+    {{- else if $apiVersions.Has "policy/v1" }}
+        {{- "policy/v1" -}}
+    {{- else if $apiVersions.Has "policy/v1beta1" }}
+        {{- "policy/v1beta1" -}}
+    {{- end -}}
+{{- end -}}
+
 {{/* Check if preemption policy is supported for PriorityClass. */}}
 {{- define "imgproxy.versions.features.priorityClassPreemptionPolicy" -}}
     {{- $.Capabilities.KubeVersion.Version | semverCompare ">= 1.19.0-0" }}
