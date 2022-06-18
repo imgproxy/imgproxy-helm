@@ -1,3 +1,8 @@
+## 0.8.16 (2022-06-18)
+
+* Fix issue #77 (make authentication key file not required)
+* Fix issue #76 (add a conditional apiVersion for PodDisruptionBudget in k8s v1.21+)
+
 ## 0.8.15 (2022-05-11)
 
 * Support imgproxy v3.5.0
