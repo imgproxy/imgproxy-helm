@@ -1,3 +1,7 @@
+## 0.8.17 (2022-07-04)
+
+* Support imgproxy v.3.6.0
+
 ## 0.8.16 (2022-06-18)
 
 * Fix issue #77 (make authentication key file not required)
