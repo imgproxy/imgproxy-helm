@@ -378,6 +378,10 @@ features:
     # Example: `s3://,https://example.com/,local://`.
     allowedSources: ""
 
+    # ENV['IMGPROXY_SANITIZE_SVG']
+    # (v3.6+) when true (default), imgproxy will remove scripts from SVG images to prevent XSS attacks.
+    sanitizeSvg: true
+
     # ENV['IMGPROXY_IGNORE_SSL_VERIFICATION']
     # when true, disables SSL verification, so imgproxy can be used in a development environment with self-signed SSL certificates.
     ignoreSslVerification: false
@@ -1015,6 +1019,10 @@ features:
     # (v3.5+) When `true` and the source image has an embedded thumbnail, imgproxy will always use the embedded thumbnail instead of the main image.
     # Currently, only thumbnails embedded in `heic` and `avif` are supported. Default: `false`
     enforceThumbnail: false
+
+    # ENV['IMGPROXY_RETURN_ATTACHMENT']
+    # (v3.6+) when true, response header Content-Disposition will include attachment. Default: false
+    returnAttachment: false
 
     healthCheck:
 

@@ -118,6 +118,7 @@ The above command installs a specified version of imgproxy.
 |**features.security.maxSvgCheckBytes**|the maximum number of bytes imgproxy will read to recognize SVG.|`32KB`|
 |**features.security.allowOrigin**|when set, enables CORS headers with provided origin. CORS headers are disabled by default.|`false`|
 |**features.security.allowedSources**|whitelist of source image URLs prefixes divided by comma. When blank, imgproxy allows all source image URLs.||
+|**features.security.sanitizeSvg**|when true, imgproxy will remove scripts from SVG images to prevent XSS attacks.|`true`|
 |**features.security.ignoreSslVerification**|When true, disables SSL verification|`false`|
 |**features.security.developmentErrorsMode**|when true, imgproxy will respond with detailed error messages. Not recommended for production because some errors may contain stack trace|`false`|
 
@@ -338,8 +339,12 @@ The above command installs a specified version of imgproxy.
 |**features.miscellaneous.baseUrl**|base URL part which will be added to every requestsd image URL.||
 |**features.miscellaneous.useLinearColorspace**|when true, imgproxy will process images in linear colorspace. This will slow down processing. Note that images won’t be fully processed in linear colorspace while shrink-on-load is enabled (see below)|`false`|
 |**features.miscellaneous.disableShrinkOnLoad**|when true, disables shrink-on-load for JPEG and WebP. Allows to process the whole image in linear colorspace but dramatically slows down resizing and increases memory usage when working with large images|`false`|
+|**features.miscellaneous.stripMetadata**|when true, imgproxy will strip all metadata (EXIF, IPTC, etc.) from JPEG and WebP output images.|`true`|
 |**features.miscellaneous.stripColorProfile**|when `true`, imgproxy will transform the embedded color profile (ICC) to sRGB and remove it from the image.|`true`|
+|**features.miscellaneous.keepCopyright**|when true, imgproxy will not remove copyright info while stripping metadata.|`true`|
 |**features.miscellaneous.autoRotate**|when `true`, imgproxy will auto rotate images based on the EXIF Orientation parameter (if available in the image meta data).|`true`|
+|**features.miscellaneous.enforceThumbnail**|When `true` and the source image has an embedded thumbnail, imgproxy will always use the embedded thumbnail instead of the main image.|`false`|
+|**features.miscellaneous.returnAttachment**|when true, response header Content-Disposition will include attachment.|`false`|
 |**features.miscellaneous.stripMetadata**|whether to strip all metadata (EXIF, IPTC, etc.) from JPEG and WebP output images|`true`|
 
 ### k8s deployment
