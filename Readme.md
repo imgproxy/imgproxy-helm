@@ -92,7 +92,7 @@ The above command installs a specified version of imgproxy.
 | **features.server.downloadTimeout**         |the maximum duration (in seconds) for downloading the source image|`5`|
 | **features.server.concurrency**             |the maximum number of image requests to be processed simultaneously|`double number of CPU cores`|
 | **features.server.maxClients**              |the maximum number of simultaneous active connections|`concurrency * 10`|
-| **features.server.ttl**                     |duration in seconds sent in Expires and Cache-Control: max-age headers|`3600`|
+| **features.server.ttl**                     |duration in seconds sent in Expires and Cache-Control: max-age headers|`31536000`|
 | **features.server.setCanonicalHeader**      |when true and the source image has http or https scheme, set rel="canonical" HTTP header to the value of the source image URL.|`false`|
 | **features.server.cacheControlPassthrough** |when true and source image response contains Expires or Cache-Control headers, reuse those header|`false`|
 | **features.server.soReuseport**             |when true, enables SO_REUSEPORT socket option (currently on linux and darwin only)|`false`|
@@ -191,11 +191,13 @@ The above command installs a specified version of imgproxy.
 |**features.fallbackImage.httpCode**|HTTP code for the fallback image response.|`200`|
 |**features.fallbackImage.ttl**|A duration (in seconds) sent via the Expires and Cache-Control:max-age HTTP headers when a fallback image was used.When blank or 0, the value from IMGPROXY_TTL is used.||
 
-### Skip Processing by imgproxy
+### Formats
 
-|Value|Description|Default|
-|-----|-----------|-------|
-|**features.skipProcessing.formats**|list of formats that imgproxy shouldn't process, comma-divided.||
+|Value| Description|Default|
+|-----|-----------|------|
+|**features.formats.preferred**| list of preferred formats, comma divided.|jpeg,png,gif,webp,avif,ico|
+|**features.formats.skipProcessing**|list of formats that imgproxy shouldn't process, comma-divided.||
+|`DEPRECATED:`**features.skipProcessing.formats**|list of formats that imgproxy shouldn't process, comma-divided. ||
 
 ### Presets
 

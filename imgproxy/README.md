@@ -228,11 +228,13 @@ The above command installs a specified version of imgproxy.
 |**features.fallbackImage.url**|HTTP code for the fallback image response. (`v3+`)|`200`|
 |**features.fallbackImage.url**|`PRO:` Size of custom fallback images cache.|`256`|
 
-### Skip Processing by imgproxy
+### Formats
 
-|Value|Description|Default|
-|-----|-----------|-------|
-|**features.skipProcessing.formats**|list of formats that imgproxy shouldn't process, comma-divided.||
+|Value| Description|Default|
+|-------------------------------------------------|------------------------------------------------------------------------------|-------|
+|**features.formats.preferred**| list of preferred formats, comma divided.|jpeg,png,gif,webp,avif,ico|
+|**features.formats.skipProcessing**|list of formats that imgproxy shouldn't process, comma-divided.||
+|`DEPRECATED:`**features.skipProcessing.formats**|list of formats that imgproxy shouldn't process, comma-divided. ||
 
 ### Presets
 

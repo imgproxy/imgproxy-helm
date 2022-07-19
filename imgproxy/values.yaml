@@ -286,7 +286,7 @@ features:
 
     # ENV['IMGPROXY_TTL']
     # Duration in seconds sent in Expires and Cache-Control: max-age headers.
-    ttl: "3600"
+    ttl: ~
 
     # ENV['IMGPROXY_CACHE_CONTROL_PASSTHROUGH']
     # when true and source image response contains Expires or Cache-Control headers, reuse those headers
@@ -705,9 +705,21 @@ features:
     #   By default 256 fallback images are cached.
     cacheSize: "256"
 
-  # https://docs.imgproxy.net/#/configuration?id=skip-processing
+  formats:
+    # https://docs.imgproxy.net/#/configuration?id=preferred-formats
+    # ENV['IMGPROXY_PREFERRED_FORMATS']
+    # a list of preferred formats, comma divided.
+    # Default: `jpeg,png,gif,webp,avif,ico`
+    preferred: jpeg,png,gif,webp,avif,ico
+
+    # ENV['IMGPROXY_SKIP_PROCESSING_FORMATS']
+    # list of formats that imgproxy shouldn't process, comma-divided.
+    skipProcessing: ""
+
   skipProcessing:
 
+    # DEPRECATED: to be removed in v0.9.0
+    # Use `formats.skipProcessing` instead
     # ENV['IMGPROXY_SKIP_PROCESSING_FORMATS']
     # list of formats that imgproxy shouldn't process, comma-divided.
     formats: ""
