@@ -279,6 +279,12 @@ features:
     # Default: double number of CPU cores
     concurrency: ""
 
+    # ENV['IMGPROXY_REQUESTS_QUEUE_SIZE']
+    # The maximum number of image requests that can be put in the queue.
+    # Requests that exceed this limit are rejected with `429` HTTP status.
+    # When set to `0`, the requests queue is unlimited.
+    requestsQueueSize: 0
+
     # ENV['IMGPROXY_MAX_CLIENTS']
     # The maximum number of simultaneous active connections.
     # Default: concurrency * 10

@@ -94,6 +94,7 @@ The above command installs a specified version of imgproxy.
 |**features.server.keepAliveTimeout**|the maximum duration (in seconds) to wait for the next request before closing the connection. When set to 0, keep-alive is disabled|`10`|
 |**features.server.downloadTimeout**|the maximum duration (in seconds) for downloading the source image|`5`|
 |**features.server.concurrency**|the maximum number of image requests to be processed simultaneously|`double number of CPU cores`|
+|**features.server.requestsQueueSize**|he maximum number of image requests that can be put in the queue. Requests that exceed this limit are rejected with `429` HTTP status. When set to `0`, the requests queue is unlimited.|`0`|
 |**features.server.maxClients**|the maximum number of simultaneous active connections|`concurrency * 10`|
 |**features.server.ttl**|duration in seconds sent in Expires and Cache-Control: max-age headers|`3600`|
 |**features.server.setCanonicalHeader**|when true and the source image has http or https scheme, set rel="canonical" HTTP header to the value of the source image URL.|`false`|
