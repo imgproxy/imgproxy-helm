@@ -297,6 +297,7 @@ The above command installs a specified version of imgproxy.
 |**features.datadog.metricsEnabled**|Enables automatic collection of runtime metrics every 10 seconds.|`false`|
 |**features.datadog.traceStartupLogs**|Causes various startup info to be written when the tracer starts.|`true`|
 |**features.datadog.traceDebug**|Enables detailed logs.|`false`|
+|**features.datadog.enableAdditionalMetrics**|Enables additional metrhics. Warning: Since the additional metrics are treated by Datadog as custom, Datadog can additionally bill you for their usage.|`false`|
 
 ### Error Reporting
 

@@ -892,6 +892,12 @@ features:
     # Enables detailed logs. Default: false
     traceDebug: false
 
+    # ENV['IMGPROXY_DATADOG_ENABLE_ADDITIONAL_METRICS]
+    # When true, enables sending the additional metrics to Datadog. Default: false
+    #️Warning: Since the additional metrics are treated by Datadog as custom,
+    # Datadog can additionally bill you for their usage.
+    enableAdditionalMetrics: false
+
   # https://docs.imgproxy.net/#/configuration?id=error-reporting
   errorReporting:
 
