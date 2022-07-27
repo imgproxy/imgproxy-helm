@@ -2,7 +2,7 @@
 # Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v3.5.0
+  tag: v3.7.0
   pullPolicy: IfNotPresent
   # create new image-pull-secret if enabled: true
   pullSecrets:
@@ -279,6 +279,12 @@ features:
     # Default: double number of CPU cores
     concurrency: ""
 
+    # ENV['IMGPROXY_REQUESTS_QUEUE_SIZE']
+    # The maximum number of image requests that can be put in the queue.
+    # Requests that exceed this limit are rejected with `429` HTTP status.
+    # When set to `0`, the requests queue is unlimited.
+    requestsQueueSize: 0
+
     # ENV['IMGPROXY_MAX_CLIENTS']
     # The maximum number of simultaneous active connections.
     # Default: concurrency * 10
@@ -286,7 +292,7 @@ features:
 
     # ENV['IMGPROXY_TTL']
     # Duration in seconds sent in Expires and Cache-Control: max-age headers.
-    ttl: "3600"
+    ttl: ~
 
     # ENV['IMGPROXY_CACHE_CONTROL_PASSTHROUGH']
     # when true and source image response contains Expires or Cache-Control headers, reuse those headers
@@ -705,9 +711,21 @@ features:
     #   By default 256 fallback images are cached.
     cacheSize: "256"
 
-  # https://docs.imgproxy.net/#/configuration?id=skip-processing
+  formats:
+    # https://docs.imgproxy.net/#/configuration?id=preferred-formats
+    # ENV['IMGPROXY_PREFERRED_FORMATS']
+    # a list of preferred formats, comma divided.
+    # Default: `jpeg,png,gif,webp,avif,ico`
+    preferred: jpeg,png,gif,webp,avif,ico
+
+    # ENV['IMGPROXY_SKIP_PROCESSING_FORMATS']
+    # list of formats that imgproxy shouldn't process, comma-divided.
+    skipProcessing: ""
+
   skipProcessing:
 
+    # DEPRECATED: to be removed in v0.9.0
+    # Use `formats.skipProcessing` instead
     # ENV['IMGPROXY_SKIP_PROCESSING_FORMATS']
     # list of formats that imgproxy shouldn't process, comma-divided.
     formats: ""
@@ -799,6 +817,10 @@ features:
     # New Relic application name. Default: `imgproxy`.
     appName: ""
 
+    # ENV['IMGPROXY_NEW_RELIC_LABELS']
+    # The list of New Relic labels, semicolon divided.
+    labels: ""
+
   # https://docs.imgproxy.net/#/configuration?id=prometheus-metrics
   prometheus:
 
@@ -873,6 +895,12 @@ features:
     # ENV['DD_TRACE_DEBUG']
     # Enables detailed logs. Default: false
     traceDebug: false
+
+    # ENV['IMGPROXY_DATADOG_ENABLE_ADDITIONAL_METRICS]
+    # When true, enables sending the additional metrics to Datadog. Default: false
+    #️Warning: Since the additional metrics are treated by Datadog as custom,
+    # Datadog can additionally bill you for their usage.
+    enableAdditionalMetrics: false
 
   # https://docs.imgproxy.net/#/configuration?id=error-reporting
   errorReporting:

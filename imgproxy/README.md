@@ -94,6 +94,7 @@ The above command installs a specified version of imgproxy.
 |**features.server.keepAliveTimeout**|the maximum duration (in seconds) to wait for the next request before closing the connection. When set to 0, keep-alive is disabled|`10`|
 |**features.server.downloadTimeout**|the maximum duration (in seconds) for downloading the source image|`5`|
 |**features.server.concurrency**|the maximum number of image requests to be processed simultaneously|`double number of CPU cores`|
+|**features.server.requestsQueueSize**|he maximum number of image requests that can be put in the queue. Requests that exceed this limit are rejected with `429` HTTP status. When set to `0`, the requests queue is unlimited.|`0`|
 |**features.server.maxClients**|the maximum number of simultaneous active connections|`concurrency * 10`|
 |**features.server.ttl**|duration in seconds sent in Expires and Cache-Control: max-age headers|`3600`|
 |**features.server.setCanonicalHeader**|when true and the source image has http or https scheme, set rel="canonical" HTTP header to the value of the source image URL.|`false`|
@@ -228,11 +229,13 @@ The above command installs a specified version of imgproxy.
 |**features.fallbackImage.url**|HTTP code for the fallback image response. (`v3+`)|`200`|
 |**features.fallbackImage.url**|`PRO:` Size of custom fallback images cache.|`256`|
 
-### Skip Processing by imgproxy
+### Formats
 
-|Value|Description|Default|
-|-----|-----------|-------|
-|**features.skipProcessing.formats**|list of formats that imgproxy shouldn't process, comma-divided.||
+|Value| Description|Default|
+|-------------------------------------------------|------------------------------------------------------------------------------|-------|
+|**features.formats.preferred**| list of preferred formats, comma divided.|jpeg,png,gif,webp,avif,ico|
+|**features.formats.skipProcessing**|list of formats that imgproxy shouldn't process, comma-divided.||
+|`DEPRECATED:`**features.skipProcessing.formats**|list of formats that imgproxy shouldn't process, comma-divided. ||
 
 ### Presets
 
@@ -276,6 +279,7 @@ The above command installs a specified version of imgproxy.
 |**features.newRelic.enabled**|Enables New Relic integration|`false`|
 |**features.newRelic.licenseKey**|New Relic license key||
 |**features.newRelic.appName**|New Relic application name||
+|**features.newRelic.labels**|The list of New Relic labels, semicolon divided.||
 
 ### Integration to Datadog (v3+)
 
@@ -294,6 +298,7 @@ The above command installs a specified version of imgproxy.
 |**features.datadog.metricsEnabled**|Enables automatic collection of runtime metrics every 10 seconds.|`false`|
 |**features.datadog.traceStartupLogs**|Causes various startup info to be written when the tracer starts.|`true`|
 |**features.datadog.traceDebug**|Enables detailed logs.|`false`|
+|**features.datadog.enableAdditionalMetrics**|Enables additional metrhics. Warning: Since the additional metrics are treated by Datadog as custom, Datadog can additionally bill you for their usage.|`false`|
 
 ### Error Reporting
 
