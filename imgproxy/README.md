@@ -279,6 +279,7 @@ The above command installs a specified version of imgproxy.
 |**features.newRelic.enabled**|Enables New Relic integration|`false`|
 |**features.newRelic.licenseKey**|New Relic license key||
 |**features.newRelic.appName**|New Relic application name||
+|**features.newRelic.labels**|The list of New Relic labels, semicolon divided.||
 
 ### Integration to Datadog (v3+)
 

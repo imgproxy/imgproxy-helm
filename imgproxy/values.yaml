@@ -817,6 +817,10 @@ features:
     # New Relic application name. Default: `imgproxy`.
     appName: ""
 
+    # ENV['IMGPROXY_NEW_RELIC_LABELS']
+    # The list of New Relic labels, semicolon divided.
+    labels: ""
+
   # https://docs.imgproxy.net/#/configuration?id=prometheus-metrics
   prometheus:
 
