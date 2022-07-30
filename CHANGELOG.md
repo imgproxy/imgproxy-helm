@@ -1,3 +1,7 @@
+## 0.8.19 (2022-07-31)
+
+* Fix broken env variables for imgproxy formats
+
 ## 0.8.18 (2022-07-27)
 
 * Support imgproxy v.3.7.0
