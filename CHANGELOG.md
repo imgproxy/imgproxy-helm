@@ -1,3 +1,7 @@
+## 0.8.20 (2022-09-20)
+
+* Add new setting `features.ingress.pathSuffix`
+
 ## 0.8.19 (2022-07-31)
 
 * Fix broken env variables for imgproxy formats
