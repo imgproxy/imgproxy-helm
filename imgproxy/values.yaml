@@ -158,6 +158,9 @@ resources:
 
   ingress:
     enabled: false
+    # Add this prefix to ingress host paths. For example, use '*' for AWS load balancer
+    # This is a shortcut for the issue: https://github.com/kubernetes-sigs/aws-load-balancer-controller/issues/667
+    pathSuffix:
     # the custom name for the ingress resource
     className:
     health:
