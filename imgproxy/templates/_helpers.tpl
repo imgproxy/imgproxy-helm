@@ -102,3 +102,10 @@ https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.ht
 {{- $custom := $.Values.resources.deployment.resources | default dict -}}
 {{- merge $custom $default | toYaml -}}
 {{- end -}}
+
+{{/* Combine ingress path from server.pathPrefix and ingress.pathSuffix */}}
+{{- define "imgproxy.ingressPath" -}}
+{{- $prefix := ($.Values.features.server.pathPrefix | default "" | trimSuffix "/") -}}
+{{- $suffix := ($.Values.resources.ingress.pathSuffix | default "" | trimPrefix "/") -}}
+{{- printf "%s/%s" $prefix $suffix -}}
+{{- end -}}

@@ -402,6 +402,7 @@ Deployment specific options.
 |**resources.ingress.enabled**|When true, enables ingress resource for imgproxy|`false`|
 |**resources.ingress.health.whitelist**|Comma separated string of CIDR addresses that are allowed to access `/health` url of imgproxy||
 |**resources.ingress.hosts**|Hostnames for the ingress resource to use|`["example.com"]`|
+|**resources.ingress.pathSuffix**|Suffix to be added to path prefix, for example wildcard '*' for AWS balancer||
 |**resources.ingress.pathType**|Set the pathType for ingress rules explicitly (use `Prefix` for AWS ELB Controllers)|`ImplementationSpecific`|
 |**resources.ingress.tls**|TLS config array||
 |**resources.ingress.tls[].hosts**|Hostnames this tls secret is used for|`["example.com"]`|
