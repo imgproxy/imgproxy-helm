@@ -1,3 +1,7 @@
+## 0.8.21 (2022-09-28)
+
+* Add topology spread constraints
+
 ## 0.8.20 (2022-09-20)
 
 * Add new setting `features.ingress.pathSuffix`

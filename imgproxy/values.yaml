@@ -2,7 +2,7 @@
 # Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v3.7.0
+  tag: v3.7.2
   pullPolicy: IfNotPresent
   # create new image-pull-secret if enabled: true
   pullSecrets:
@@ -101,6 +101,12 @@ resources:
 
     # Toleration for K8s taints
     tolerations: []
+
+    # topologySpreadConstraints https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+    topologySpreadConstraints: []
+    # - maxSkew: 1
+    #   topologyKey: topology.kubernetes.io/zone
+    #   whenUnsatisfiable: DoNotSchedule
 
     # Set kubernetes specific resource limits.
     # We claim `cpu: 1` for both limits and requests by default.

@@ -385,6 +385,7 @@ Deployment specific options.
 |**resources.deployment.replicas.cpuUtilization**|The target percentage for the average CPU utilization by pods after which they should be scaled.| `80`        |
 |**resources.deployment.resources**|Hash of resource limits for your pods| `{}`        |
 |**resources.deployment.tolerations**|Tolerations for Kubernetes taints||
+|**resources.deployment.topologySpreadConstraints**|Topology spread constraints for distributing pods across zones|`[]`|
 |**resources.serviceAccount.annotations**|Annotations for the Kubernetes service account for imgproxy| ``          |
 |**resources.service.type**|Kubernetes service type for imgproxy| `ClusterIP` |
 |**resources.service.annotations**|Custom annotatioins for the service| `{}`         |
