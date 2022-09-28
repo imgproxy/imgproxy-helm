@@ -102,6 +102,12 @@ resources:
     # Toleration for K8s taints
     tolerations: []
 
+    # topologySpreadConstraints https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+    topologySpreadConstraints: []
+    # - maxSkew: 1
+    #   topologyKey: topology.kubernetes.io/zone
+    #   whenUnsatisfiable: DoNotSchedule
+
     # Set kubernetes specific resource limits.
     # We claim `cpu: 1` for both limits and requests by default.
     resources: {}

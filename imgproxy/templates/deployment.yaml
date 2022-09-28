@@ -70,6 +70,17 @@ spec:
           persistentVolumeClaim:
             claimName: {{ include "imgproxy.pvcName" . }}
       {{- end }}
+      {{- with .Values.resources.deployment.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- range $constraint := . }}
+        - {{ toYaml $constraint | nindent 10 | trim }}
+        {{- if not $constraint.labelSelector }}
+          labelSelector:
+            matchLabels:
+              app: {{ template "imgproxy.fullname" $ }}
+        {{- end }}
+        {{- end }}
+      {{- end }}
       containers:
         - name: "imgproxy"
           image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
