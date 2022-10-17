@@ -2,7 +2,7 @@
 # Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v3.7.2
+  tag: v3.8.0
   pullPolicy: IfNotPresent
   # create new image-pull-secret if enabled: true
   pullSecrets:
@@ -242,10 +242,10 @@ persistence:
   dataSource: ""
 
 # Configure imgproxy features
-# https://docs.imgproxy.net/#/configuration
+# https://https://docs.imgproxy.net/configuration
 features:
 
-  # https://docs.imgproxy.net/#/configuration?id=url-signature
+  # https://https://docs.imgproxy.net/configuration?id=url-signature
   urlSignature:
 
     # If URL signature is enabled
@@ -263,7 +263,7 @@ features:
     # number of bytes to use for signature before encoding to Base64.
     signatureSize: "32"
 
-  # https://docs.imgproxy.net/#/configuration?id=server
+  # https://https://docs.imgproxy.net/configuration?id=server
   server:
 
     # ENV['IMGPROXY_READ_TIMEOUT']
@@ -354,7 +354,7 @@ features:
     # (v3.3+, Pro) The Server header value. Default: `imgproxy`
     name: ""
 
-  # https://docs.imgproxy.net/#/configuration?id=security
+  # https://https://docs.imgproxy.net/configuration?id=security
   security:
 
     # ENV['IMGPROXY_SECRET']
@@ -383,6 +383,10 @@ features:
     # (v3.3+) Requests to some image sources may go through too many redirects or enter an infinite loop.
     # The max number of redirects imgproxy can follow while requesting the source image.
     maxRedirects: ""
+
+    # ENV['IMGPROXY_SOURCE_URL_ENCRYPTION_KEY']
+    # hex-encoded key used for source URL encryption
+    sourceUrlEncryptionKey: ""
 
     # ENV['IMGPROXY_ALLOW_ORIGIN']
     # when set, enables CORS headers with provided origin. CORS headers are disabled by default.
@@ -421,7 +425,7 @@ features:
     # they will be passed along in the image request.
     baseUrl: ""
 
-  # https://docs.imgproxy.net/#/configuration?id=compression
+  # https://https://docs.imgproxy.net/configuration?id=compression
   compression:
 
     # ENV['IMGPROXY_QUALITY']
@@ -562,7 +566,7 @@ features:
     #   webpNet: "/networks/autoquality-avif.pb")
     avifNet:
 
-  # https://docs.imgproxy.net/#/configuration?id=avifwebp-support-detection
+  # https://https://docs.imgproxy.net/configuration?id=avifwebp-support-detection
   formatsSupportDetection:
 
     # Enforce/enable webP detection/usage
@@ -588,14 +592,14 @@ features:
       # enables AVIF support detection and enforces AVIF usage. If the browser supports AVIF, it will be used as resulting format even if another extension is specified in the imgproxy URL.
       enforced: false
 
-  # https://docs.imgproxy.net/#/configuration?id=client-hints-support
+  # https://https://docs.imgproxy.net/configuration?id=client-hints-support
   clientHintsSupport:
 
     # ENV['IMGPROXY_ENABLE_CLIENT_HINTS']
     # enables Client Hints support to determine default width and DPR options.
     enabled: false
 
-  # https://docs.imgproxy.net/#/configuration?id=video-thumbnails
+  # https://https://docs.imgproxy.net/configuration?id=video-thumbnails
   videoThumbnails:
 
     # ENV['IMGPROXY_ENABLE_VIDEO_THUMBNAILS']
@@ -614,7 +618,7 @@ features:
     # PRO: the maximum of milliseconds used to get the stream info. Low values can decrease memory usage but can produce inaccurate data or even lead to errors. When set to 0, the heuristic is used.
     maxAnalyzeDuration: "0"
 
-  # https://docs.imgproxy.net/#/configuration?id=watermark
+  # https://https://docs.imgproxy.net/configuration?id=watermark
   watermark:
 
     # ENV['IMGPROXY_WATERMARK_DATA']
@@ -637,7 +641,7 @@ features:
     # PRO: size of custom watermarks cache. When set to `0`, watermarks cache is disabled.
     cacheSize: "256"
 
-  # https://docs.imgproxy.net/#/configuration?id=unsharpening
+  # https://https://docs.imgproxy.net/configuration?id=unsharpening
   unsharpening:
 
     # ENV['IMGPROXY_UNSHARPENING_MODE']
@@ -693,7 +697,7 @@ features:
     # Default: 0.4.
     nmsThreshold: "0.4"
 
-  # https://docs.imgproxy.net/#/configuration?id=fallback-image
+  # https://https://docs.imgproxy.net/configuration?id=fallback-image
   fallbackImage:
 
     # ENV['IMGPROXY_FALLBACK_IMAGE_DATA']
@@ -721,7 +725,7 @@ features:
     cacheSize: "256"
 
   formats:
-    # https://docs.imgproxy.net/#/configuration?id=preferred-formats
+    # https://https://docs.imgproxy.net/configuration?id=preferred-formats
     # ENV['IMGPROXY_PREFERRED_FORMATS']
     # a list of preferred formats, comma divided.
     # Default: `jpeg,png,gif,webp,avif,ico`
@@ -739,7 +743,7 @@ features:
     # list of formats that imgproxy shouldn't process, comma-divided.
     formats: ""
 
-  # https://docs.imgproxy.net/#/configuration?id=presets
+  # https://https://docs.imgproxy.net/configuration?id=presets
   presets:
 
     # ENV['IMGPROXY_PRESETS']
@@ -751,7 +755,7 @@ features:
     # disable all URL formats and enable presets-only mode.
     onlyPresets: false
 
-  # https://docs.imgproxy.net/#/configuration?id=serving-files-from-amazon-s3
+  # https://https://docs.imgproxy.net/configuration?id=serving-files-from-amazon-s3
   aws:
 
     # ENV['IMGPROXY_USE_S3']
@@ -780,7 +784,7 @@ features:
     # custom S3 endpoint to being used by imgproxy.
     s3Endpoint: ""
 
-  # https://docs.imgproxy.net/#/configuration?id=serving-files-from-google-cloud-storage
+  # https://https://docs.imgproxy.net/configuration?id=serving-files-from-google-cloud-storage
   gcs:
 
     # Enable GCS as backend for images
@@ -794,7 +798,7 @@ features:
     # (v3.4+) A custom Google Cloud Storage endpoint to being used by imgproxy.
     endpoint: ""
 
-  # https://docs.imgproxy.net/#/configuration?id=serving-files-from-azure-blob-storage
+  # https://https://docs.imgproxy.net/configuration?id=serving-files-from-azure-blob-storage
   abs:
 
     # ENV['IMGPROXY_USE_ABS']
@@ -813,7 +817,7 @@ features:
     # custom Azure Blob Storage endpoint to be used by imgproxy.
     endpoint: ""
 
-  # https://docs.imgproxy.net/#/configuration?id=new-relic-metrics
+  # https://https://docs.imgproxy.net/configuration?id=new-relic-metrics
   newRelic:
 
     enabled: false
@@ -830,7 +834,7 @@ features:
     # The list of New Relic labels, semicolon divided.
     labels: ""
 
-  # https://docs.imgproxy.net/#/configuration?id=prometheus-metrics
+  # https://https://docs.imgproxy.net/configuration?id=prometheus-metrics
   prometheus:
 
     enabled: false
@@ -911,7 +915,48 @@ features:
     # Datadog can additionally bill you for their usage.
     enableAdditionalMetrics: false
 
-  # https://docs.imgproxy.net/#/configuration?id=error-reporting
+  # https://docs.imgproxy.net/configuration?id=opentelemetry-metrics
+  openTelemetry:
+
+    # ENV['IMGPROXY_OPEN_TELEMETRY_ENABLE_METRICS']
+    # When `true`, imgproxy will send metrics over OpenTelemetry Metrics API. Default: `false`
+    enabled: false
+
+    # ENV['IMGPROXY_OPEN_TELEMETRY_ENDPOINT']
+    # OpenTelemetry collector endpoint (`host:port`). Default: blank
+    endpoint: ~
+
+    # ENV['IMGPROXY_OPEN_TELEMETRY_PROTOCOL']
+    # OpenTelemetry collector protocol. Supported protocols are `grpc`, `https`, and `http`. Default: `grpc`
+    protocol: grpc
+
+    # ENV['IMGPROXY_OPEN_TELEMETRY_SERVICE_NAME']
+    # OpenTelemetry service name. Default: `imgproxy`
+    serviceName: imgproxy
+
+    # ENV['IMGPROXY_OPEN_TELEMETRY_SERVER_CERT']
+    # OpenTelemetry collector TLS certificate, PEM-encoded. Default: blank
+    serverCert: ~
+
+    # ENV['IMGPROXY_OPEN_TELEMETRY_CLIENT_CERT']
+    # OpenTelemetry client TLS certificate, PEM-encoded. Default: blank
+    clientCert: ~
+
+    # ENV['IMGPROXY_OPEN_TELEMETRY_CLIENT_KEY']
+    # OpenTelemetry client TLS key, PEM-encoded. Default: blank
+    clientKey: ~
+
+    # ENV['IMGPROXY_OPEN_TELEMETRY_PROPAGATORS']
+    # A list of OpenTelemetry text map propagators, comma divided.
+    # Supported propagators are `tracecontext`, `baggage`, `b3`, `b3multi`, `jaeger`, `xray`, and `ottrace`.
+    # Default: blank
+    propagators: ~
+
+    # ENV['IMGPROXY_OPEN_TELEMETRY_CONNECTION_TIMEOUT']
+    # The maximum duration (in seconds) for establishing a connection to the OpenTelemetry collector. Default: `5`
+    connectionTimeout: 5
+
+  # https://https://docs.imgproxy.net/configuration?id=error-reporting
   errorReporting:
 
     # Integration to Bugsnag
@@ -964,7 +1009,7 @@ features:
     # when `true`, imgproxy will report downloading errors.
     reportDownloadingErrors: true
 
-  # https://docs.imgproxy.net/#/configuration?id=log
+  # https://https://docs.imgproxy.net/configuration?id=log
   logging:
 
     # ENV['IMGPROXY_LOG_FORMAT']
@@ -1002,7 +1047,7 @@ features:
       # specific syslog tag.
       tag: "imgproxy"
 
-  # https://docs.imgproxy.net/#/configuration?id=memory-usage-tweaks
+  # https://https://docs.imgproxy.net/configuration?id=memory-usage-tweaks
   memoryUsageTweaks:
 
     # ENV['IMGPROXY_DOWNLOAD_BUFFER_SIZE']
@@ -1021,7 +1066,7 @@ features:
     # the number of buffers that should be returned to a pool before calibration.
     bufferPoolCalibrationThreshold: "1024"
 
-  # https://docs.imgproxy.net/#/configuration?id=miscellaneous
+  # https://https://docs.imgproxy.net/configuration?id=miscellaneous
   miscellaneous:
 
     # ENV['IMGPROXY_BASE_URL']
@@ -1060,6 +1105,12 @@ features:
     # ENV['IMGPROXY_RETURN_ATTACHMENT']
     # (v3.6+) when true, response header Content-Disposition will include attachment. Default: false
     returnAttachment: false
+
+    # ENV['IMGPROXY_SVG_FIX_UNSUPPORTED']
+    # (v3.8+) when `true`, imgproxy will try to replace SVG features unsupported by librsvg
+    # to minimize SVG rendering error. This config only takes effect on SVG rasterization.
+    # Default: `false`
+    svgFixUnsupported: false
 
     healthCheck:
 

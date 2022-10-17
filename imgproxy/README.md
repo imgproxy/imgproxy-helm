@@ -113,6 +113,7 @@ The above command installs a specified version of imgproxy.
 |Value|Description|Default|
 |-----|-----------|-------|
 |**features.security.secret**|the authorization token. If specified, request should contain the `Authorization: Bearer %secret%` header||
+|**features.security.sourceUrlEncryptionKey**|hex-encoded key used for source URL encryption|``|
 |**features.security.maxSrcResolution**|the maximum resolution of the source image, in megapixels.|`16.8`|
 |**features.security.maxSrcFileSize**|the maximum size of the source image, in bytes.|`0` (disabled)|
 |**features.security.maxAnimationFrames**|the maximum of animated image frames to being processed.|`1`|
@@ -281,6 +282,20 @@ The above command installs a specified version of imgproxy.
 |**features.newRelic.appName**|New Relic application name||
 |**features.newRelic.labels**|The list of New Relic labels, semicolon divided.||
 
+### Integration to Open Telemetry
+
+|Value|Description|Default|
+|-----|-----------|-------|
+|**features.openTelemetry.enabled**|when `true`, imgproxy will send metrics over OpenTelemetry Metrics API|`false`|
+|**features.openTelemetry.collectorEndpoint**|OpenTelemetry collector endpoint (`host:port`)|``|
+|**features.openTelemetry.protocop**|OpenTelemetry collector protocol. Supported protocols are `grpc`, `https`, and `http`|`grpc`|
+|**features.openTelemetry.serviceName**|OpenTelemetry service name|`imgproxy`|
+|**features.openTelemetry.serverCert**|OpenTelemetry collector TLS certificate, PEM-encoded|``|
+|**features.openTelemetry.clientCert**|OpenTelemetry client TLS certificate, PEM-encoded|``|
+|**features.openTelemetry.clientKey**|OpenTelemetry client TLS key, PEM-encoded|``|
+|**features.openTelemetry.propagators**|a list of OpenTelemetry text map propagators, comma divided. Supported propagators are `tracecontext`, `baggage`, `b3`, `b3multi`, `jaeger`, `xray`, and `ottrace`|``|
+|**features.openTelemetry.connectionTimeout**|the maximum duration (in seconds) for establishing a connection to the OpenTelemetry collector|`5`|
+
 ### Integration to Datadog (v3+)
 
 |Value|Description|Default|
@@ -350,6 +365,7 @@ The above command installs a specified version of imgproxy.
 |**features.miscellaneous.autoRotate**|when `true`, imgproxy will auto rotate images based on the EXIF Orientation parameter (if available in the image meta data).|`true`|
 |**features.miscellaneous.enforceThumbnail**|When `true` and the source image has an embedded thumbnail, imgproxy will always use the embedded thumbnail instead of the main image.|`false`|
 |**features.miscellaneous.returnAttachment**|when true, response header Content-Disposition will include attachment.|`false`|
+|**features.miscellaneous.svgFixUnsupported**|when `true`, imgproxy will try to replace SVG features unsupported by librsvg to minimize SVG rendering error. This config only takes effect on SVG rasterization.|`false`|
 |**features.miscellaneous.stripMetadata**|whether to strip all metadata (EXIF, IPTC, etc.) from JPEG and WebP output images|`true`|
 
 ### k8s deployment

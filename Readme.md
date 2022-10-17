@@ -111,6 +111,7 @@ The above command installs a specified version of imgproxy.
 |Value|Description|Default|
 |-----|-----------|-------|
 |**features.security.secret**|the authorization token. If specified, request should contain the `Authorization: Bearer %secret%` header||
+|**features.security.sourceUrlEncryptionKey**|hex-encoded key used for source URL encryption|``|
 |**features.security.maxSrcResolution**|the maximum resolution of the source image, in megapixels.|`16.8`|
 |**features.security.maxSrcFileSize**|the maximum size of the source image, in bytes.|`0` (disabled)|
 |**features.security.maxAnimationFrames**|the maximum of animated image frames to being processed.|`1`|
@@ -244,6 +245,39 @@ The above command installs a specified version of imgproxy.
 |**features.newRelic.appName**|New Relic application name||
 |**features.newRelic.labels**|The list of New Relic labels, semicolon divided.||
 
+### Integration to Open Telemetry
+
+|Value|Description|Default|
+|-----|-----------|-------|
+|**features.openTelemetry.enabled**|when `true`, imgproxy will send metrics over OpenTelemetry Metrics API|`false`|
+|**features.openTelemetry.collectorEndpoint**|OpenTelemetry collector endpoint (`host:port`)|``|
+|**features.openTelemetry.protocop**|OpenTelemetry collector protocol. Supported protocols are `grpc`, `https`, and `http`|`grpc`|
+|**features.openTelemetry.serviceName**|OpenTelemetry service name|`imgproxy`|
+|**features.openTelemetry.serverCert**|OpenTelemetry collector TLS certificate, PEM-encoded|``|
+|**features.openTelemetry.clientCert**|OpenTelemetry client TLS certificate, PEM-encoded|``|
+|**features.openTelemetry.clientKey**|OpenTelemetry client TLS key, PEM-encoded|``|
+|**features.openTelemetry.propagators**|a list of OpenTelemetry text map propagators, comma divided. Supported propagators are `tracecontext`, `baggage`, `b3`, `b3multi`, `jaeger`, `xray`, and `ottrace`|``|
+|**features.openTelemetry.connectionTimeout**|the maximum duration (in seconds) for establishing a connection to the OpenTelemetry collector|`5`|
+
+### Integration to Datadog (v3+)
+
+|Value|Description|Default|
+|-----|-----------|-------|
+|**features.datadog.enabled**|Enables error reporting to Datadog|`false`|
+|**features.datadog.agentHost**|Set the address to connect to for sending metrics to the Datadog Agent.|`localhost`|
+|**features.datadog.agentHost**|Set the Datadog Agent Trace port.|`8126`|
+|**features.datadog.dogStatsdPort**|Set the DogStatsD port.|`8125`|
+|**features.datadog.service**|Set desired application name.|`imgproxy`|
+|**features.datadog.env**|Set the environment to which all traces will be submitted.||
+|**features.datadog.reportHostname**|When true, sets hostname with which to mark outgoing traces.|`false`|
+|**features.datadog.sourceHostname**|Allows specifying the hostname with which to mark outgoing traces.||
+|**features.datadog.tags**|Set a key/value pair which will be set as a tag on all traces.||
+|**features.datadog.analyticsEnabled**|Allows specifying whether Trace Search & Analytics should be enabled for integrations.|`false`|
+|**features.datadog.metricsEnabled**|Enables automatic collection of runtime metrics every 10 seconds.|`false`|
+|**features.datadog.traceStartupLogs**|Causes various startup info to be written when the tracer starts.|`true`|
+|**features.datadog.traceDebug**|Enables detailed logs.|`false`|
+|**features.datadog.enableAdditionalMetrics**|Enables additional metrhics. Warning: Since the additional metrics are treated by Datadog as custom, Datadog can additionally bill you for their usage.|`false`|
+
 ### Error Reporting
 
 |Value|Description|Default|
@@ -283,18 +317,19 @@ The above command installs a specified version of imgproxy.
 
 ### Miscellaneous imgproxy Settings
 
-| Value                                          | Description                                                                                                                                                                                                 | Default |
-|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------|
-| **features.miscellaneous.baseUrl**             | base URL part which will be added to every requestsd image URL.                                                                                                                                             ||
-| **features.miscellaneous.useLinearColorspace** | when true, imgproxy will process images in linear colorspace. This will slow down processing. Note that images won’t be fully processed in linear colorspace while shrink-on-load is enabled (see below)    | `false` |
-| **features.miscellaneous.disableShrinkOnLoad** | when true, disables shrink-on-load for JPEG and WebP. Allows to process the whole image in linear colorspace but dramatically slows down resizing and increases memory usage when working with large images | `false` |
-| **features.miscellaneous.stripColorProfile**   | when `true`, imgproxy will transform the embedded color profile (ICC) to sRGB and remove it from the image.                                                                                                 | `true`  |
-| **features.miscellaneous.autoRotate**          | when `true`, imgproxy will auto rotate images based on the EXIF Orientation parameter (if available in the image meta data).                                                                                | `true`  |
-| **features.miscellaneous.stripMetadata**       | whether to strip all metadata (EXIF, IPTC, etc.) from JPEG and WebP output images                                                                                                                           | `true`  |
-| **features.miscellaneous.keepCopyright**       | When `true`, imgproxy will not remove copyright info while stripping metadata                                                                                                                               | `true`  |
-| **features.miscellaneous.enforceThumbnail**    | When `true` and the source image has an embedded thumbnail, imgproxy will always use the embedded thumbnail instead of the main image. Currently, only thumbnails embedded in `heic` and `avif` are supported.| `false` |
-| **features.miscellaneous.healthCheck.message** |The content of the health check response||
-| **features.miscellaneous.healthCheck.path**    |An additional path of the health check.||
+|Value|Description|Default|
+|-----|-----------|-------|
+|**features.miscellaneous.baseUrl**|base URL part which will be added to every requestsd image URL.||
+|**features.miscellaneous.useLinearColorspace**|when true, imgproxy will process images in linear colorspace. This will slow down processing. Note that images won’t be fully processed in linear colorspace while shrink-on-load is enabled (see below)|`false`|
+|**features.miscellaneous.disableShrinkOnLoad**|when true, disables shrink-on-load for JPEG and WebP. Allows to process the whole image in linear colorspace but dramatically slows down resizing and increases memory usage when working with large images|`false`|
+|**features.miscellaneous.stripMetadata**|when true, imgproxy will strip all metadata (EXIF, IPTC, etc.) from JPEG and WebP output images.|`true`|
+|**features.miscellaneous.stripColorProfile**|when `true`, imgproxy will transform the embedded color profile (ICC) to sRGB and remove it from the image.|`true`|
+|**features.miscellaneous.keepCopyright**|when true, imgproxy will not remove copyright info while stripping metadata.|`true`|
+|**features.miscellaneous.autoRotate**|when `true`, imgproxy will auto rotate images based on the EXIF Orientation parameter (if available in the image meta data).|`true`|
+|**features.miscellaneous.enforceThumbnail**|When `true` and the source image has an embedded thumbnail, imgproxy will always use the embedded thumbnail instead of the main image.|`false`|
+|**features.miscellaneous.returnAttachment**|when true, response header Content-Disposition will include attachment.|`false`|
+|**features.miscellaneous.svgFixUnsupported**|when `true`, imgproxy will try to replace SVG features unsupported by librsvg to minimize SVG rendering error. This config only takes effect on SVG rasterization.|`false`|
+|**features.miscellaneous.stripMetadata**|whether to strip all metadata (EXIF, IPTC, etc.) from JPEG and WebP output images|`true`|
 
 ### k8s deployment
 
