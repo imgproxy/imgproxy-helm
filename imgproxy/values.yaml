@@ -242,10 +242,10 @@ persistence:
   dataSource: ""
 
 # Configure imgproxy features
-# https://https://docs.imgproxy.net/configuration
+# https://docs.imgproxy.net/configuration
 features:
 
-  # https://https://docs.imgproxy.net/configuration?id=url-signature
+  # https://docs.imgproxy.net/configuration?id=url-signature
   urlSignature:
 
     # If URL signature is enabled
@@ -263,7 +263,7 @@ features:
     # number of bytes to use for signature before encoding to Base64.
     signatureSize: "32"
 
-  # https://https://docs.imgproxy.net/configuration?id=server
+  # https://docs.imgproxy.net/configuration?id=server
   server:
 
     # ENV['IMGPROXY_READ_TIMEOUT']
@@ -354,7 +354,7 @@ features:
     # (v3.3+, Pro) The Server header value. Default: `imgproxy`
     name: ""
 
-  # https://https://docs.imgproxy.net/configuration?id=security
+  # https://docs.imgproxy.net/configuration?id=security
   security:
 
     # ENV['IMGPROXY_SECRET']
@@ -425,7 +425,7 @@ features:
     # they will be passed along in the image request.
     baseUrl: ""
 
-  # https://https://docs.imgproxy.net/configuration?id=compression
+  # https://docs.imgproxy.net/configuration?id=compression
   compression:
 
     # ENV['IMGPROXY_QUALITY']
@@ -566,7 +566,7 @@ features:
     #   webpNet: "/networks/autoquality-avif.pb")
     avifNet:
 
-  # https://https://docs.imgproxy.net/configuration?id=avifwebp-support-detection
+  # https://docs.imgproxy.net/configuration?id=avifwebp-support-detection
   formatsSupportDetection:
 
     # Enforce/enable webP detection/usage
@@ -592,14 +592,14 @@ features:
       # enables AVIF support detection and enforces AVIF usage. If the browser supports AVIF, it will be used as resulting format even if another extension is specified in the imgproxy URL.
       enforced: false
 
-  # https://https://docs.imgproxy.net/configuration?id=client-hints-support
+  # https://docs.imgproxy.net/configuration?id=client-hints-support
   clientHintsSupport:
 
     # ENV['IMGPROXY_ENABLE_CLIENT_HINTS']
     # enables Client Hints support to determine default width and DPR options.
     enabled: false
 
-  # https://https://docs.imgproxy.net/configuration?id=video-thumbnails
+  # https://docs.imgproxy.net/configuration?id=video-thumbnails
   videoThumbnails:
 
     # ENV['IMGPROXY_ENABLE_VIDEO_THUMBNAILS']
@@ -618,7 +618,7 @@ features:
     # PRO: the maximum of milliseconds used to get the stream info. Low values can decrease memory usage but can produce inaccurate data or even lead to errors. When set to 0, the heuristic is used.
     maxAnalyzeDuration: "0"
 
-  # https://https://docs.imgproxy.net/configuration?id=watermark
+  # https://docs.imgproxy.net/configuration?id=watermark
   watermark:
 
     # ENV['IMGPROXY_WATERMARK_DATA']
@@ -641,7 +641,7 @@ features:
     # PRO: size of custom watermarks cache. When set to `0`, watermarks cache is disabled.
     cacheSize: "256"
 
-  # https://https://docs.imgproxy.net/configuration?id=unsharpening
+  # https://docs.imgproxy.net/configuration?id=unsharpening
   unsharpening:
 
     # ENV['IMGPROXY_UNSHARPENING_MODE']
@@ -697,7 +697,7 @@ features:
     # Default: 0.4.
     nmsThreshold: "0.4"
 
-  # https://https://docs.imgproxy.net/configuration?id=fallback-image
+  # https://docs.imgproxy.net/configuration?id=fallback-image
   fallbackImage:
 
     # ENV['IMGPROXY_FALLBACK_IMAGE_DATA']
@@ -725,7 +725,7 @@ features:
     cacheSize: "256"
 
   formats:
-    # https://https://docs.imgproxy.net/configuration?id=preferred-formats
+    # https://docs.imgproxy.net/configuration?id=preferred-formats
     # ENV['IMGPROXY_PREFERRED_FORMATS']
     # a list of preferred formats, comma divided.
     # Default: `jpeg,png,gif,webp,avif,ico`
@@ -743,7 +743,7 @@ features:
     # list of formats that imgproxy shouldn't process, comma-divided.
     formats: ""
 
-  # https://https://docs.imgproxy.net/configuration?id=presets
+  # https://docs.imgproxy.net/configuration?id=presets
   presets:
 
     # ENV['IMGPROXY_PRESETS']
@@ -755,7 +755,7 @@ features:
     # disable all URL formats and enable presets-only mode.
     onlyPresets: false
 
-  # https://https://docs.imgproxy.net/configuration?id=serving-files-from-amazon-s3
+  # https://docs.imgproxy.net/configuration?id=serving-files-from-amazon-s3
   aws:
 
     # ENV['IMGPROXY_USE_S3']
@@ -784,7 +784,7 @@ features:
     # custom S3 endpoint to being used by imgproxy.
     s3Endpoint: ""
 
-  # https://https://docs.imgproxy.net/configuration?id=serving-files-from-google-cloud-storage
+  # https://docs.imgproxy.net/configuration?id=serving-files-from-google-cloud-storage
   gcs:
 
     # Enable GCS as backend for images
@@ -798,7 +798,7 @@ features:
     # (v3.4+) A custom Google Cloud Storage endpoint to being used by imgproxy.
     endpoint: ""
 
-  # https://https://docs.imgproxy.net/configuration?id=serving-files-from-azure-blob-storage
+  # https://docs.imgproxy.net/configuration?id=serving-files-from-azure-blob-storage
   abs:
 
     # ENV['IMGPROXY_USE_ABS']
@@ -817,7 +817,7 @@ features:
     # custom Azure Blob Storage endpoint to be used by imgproxy.
     endpoint: ""
 
-  # https://https://docs.imgproxy.net/configuration?id=new-relic-metrics
+  # https://docs.imgproxy.net/configuration?id=new-relic-metrics
   newRelic:
 
     enabled: false
@@ -834,7 +834,7 @@ features:
     # The list of New Relic labels, semicolon divided.
     labels: ""
 
-  # https://https://docs.imgproxy.net/configuration?id=prometheus-metrics
+  # https://docs.imgproxy.net/configuration?id=prometheus-metrics
   prometheus:
 
     enabled: false
@@ -956,7 +956,7 @@ features:
     # The maximum duration (in seconds) for establishing a connection to the OpenTelemetry collector. Default: `5`
     connectionTimeout: 5
 
-  # https://https://docs.imgproxy.net/configuration?id=error-reporting
+  # https://docs.imgproxy.net/configuration?id=error-reporting
   errorReporting:
 
     # Integration to Bugsnag
@@ -1009,7 +1009,7 @@ features:
     # when `true`, imgproxy will report downloading errors.
     reportDownloadingErrors: true
 
-  # https://https://docs.imgproxy.net/configuration?id=log
+  # https://docs.imgproxy.net/configuration?id=log
   logging:
 
     # ENV['IMGPROXY_LOG_FORMAT']
@@ -1047,7 +1047,7 @@ features:
       # specific syslog tag.
       tag: "imgproxy"
 
-  # https://https://docs.imgproxy.net/configuration?id=memory-usage-tweaks
+  # https://docs.imgproxy.net/configuration?id=memory-usage-tweaks
   memoryUsageTweaks:
 
     # ENV['IMGPROXY_DOWNLOAD_BUFFER_SIZE']
@@ -1066,7 +1066,7 @@ features:
     # the number of buffers that should be returned to a pool before calibration.
     bufferPoolCalibrationThreshold: "1024"
 
-  # https://https://docs.imgproxy.net/configuration?id=miscellaneous
+  # https://docs.imgproxy.net/configuration?id=miscellaneous
   miscellaneous:
 
     # ENV['IMGPROXY_BASE_URL']
