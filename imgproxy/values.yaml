@@ -2,7 +2,7 @@
 # Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v3.8.0
+  tag: v3.9.0
   pullPolicy: IfNotPresent
   # create new image-pull-secret if enabled: true
   pullSecrets:
@@ -1107,7 +1107,7 @@ features:
     returnAttachment: false
 
     # ENV['IMGPROXY_SVG_FIX_UNSUPPORTED']
-    # (v3.8+) when `true`, imgproxy will try to replace SVG features unsupported by librsvg
+    # (v3.9+) when `true`, imgproxy will try to replace SVG features unsupported by librsvg
     # to minimize SVG rendering error. This config only takes effect on SVG rasterization.
     # Default: `false`
     svgFixUnsupported: false
