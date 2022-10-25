@@ -95,7 +95,7 @@ https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.ht
 {{- $minCount := .minCount | default 1 | int }}
 {{- $maxCount := .maxCount | default $minCount | int }}
 {{- if gt $maxCount $minCount -}}
-{{- $default = dict "requests" (dict "cpu" 1) "limits" (dict "cpu" 1) -}}
+{{- $default = dict "requests" (dict "cpu" 1) -}}
 {{- end -}}
 {{- end -}}
 
