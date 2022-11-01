@@ -36,7 +36,9 @@
     {{- $kubeVersion := $.Capabilities.KubeVersion.Version }}
     {{- $apiVersions := $.Capabilities.APIVersions }}
 
-    {{- if $kubeVersion | semverCompare ">=1.19.0-0" -}}
+    {{- if $apiVersions.Has "autoscaling/v2" -}}
+        {{- "autoscaling/v2" -}}
+    {{- else if $kubeVersion | semverCompare ">=1.19.0-0" -}}
         {{- "autoscaling/v2beta2" -}}
     {{- else if $kubeVersion | semverCompare ">=1.12.0-0" | and ($apiVersions.Has "autoscaling/v2beta2") -}}
         {{- "autoscaling/v2beta2" -}}
