@@ -1,3 +1,7 @@
+## To be released
+
+* Support imgproxy v3.12.0
+
 ## 0.8.23 (2022-10-19)
 
 * Support imgproxy v3.9.0
