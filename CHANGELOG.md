@@ -1,6 +1,7 @@
 ## To be released
 
 * Support imgproxy v3.12.0
+* Fix issue #102 (enable autoscaling/v2 api)
 
 ## 0.8.23 (2022-10-19)
 
