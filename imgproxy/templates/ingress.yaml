@@ -17,7 +17,12 @@ metadata:
     {{- end }}
   {{- with .annotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}
+    {{- $tp := typeOf . }}
+    {{- if eq $tp "string" }}
+      {{- tpl . $ | nindent 4 }}
+    {{- else }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
   {{- end }}
 spec:
   {{- if .className }}

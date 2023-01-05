@@ -2,7 +2,7 @@
 # Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v3.9.0
+  tag: v3.12.0
   pullPolicy: IfNotPresent
   # create new image-pull-secret if enabled: true
   pullSecrets:
@@ -279,6 +279,13 @@ features:
     # When set to 0, keep-alive is disabled.
     keepAliveTimeout: "10"
 
+    # ENV['IMGPROXY_CLIENT_KEEP_ALIVE_TIMEOUT']
+    # The maximum duration (in seconds) to wait for the next request
+    # before closing the HTTP client connection.
+    # The HTTP client is used to download source images.
+    # When set to 0, keep-alive is disabled. Default: 90
+    clientKeepAliveTimeout: "90"
+
     # ENV['IMGPROXY_DOWNLOAD_TIMEOUT']
     # The maximum duration (in seconds) for downloading the source image
     downloadTimeout: "5"
@@ -374,6 +381,14 @@ features:
     # the maximum of animated image frames to being processed.
     maxAnimationFrames: "1"
 
+    # ENV['IMGPROXY_MAX_ANIMATION_FRAME_RESOLUTION']
+    # The maximum resolution of the animated source image frame, in megapixels.
+    # Images with larger actual frame size will be rejected.
+    # When set to 0, imgproxy will test the whole animated image resolution
+    # against IMGPROXY_MAX_SRC_RESOLUTION summarising all the frames’ resolutions.
+    # Default: 0
+    maxAnimationFrameResolution: 0
+
     # ENV['IMGPROXY_MAX_SVG_CHECK_BYTES']
     # the maximum number of bytes imgproxy will read to recognize SVG.
     # If imgproxy can't recognize your SVG, try to increase this number.
@@ -435,6 +450,7 @@ features:
     # ENV['IMGPROXY_FORMAT_QUALITY']
     # default quality of the resulting image per format, comma divided.
     # Example: `jpeg=70,avif=40,webp=60`. When value for the resulting format is not set, `IMGPROXY_QUALITY` value is used.
+    # Default value: `avif=65`
     formatQuality: ""
 
     # ENV['IMGPROXY_GZIP_COMPRESSION']
@@ -496,9 +512,13 @@ features:
     # PRO: when true, enables GIF transparency optimization. This may produce a smaller result, but may increase compression time.
     gifOptimizeTransparency: false
 
+    # ENV['IMGPROXY_WEBP_COMPRESSION']
+    # PRO: The compression method to use. Supported values are lossy, near_lossless, and lossless. Default: lossy
+    webpCompression: ~
+
     # ENV['IMGPROXY_AVIF_SPEED']
     # controls the CPU effort spent improving compression. 0 slowest - 8 fastest.
-    avifSpeed: "5"
+    avifSpeed: "8"
 
   # PRO, v3+: calculate quality for your resulting images so they fit the selected metric the best.
   # https://docs.imgproxy.net/autoquality?id=autoquality
@@ -728,8 +748,8 @@ features:
     # https://docs.imgproxy.net/configuration?id=preferred-formats
     # ENV['IMGPROXY_PREFERRED_FORMATS']
     # a list of preferred formats, comma divided.
-    # Default: `jpeg,png,gif,webp,avif,ico`
-    preferred: jpeg,png,gif,webp,avif,ico
+    # Default: `jpeg,png,gif`
+    preferred: jpeg,png,gif
 
     # ENV['IMGPROXY_SKIP_PROCESSING_FORMATS']
     # list of formats that imgproxy shouldn't process, comma-divided.
@@ -946,15 +966,39 @@ features:
     # OpenTelemetry client TLS key, PEM-encoded. Default: blank
     clientKey: ~
 
+    # ENV['IMGPROXY_OPEN_TELEMETRY_GRPC_INSECURE']
+    # When true, imgproxy will use an insecure GRPC connection unless the collector TLS certificate is not provided.
+    # Default: true
+    grpcInsecure: ~
+
     # ENV['IMGPROXY_OPEN_TELEMETRY_PROPAGATORS']
     # A list of OpenTelemetry text map propagators, comma divided.
     # Supported propagators are `tracecontext`, `baggage`, `b3`, `b3multi`, `jaeger`, `xray`, and `ottrace`.
     # Default: blank
     propagators: ~
 
+    # ENV['IMGPROXY_OPEN_TELEMETRY_TRACE_ID_GENERATOR']
+    # OpenTelemetry trace ID generator. Supported generators are xray and random. Default: xray
+    traceIdGenerator: ~
+
     # ENV['IMGPROXY_OPEN_TELEMETRY_CONNECTION_TIMEOUT']
     # The maximum duration (in seconds) for establishing a connection to the OpenTelemetry collector. Default: `5`
     connectionTimeout: 5
+
+  # https://docs.imgproxy.net/latest/cloud_watch?id=amazon-cloudwatch
+  amazonCloudWatch:
+
+    # ENV['IMGPROXY_CLOUD_WATCH_SERVICE_NAME']
+    # The value of the ServiceName dimension which will be used in the metrics. Default: blank
+    serviceName: ~
+
+    # ENV['IMGPROXY_CLOUD_WATCH_NAMESPACE']
+    # The CloudWatch namespace for the metrics
+    namespace: ~
+
+    # ENV['IMGPROXY_CLOUD_WATCH_REGION']
+    # The code of the AWS region to which the metrics should be sent
+    region: ~
 
   # https://docs.imgproxy.net/configuration?id=error-reporting
   errorReporting:

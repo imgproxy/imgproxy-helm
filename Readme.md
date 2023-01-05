@@ -89,6 +89,7 @@ The above command installs a specified version of imgproxy.
 | **features.server.readTimeout**             |the maximum duration (in seconds) for reading the entire image request, including the body|`10`|
 | **features.server.writeTimeout**            |the maximum duration (in seconds) for writing the response|`10`|
 | **features.server.keepAliveTimeout**        |the maximum duration (in seconds) to wait for the next request before closing the connection. When set to 0, keep-alive is disabled|`10`|
+| **features.server.clientKeepAliveTimeout**  |the maximum duration (in seconds) to wait for the next request before closing the HTTP client connection. The HTTP client is used to download source images. When set to 0, keep-alive is disabled.|`90`|
 | **features.server.downloadTimeout**         |the maximum duration (in seconds) for downloading the source image|`5`|
 | **features.server.concurrency**             |the maximum number of image requests to be processed simultaneously|`double number of CPU cores`|
 | **features.server.maxClients**              |the maximum number of simultaneous active connections|`concurrency * 10`|
@@ -115,6 +116,7 @@ The above command installs a specified version of imgproxy.
 |**features.security.maxSrcResolution**|the maximum resolution of the source image, in megapixels.|`16.8`|
 |**features.security.maxSrcFileSize**|the maximum size of the source image, in bytes.|`0` (disabled)|
 |**features.security.maxAnimationFrames**|the maximum of animated image frames to being processed.|`1`|
+|**features.security.maxAnimationFrameResolution**|The maximum resolution of the animated source image frame, in megapixels.|`0`|
 |**features.security.maxSvgCheckBytes**|the maximum number of bytes imgproxy will read to recognize SVG.|`32KB`|
 |**features.security.allowOrigin**|when set, enables CORS headers with provided origin. CORS headers are disabled by default.|`false`|
 |**features.security.allowedSources**|whitelist of source image URLs prefixes divided by comma. When blank, imgproxy allows all source image URLs.||
@@ -126,7 +128,7 @@ The above command installs a specified version of imgproxy.
 |Value|Description|Default|
 |-----|-----------|-------|
 |**features.compression.quality**|quality of the resulting image, percentage|`80`|
-|**features.compression.formatQuality**|default quality of the resulting image per format, comma divided.||
+|**features.compression.formatQuality**|default quality of the resulting image per format, comma divided.|`avif=65`|
 |**features.compression.gzipCompression**|GZip compression level|`5`|
 |**features.compression.jpegProgressive**|when true, enables progressive compression of JPEG|`false`|
 |**features.compression.jpegNoSubsample**|`PRO:` when true, chrominance subsampling is disabled. This will improve quality at the cost of larger file size|`false`|
@@ -139,7 +141,8 @@ The above command installs a specified version of imgproxy.
 |**features.compression.pngQuantizationColors**|maximum number of quantization palette entries. Should be between 2 and 256|`256`|
 |**features.compression.gifOptimizeFrames**|`PRO:` when true, enables GIF frames optimization; this may produce a smaller result, but may increase compression time|`false`|
 |**features.compression.gifOptimizeTransparency**|`PRO:` when true, enables GIF transparency optimization; this may produce a smaller result, but may increase compression time|`false`|
-|**features.compression.avifSpeed**|controls the CPU effort spent improving compression (0-8).|`5`|
+|**features.compression.webpCompression**|`PRO:` The compression method to use. Supported values are lossy, near_lossless, and lossless|`lossy`|
+|**features.compression.avifSpeed**|controls the CPU effort spent improving compression (0-8).|`8`|
 
 ### Detection of WEBP/Avif Support by Browsers
 
@@ -196,7 +199,7 @@ The above command installs a specified version of imgproxy.
 
 |Value| Description|Default|
 |-----|-----------|------|
-|**features.formats.preferred**| list of preferred formats, comma divided.|jpeg,png,gif,webp,avif,ico|
+|**features.formats.preferred**| list of preferred formats, comma divided.|jpeg,png,gif|
 |**features.formats.skipProcessing**|list of formats that imgproxy shouldn't process, comma-divided.||
 |`DEPRECATED:`**features.skipProcessing.formats**|list of formats that imgproxy shouldn't process, comma-divided. ||
 
@@ -256,8 +259,18 @@ The above command installs a specified version of imgproxy.
 |**features.openTelemetry.serverCert**|OpenTelemetry collector TLS certificate, PEM-encoded|``|
 |**features.openTelemetry.clientCert**|OpenTelemetry client TLS certificate, PEM-encoded|``|
 |**features.openTelemetry.clientKey**|OpenTelemetry client TLS key, PEM-encoded|``|
+|**features.openTelemetry.grpcInsecure**|When true, imgproxy will use an insecure GRPC connection unless the collector TLS certificate is not provided.|`true`|
 |**features.openTelemetry.propagators**|a list of OpenTelemetry text map propagators, comma divided. Supported propagators are `tracecontext`, `baggage`, `b3`, `b3multi`, `jaeger`, `xray`, and `ottrace`|``|
+|**features.openTelemetry.traceIdGenerator**|OpenTelemetry trace ID generator. Supported generators are `xray` and `random`|`xray`|
 |**features.openTelemetry.connectionTimeout**|the maximum duration (in seconds) for establishing a connection to the OpenTelemetry collector|`5`|
+
+### Integration to Amazon CloudWatch (v3.12+)
+
+|Value|Description|Default|
+|-----|-----------|------|
+|**features.amazonCloudWatch.serviceName**|The value of the ServiceName dimension which will be used in the metrics|``|
+|**features.amazonCloudWatch.namespace**|The CloudWatch namespace for the metrics|``|
+|**features.amazonCloudWatch.region**|The code of the AWS region to which the metrics should be sent|``|
 
 ### Integration to Datadog (v3+)
 

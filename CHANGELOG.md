@@ -1,3 +1,9 @@
+## 0.8.24 (2023-01-05)
+
+* Support imgproxy v3.12.0
+* Fix issue #102 (enable autoscaling/v2 api)
+* Allow templating of ingress annotations
+
 ## 0.8.23 (2022-10-19)
 
 * Support imgproxy v3.9.0
