@@ -1,3 +1,8 @@
+## 0.8.25 (2023-01-23)
+
+* Support for imgproxy v3.13.1
+* Add value to configure Imgproxy Pro License key
+
 ## 0.8.24 (2023-01-05)
 
 * Support imgproxy v3.12.0
