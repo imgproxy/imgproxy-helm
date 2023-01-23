@@ -1,5 +1,9 @@
 ## 0.8.25 (2023-01-23)
 
+* typo fix
+
+## 0.8.25 (2023-01-23)
+
 * Support for imgproxy v3.13.1
 * Add value to configure Imgproxy Pro License key
 
