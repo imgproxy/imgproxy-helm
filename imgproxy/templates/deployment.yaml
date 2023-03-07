@@ -61,7 +61,9 @@ spec:
         {{- end }}
         {{- end }}
       {{- end }}
-      {{- if (include "serviceAccount.enabled" $) }}
+      {{- if $.Values.resources.serviceAccount.existingName }}
+      serviceAccountName: {{ $.Values.resources.serviceAccount.existingName | quote }}
+      {{- else if (include "serviceAccount.enabled" $) }}
       serviceAccountName: "{{ template "imgproxy.fullname" $ }}-service-account"
       {{- end }}
       {{- if .Values.persistence.enabled }}

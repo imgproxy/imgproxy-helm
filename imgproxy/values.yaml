@@ -2,7 +2,7 @@
 # Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v3.13.1
+  tag: v3.13.2
   pullPolicy: IfNotPresent
   # create new image-pull-secret if enabled: true
   pullSecrets:
@@ -158,11 +158,17 @@ resources:
     # - 192.168.1.1/24
     # - 10.0.0.1/20
 
-  serviceAccount:
 
+  serviceAccount:
+    # The name of the EXISTING service account to be used.
+    # If the custom name is set we WON'T create the service account
+    # but presume that it already exists.
+    existingName: ~
     # Add custom annotations to the Service Account
     # in addition to those we already provided for AWS IAM role
     # (see features.aws.iamRoleName and features.aws.accountId).
+    # This setting is not used if the `existingName` is set because
+    # we won't generate the service account in that case.
     annotations: {}
 
   ingress:

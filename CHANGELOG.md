@@ -1,7 +1,11 @@
+## 0.8.28 (2023-03-07)
+
+* Support imgproxy v3.13.2
+* Support external service accounts
+
 ## 0.8.27 (2023-01-24)
 
 * update metadata for artifacthub
-
 
 ## 0.8.26 (2023-01-23)
 

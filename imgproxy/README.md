@@ -415,6 +415,7 @@ Deployment specific options.
 |**resources.deployment.resources**|Hash of resource limits for your pods| `{}`        |
 |**resources.deployment.tolerations**|Tolerations for Kubernetes taints||
 |**resources.deployment.topologySpreadConstraints**|Topology spread constraints for distributing pods across zones|`[]`|
+|**resources.serviceAccount.existingName**|The name of an existing service account to be used by deployments|``|
 |**resources.serviceAccount.annotations**|Annotations for the Kubernetes service account for imgproxy| ``          |
 |**resources.service.type**|Kubernetes service type for imgproxy| `ClusterIP` |
 |**resources.service.annotations**|Custom annotatioins for the service| `{}`         |

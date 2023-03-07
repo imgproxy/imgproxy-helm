@@ -39,7 +39,8 @@ Template to decide if the serviceAccount must be built
 {{- define "serviceAccount.enabled" }}
 {{- $awsIamRoleDefined := and .Values.features.aws.enabled .Values.features.aws.iamRoleName -}}
 {{- $customAnnotations := .Values.resources.serviceAccount.annotations -}}
-{{- or $awsIamRoleDefined $customAnnotations -}}
+{{- $existingName := .Values.resources.serviceAccount.existingName -}}
+{{- not $existingName | and (or $awsIamRoleDefined $customAnnotations) -}}
 {{- end }}
 
 {{/*
