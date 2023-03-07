@@ -160,16 +160,16 @@ resources:
 
 
   serviceAccount:
-    # Specifies whether a service account should be created
-    # Created anyway if features.aws.iamRoleName is set and name is unset
-    create: false
+    # The name of the EXISTING service account to be used.
+    # If the custom name is set we WON'T create the service account
+    # but presume that it already exists.
+    existingName: ~
     # Add custom annotations to the Service Account
     # in addition to those we already provided for AWS IAM role
     # (see features.aws.iamRoleName and features.aws.accountId).
+    # This setting is not used if the `existingName` is set because
+    # we won't generate the service account in that case.
     annotations: {}
-    # The name of the service account to use.
-    # If not set and create is true, a name is generated using the fullname template
-    name: ""
 
   ingress:
     enabled: false

@@ -34,15 +34,13 @@ Template to generate secrets for a private Docker repository for K8s to use
 {{- end -}}
 
 {{/*
-Create the name of the service account to use
+Template to decide if the serviceAccount must be built
 */}}
-{{- define "imgproxy.serviceAccountName" -}}
-{{- $generatedName := (include "imgproxy.fullname" $ | printf "%s-service-account") -}}
-{{- if .Values.resources.serviceAccount.create }}
-{{- default $generatedName .Values.resources.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.resources.serviceAccount.name }}
-{{- end }}
+{{- define "serviceAccount.enabled" }}
+{{- $awsIamRoleDefined := and .Values.features.aws.enabled .Values.features.aws.iamRoleName -}}
+{{- $customAnnotations := .Values.resources.serviceAccount.annotations -}}
+{{- $existingName := .Values.resources.serviceAccount.existingName -}}
+{{- not $existingName | and (or $awsIamRoleDefined $customAnnotations) -}}
 {{- end }}
 
 {{/*
