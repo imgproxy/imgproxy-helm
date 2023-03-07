@@ -61,9 +61,7 @@ spec:
         {{- end }}
         {{- end }}
       {{- end }}
-      {{- if (include "serviceAccount.enabled" $) }}
-      serviceAccountName: "{{ template "imgproxy.fullname" $ }}-service-account"
-      {{- end }}
+      serviceAccountName: {{ include "imgproxy.serviceAccountName" . }}
       {{- if .Values.persistence.enabled }}
       volumes:
         - name: data
