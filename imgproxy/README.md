@@ -225,6 +225,13 @@ The above command installs a specified version of imgproxy.
 |**features.objectDetection.confidenceThreshold**|The detections with confidences below this value will be discarded.|`0.2`|
 |**features.objectDetection.nmsThreshold**|Non max supression threshold. Don’t change this if you don’t know what you’re doing.|`0.4`|
 
+### Smart Crop
+
+|Value|Description|Default|
+|-----|-----------|-------|
+|**features.smartCrop.advanced**|`PRO:` Enables usage of the advanced smart crop method. Advanced smart crop may take more time than regular one, yet it produces better results.|`false`|
+|**features.smartCrop.faceDetection**|`PRO:` Adds an additional fast face detection step to smart crop.|`false`|
+
 ### Fallback Image
 
 |Value|Description|Default|

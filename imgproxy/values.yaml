@@ -732,6 +732,19 @@ features:
     # Default: 0.4.
     nmsThreshold: "0.4"
 
+  # PRO, v3.14+
+  # https://docs.imgproxy.net/latest/configuration?id=smart-crop
+  smartCrop:
+
+    # ENV['IMGPROXY_SMART_CROP_ADVANCED']
+    # When true, enables usage of the advanced smart crop method.
+    # Advanced smart crop may take more time than regular one, yet it produces better results.
+    advanced: false
+
+    # ENV['IMGPROXY_SMART_CROP_FACE_DETECTION']
+    # When true, adds an additional fast face detection step to smart crop.
+    faceDetection: false
+
   # https://docs.imgproxy.net/configuration?id=fallback-image
   fallbackImage:
 

@@ -187,6 +187,13 @@ The above command installs a specified version of imgproxy.
 |**features.unsharpening.weight**|`PRO:` a floating-point number that defines how neighbor pixels will affect the current pixel.|`1`|
 |**features.unsharpening.dividor**|`PRO:` a floating-point number that defines the unsharpening strength.|`24`|
 
+### Smart Crop
+
+|Value|Description|Default|
+|-----|-----------|-------|
+|**features.smartCrop.advanced**|`PRO:` Enables usage of the advanced smart crop method. Advanced smart crop may take more time than regular one, yet it produces better results.|`false`|
+|**features.smartCrop.faceDetection**|`PRO:` Adds an additional fast face detection step to smart crop.|`false`|
+
 ### Fallback Image
 
 |Value|Description|Default|
