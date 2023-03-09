@@ -429,6 +429,12 @@ features:
     # when true, disables SSL verification, so imgproxy can be used in a development environment with self-signed SSL certificates.
     ignoreSslVerification: false
 
+    # ENV['IMGPROXY_ALLOW_SECURITY_OPTIONS']
+    # when true, allows usage of security-related processing options such as `max_src_resolution`,
+    # `max_src_file_size`, `max_animation_frames`, and `max_animation_frame_resolution`.
+    # Default: `false`.
+    allowSecurityOptions: false
+
     # ENV['IMGPROXY_DEVELOPMENT_ERRORS_MODE']
     # when true, imgproxy will respond with detailed error messages.
     # Not recommended for production because some errors may contain stack trace.

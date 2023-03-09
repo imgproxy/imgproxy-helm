@@ -124,6 +124,7 @@ The above command installs a specified version of imgproxy.
 |**features.security.allowedSources**|whitelist of source image URLs prefixes divided by comma. When blank, imgproxy allows all source image URLs.||
 |**features.security.sanitizeSvg**|when true, imgproxy will remove scripts from SVG images to prevent XSS attacks.|`true`|
 |**features.security.ignoreSslVerification**|When true, disables SSL verification|`false`|
+|**features.security.allowSecurityOptions**|when true, allows usage of security-related processing options such as `max_src_resolution`, `max_src_file_size`, `max_animation_frames`, and `max_animation_frame_resolution`|`false`|
 |**features.security.developmentErrorsMode**|when true, imgproxy will respond with detailed error messages. Not recommended for production because some errors may contain stack trace|`false`|
 
 ### Cookies-related Settings

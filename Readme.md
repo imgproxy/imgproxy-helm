@@ -121,6 +121,7 @@ The above command installs a specified version of imgproxy.
 |**features.security.allowOrigin**|when set, enables CORS headers with provided origin. CORS headers are disabled by default.|`false`|
 |**features.security.allowedSources**|whitelist of source image URLs prefixes divided by comma. When blank, imgproxy allows all source image URLs.||
 |**features.security.ignoreSslVerification**|When true, disables SSL verification|`false`|
+|**features.security.allowSecurityOptions**|when true, allows usage of security-related processing options such as `max_src_resolution`, `max_src_file_size`, `max_animation_frames`, and `max_animation_frame_resolution`|`false`|
 |**features.security.developmentErrorsMode**|when true, imgproxy will respond with detailed error messages. Not recommended for production because some errors may contain stack trace|`false`|
 
 ### Image Compression Settings
