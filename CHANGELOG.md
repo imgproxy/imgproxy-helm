@@ -1,3 +1,7 @@
+## 0.8.29 (2023-03-09)
+
+* Support imgproxy v3.14.0
+
 ## 0.8.28 (2023-03-07)
 
 * Support imgproxy v3.13.2
