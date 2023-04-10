@@ -356,42 +356,43 @@ The above command installs a specified version of imgproxy.
 
 Deployment specific options.
 
-|Value|Description|Default|
-|-----|-----------|-------|
-|**image.pullSecrets.password**|Password to your private registry|``|
-|**image.pullSecrets.registry**|URL of a private registry you want to authorize to|``|
-|**image.pullSecrets.username**|Login to your private registry|``|
-|**image.addPullSecrets**|List of existing image pull secrets|`[]`|
-|**resources.deployment.affinity**|Node and inter-pod affinity configuration||
-|**resources.deployment.annotations**|Custom annotations for imgproxy deployment|`{}`|
-|**resources.pod.annotations**|Custom annotations for imgproxy pod|`{}`|
-|**resources.pod.labels**|Custom labels for imgproxy pods|`{}`|
-|**resources.deployment.readinessProbe**|Timeouts and counters for the readiness probe||
-|**resources.deployment.livenessProbe**|Timeouts and counters for the liveness probe||
-|**resources.deployment.nodeSelector**|A node selector labels||
-|**resources.deployment.priority.name**|The name of the priority class||
-|**resources.deployment.priority.level**|The level of the pod priority|`0`|
-|**resources.deployment.priority.preempting**|If the pod should be preempting (k8s v1.19+)|`true`|
-|**resources.podDisruptionBudget.enabled**|Enable or disable a disruption budget policy|`false`|
-|**resources.podDisruptionBudget.maxUnavailable**|maxUnavailable option for the PodDisruptionBudget|`0`|
-|**resources.podDisruptionBudget.minAvailable**|minAvailable option for the PodDisruptionBudget|`0`|
-|**resources.deployment.replicaCount**|How many pods with imgproxy should be running simultaneously (DEPRECATED, use replicas.default instead!)|`1`|
-|**resources.deployment.replicas.default**|How many pods with imgproxy should be running after deployment|`1`|
-|**resources.deployment.replicas.minCount**|The minimal number of pods the imgproxy can be scaled to.|`1`|
-|**resources.deployment.replicas.maxCount**|The maximum number of pods the imgproxy can be scaled to.|`1`|
-|**resources.deployment.replicas.stepCount**|The max number of pods to be added/dropped during autoscaling step.|`1`|
-|**resources.deployment.replicas.stepSeconds**|The period in seconds (1-1800) during which up to `stepCount` pods can be added or dropped by autoscaler.|`60`|
-|**resources.deployment.replicas.stabilizationInterval**|The number of seconds for which past recommendations should be considered while scaling up or scaling down (0 - 3600) to prevent flapping.|`300`|
-|**resources.deployment.replicas.cpuUtilization**|The target percentage for the average CPU utilization by pods after which they should be scaled.|`80`|
-|**resources.deployment.resources**|Hash of resource limits for your pods|`{}`|
-|**resources.deployment.tolerations**|Tolerations for Kubernetes taints||
-|**resources.deployment.topologySpreadConstraints**|topologySpreadConstraints for distributing pods across zones|`[]`|
-|**resources.serviceAccount.existingName**|The name of an existing service account to be used by deployments|``|
-|**resources.serviceAccount.annotations**|Annotations for the Kubernetes service account for imgproxy|``|
-|**resources.service.type**|Kubernetes service type for imgproxy|`ClusterIP`|
-|**resources.service.loadBalancerIP**|Load balancer ip for service type "LoadBalancer"|''|
-|**resources.service.loadBalancerSourceRanges**| Load balancer source ranges for service type "LoadBalancer"|`[]|
-|**resources.service.externalTrafficPolicy**| Enable client source IP preservation |`Cluster`|
+| Value                                                   | Description                                                                                                                                |Default|
+|---------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|-------|
+| **image.pullSecrets.password**                          | Password to your private registry                                                                                                          |``|
+| **image.pullSecrets.registry**                          | URL of a private registry you want to authorize to                                                                                         |``|
+| **image.pullSecrets.username**                          | Login to your private registry                                                                                                             |``|
+| **image.addPullSecrets**                                | List of existing image pull secrets                                                                                                        |`[]`|
+| **resources.deployment.affinity**                       | Node and inter-pod affinity configuration                                                                                                  ||
+| **resources.deployment.annotations**                    | Custom annotations for imgproxy deployment                                                                                                 |`{}`|
+| **resources.pod.annotations**                           | Custom annotations for imgproxy pod                                                                                                        |`{}`|
+| **resources.pod.labels**                                | Custom labels for imgproxy pods                                                                                                            |`{}`|
+| **resources.deployment.readinessProbe**                 | Timeouts and counters for the readiness probe                                                                                              ||
+| **resources.deployment.livenessProbe**                  | Timeouts and counters for the liveness probe                                                                                               ||
+| **resources.deployment.nodeSelector**                   | A node selector labels                                                                                                                     ||
+| **resources.deployment.priority.name**                  | The name of the priority class                                                                                                             ||
+| **resources.deployment.priority.level**                 | The level of the pod priority                                                                                                              |`0`|
+| **resources.deployment.priority.preempting**            | If the pod should be preempting (k8s v1.19+)                                                                                               |`true`|
+| **resources.podDisruptionBudget.enabled**               | Enable or disable a disruption budget policy                                                                                               |`false`|
+| **resources.podDisruptionBudget.maxUnavailable**        | maxUnavailable option for the PodDisruptionBudget                                                                                          |`0`|
+| **resources.podDisruptionBudget.minAvailable**          | minAvailable option for the PodDisruptionBudget                                                                                            |`0`|
+| **resources.deployment.replicaCount**                   | How many pods with imgproxy should be running simultaneously (DEPRECATED, use replicas.default instead!)                                   |`1`|
+| **resources.deployment.replicas.default**               | How many pods with imgproxy should be running after deployment                                                                             |`1`|
+| **resources.deployment.replicas.minCount**              | The minimal number of pods the imgproxy can be scaled to.                                                                                  |`1`|
+| **resources.deployment.replicas.maxCount**              | The maximum number of pods the imgproxy can be scaled to.                                                                                  |`1`|
+| **resources.deployment.replicas.stepCount**             | The max number of pods to be added/dropped during autoscaling step.                                                                        |`1`|
+| **resources.deployment.replicas.stepSeconds**           | The period in seconds (1-1800) during which up to `stepCount` pods can be added or dropped by autoscaler.                                  |`60`|
+| **resources.deployment.replicas.stabilizationInterval** | The number of seconds for which past recommendations should be considered while scaling up or scaling down (0 - 3600) to prevent flapping. |`300`|
+| **resources.deployment.replicas.cpuUtilization**        | The target percentage for the average CPU utilization by pods after which they should be scaled.                                           |`80`|
+| **resources.deployment.resources**                      | Hash of resource limits for your pods                                                                                                      |`{}`|
+| **resources.deployment.tolerations**                    | Tolerations for Kubernetes taints                                                                                                          ||
+| **resources.deployment.topologySpreadConstraints**      | topologySpreadConstraints for distributing pods across zones                                                                               |`[]`|
+| **resources.serviceAccount.existingName**               | The name of an existing service account to be used by deployments                                                                          |``|
+| **resources.serviceAccount.annotations**                | Annotations for the Kubernetes service account for imgproxy                                                                                |``|
+| **resources.service.type**                              | Kubernetes service type for imgproxy                                                                                                       |`ClusterIP`|
+| **resources.service.loadBalancerIP**                    | Load balancer ip for service type "LoadBalancer"                                                                                           |''|
+| **resources.service.loadBalancerSourceRanges**          | Load balancer source ranges for service type "LoadBalancer"                                                                                |`[]|
+| **resources.service.externalTrafficPolicy**             | Enable client source IP preservation                                                                                                       |`Cluster`|
+| **resources.service.nodePort**                          | Set the initial value when Kubernetes type is NodePort                                                                                     |``|
 
 ### Ingress configuration
 
