@@ -37,9 +37,9 @@ spec:
       port: 80
       protocol: TCP
       targetPort: 8080
-      { { - if eq .type "NodePort" } }
-      nodePort: { { .nodePort | default "" } }
-      { { - end } }
+      {{- if eq .type "NodePort" }}
+      nodePort: {{ .nodePort | default "" }}
+      {{- end }}
     {{- if $.Values.features.prometheus.enabled }}
     - name: metrics
       port: 8081
