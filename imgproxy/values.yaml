@@ -422,6 +422,26 @@ features:
     # Example: `s3://,https://example.com/,local://`.
     allowedSources: ""
 
+    # ENV['IMGPROXY_ALLOW_LOOPBACK_SOURCE_ADDRESSES']
+    # when true, allows connecting to loopback IP addresses
+    # (127.0.0.1-127.255.255.255 and IPv6 analogues) when requesting source images.
+    # Default: false
+    allowLoopbackSourceAddresses: ~
+
+    # ENV['IMGPROXY_ALLOW_LINK_LOCAL_SOURCE_ADDRESSES']
+    # when true, allows connecting to link-local multicast and unicast IP addresses
+    # (224.0.0.1-224.0.0.255, 169.254.0.1-169.254.255.255, and IPv6 analogues)
+    # when requesting source images.
+    # Default: false
+    allowLinkSourceAddresses: ~
+
+    # ENV['IMGPROXY_ALLOW_PRIVATE_SOURCE_ADDRESSES']
+    # when true, allows connecting to private IP addresses
+    # (10.0.0.0 - 10.255.255.255, 172.16.0.0 - 172.31.255.255, 192.168.0.0 - 192.168.255.255,
+    # and IPv6 analogues) when requesting source images.
+    # Default: true
+    allowPrivateSourceAddresses: true
+
     # ENV['IMGPROXY_SANITIZE_SVG']
     # (v3.6+) when true (default), imgproxy will remove scripts from SVG images to prevent XSS attacks.
     sanitizeSvg: true

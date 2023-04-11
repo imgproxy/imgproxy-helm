@@ -122,6 +122,9 @@ The above command installs a specified version of imgproxy.
 |**features.security.maxSvgCheckBytes**|the maximum number of bytes imgproxy will read to recognize SVG.|`32KB`|
 |**features.security.allowOrigin**|when set, enables CORS headers with provided origin. CORS headers are disabled by default.|`false`|
 |**features.security.allowedSources**|whitelist of source image URLs prefixes divided by comma. When blank, imgproxy allows all source image URLs.||
+|**features.security.allowLoopbackSourceAddresses**|when `true`, allows connecting to loopback IP addresses when requesting source images.|`false`|
+|**features.security.allowLinkSourceAddresses**|when `true`, allows connecting to link-local multicast and unicast IP addresses when requesting source images.|`false`|
+|**features.security.allowPrivateSourceAddresses**|when `true`, allows connecting to private IP addresses when requesting source images.|`true`|
 |**features.security.sanitizeSvg**|when true, imgproxy will remove scripts from SVG images to prevent XSS attacks.|`true`|
 |**features.security.ignoreSslVerification**|When true, disables SSL verification|`false`|
 |**features.security.allowSecurityOptions**|when true, allows usage of security-related processing options such as `max_src_resolution`, `max_src_file_size`, `max_animation_frames`, and `max_animation_frame_resolution`|`false`|
