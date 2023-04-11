@@ -1,6 +1,7 @@
 ## 0.8.30 (not released)
 
 * Add value to configure the service's node port
+* Enable security context settings for the imgproxy pods
 * Support imgproxy v3.15.0
 
 ## 0.8.29 (2023-03-09)

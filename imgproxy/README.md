@@ -424,6 +424,7 @@ Deployment specific options.
 |**resources.deployment.replicas.stabilizationInterval**|The number of seconds for which past recommendations should be considered while scaling up or scaling down (0 - 3600) to prevent flapping.| `300`       |
 |**resources.deployment.replicas.cpuUtilization**|The target percentage for the average CPU utilization by pods after which they should be scaled.| `80`        |
 |**resources.deployment.resources**|Hash of resource limits for your pods| `{}`        |
+|**resources.deployment.securityContext**|Hash of security context settings for your pods|`{}`|
 |**resources.deployment.tolerations**|Tolerations for Kubernetes taints||
 |**resources.deployment.topologySpreadConstraints**|Topology spread constraints for distributing pods across zones|`[]`|
 |**resources.serviceAccount.existingName**|The name of an existing service account to be used by deployments|``|

@@ -135,6 +135,13 @@ resources:
       successThreshold: 1
       failureThreshold: 5
 
+    # A security context defines privilege and access control settings for the deployment.
+    # Check available settings in the documentation by link:
+    # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    securityContext: {}
+      # allowPrivilegeEscalation: false
+      # runAsNonRoot: true
+
   # List names of the custom secrets with env variables to be added
   # from the external resources (like Vault, AWS etc.)
   #

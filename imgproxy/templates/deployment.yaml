@@ -61,6 +61,9 @@ spec:
         {{- end }}
         {{- end }}
       {{- end }}
+      {{- if $.Values.resources.deployment.securityContext }}
+      securityContext: {{ $.Values.resources.deployment.securityContext | toYaml | nindent 8 }}
+      {{- end }}
       {{- if $.Values.resources.serviceAccount.existingName }}
       serviceAccountName: {{ $.Values.resources.serviceAccount.existingName | quote }}
       {{- else if (include "serviceAccount.enabled" $) }}
