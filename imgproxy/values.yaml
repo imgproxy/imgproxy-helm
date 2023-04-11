@@ -1085,10 +1085,11 @@ features:
   logging:
 
     # ENV['IMGPROXY_LOG_FORMAT']
-    # the log format. The following formats are supported: pretty, structured, json
+    # the log format. The following formats are supported: pretty, structured, json, gcp
     # - pretty: (default) colored human-readable format;
     # - structured: machine-readable format;
     # - json: JSON format;
+    # - gcp: Google Cloud Logging agent compliant format
     format: "pretty"
 
     # ENV['IMGPROXY_LOG_LEVEL']

@@ -319,7 +319,7 @@ The above command installs a specified version of imgproxy.
 
 |Value|Description|Default|
 |-----|-----------|-------|
-|**features.logging.format**|the log format. The following formats are supported: ['pretty', 'structured', 'json']|`pretty`|
+|**features.logging.format**|the log format. The following formats are supported: ['pretty', 'structured', 'json', 'gcp']|`pretty`|
 |**features.logging.level**|the log level. The following levels are supported error, warn, info and debug|`info`|
 |**features.logging.syslog.enabled**|when true, enables sending logs to syslog|`false`|
 |**features.logging.syslog.level**|maximum log level to send to syslog. Known levels are: crit, error, warning and info|`info`|
