@@ -430,6 +430,7 @@ Deployment specific options.
 |**resources.service.loadBalancerIP**|Load balancer ip for service type "LoadBalancer"| ''          |
 |**resources.service.loadBalancerSourceRanges**| Load balancer source ranges for service type "LoadBalancer"| `[]         |
 |**resources.service.externalTrafficPolicy**| Enable client source IP preservation | `Cluster`   |
+|**resources.service.nodePort**|Set the initial value when Kubernetes type is NodePort|``|
 
 ### Ingress configuration
 
