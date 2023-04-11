@@ -1,4 +1,4 @@
-## 0.8.30 (not released)
+## 0.8.30 (2023-04-11)
 
 * Add value to configure the service's node port
 * Enable security context settings for the imgproxy pods

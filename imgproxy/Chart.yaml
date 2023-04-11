@@ -2,8 +2,8 @@ apiVersion: v1
 description: A fast and secure standalone server for resizing and converting remote images. The main principles of imgproxy are simplicity, speed, and security.
 name: imgproxy
 icon: https://cdn.rawgit.com/imgproxy/imgproxy/master/logo.svg
-version: 0.8.29
-appVersion: 3.14.0
+version: 0.8.30
+appVersion: 3.15.0
 keywords:
   - imgproxy
   - image
@@ -25,7 +25,7 @@ annotations:
   artifacthub.io/containsSecurityUpdates: "false"
   artifacthub.io/images: |
     - name: impgroxy
-      image: darthsim/imgproxy:v3.14.0
+      image: darthsim/imgproxy:v3.15.0
   artifacthub.io/license: MIT-open-group
   artifacthub.io/links: |
     - name: imgproxy-helm chart on Github
