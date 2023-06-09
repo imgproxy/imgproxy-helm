@@ -97,6 +97,10 @@ spec:
             - secretRef:
                 name: {{ $secretName }}
             {{- end }}
+          {{- with .Values.extraEnvVars }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           resources: {{ include "imgproxy.podResources" $ | nindent 12 }}
           {{- if .Values.persistence.enabled }}
           volumeMounts:
