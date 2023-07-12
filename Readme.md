@@ -104,6 +104,8 @@ The above command installs a specified version of imgproxy.
 | **features.server.customRequestHeaders**    |`PRO:` list of custom headers that imgproxy will send while requesting the source image, divided by `\;` (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)||
 | **features.server.customResponseHeaders**   |`PRO:` list of custom response headers, divided by \; (can be redefined by IMGPROXY_CUSTOM_HEADERS_SEPARATOR)||
 | **features.server.customHeadersSeparator**  |`PRO:` string that will be used as a custom headers separator|`\;`|
+|**features.server.requestHeadersPassthrough**|`PRO:` A comma separated list of names of incoming request headers|``|
+|**features.server.requestHeadersPassthrough**|`PRO:` A comma-separated list of names of source image response headers|``|
 | **features.server.enableDebugHeaders**      |when true, imgproxy will add X-Origin-Content-Length header with the value is size of the source image.|`false`|
 | **features.server.name**                    |`PRO:` The Server header value.|`imgproxy`|
 
@@ -146,7 +148,7 @@ The above command installs a specified version of imgproxy.
 |**features.compression.gifOptimizeFrames**|`PRO:` when true, enables GIF frames optimization; this may produce a smaller result, but may increase compression time|`false`|
 |**features.compression.gifOptimizeTransparency**|`PRO:` when true, enables GIF transparency optimization; this may produce a smaller result, but may increase compression time|`false`|
 |**features.compression.webpCompression**|`PRO:` The compression method to use. Supported values are lossy, near_lossless, and lossless|`lossy`|
-|**features.compression.avifSpeed**|controls the CPU effort spent improving compression (0-8).|`8`|
+|**features.compression.avifSpeed**|controls the CPU effort spent improving compression (0-8).|`9`|
 
 ### Detection of WEBP/Avif Support by Browsers
 
@@ -344,11 +346,13 @@ The above command installs a specified version of imgproxy.
 |Value|Description|Default|
 |-----|-----------|-------|
 |**features.miscellaneous.baseUrl**|base URL part which will be added to every requestsd image URL.||
+|**features.miscellaneous.urlReplacements**|A list of pattern=replacement pairs, semicolon (;) divided.||
 |**features.miscellaneous.useLinearColorspace**|when true, imgproxy will process images in linear colorspace. This will slow down processing. Note that images won’t be fully processed in linear colorspace while shrink-on-load is enabled (see below)|`false`|
 |**features.miscellaneous.disableShrinkOnLoad**|when true, disables shrink-on-load for JPEG and WebP. Allows to process the whole image in linear colorspace but dramatically slows down resizing and increases memory usage when working with large images|`false`|
 |**features.miscellaneous.stripMetadata**|when true, imgproxy will strip all metadata (EXIF, IPTC, etc.) from JPEG and WebP output images.|`true`|
 |**features.miscellaneous.stripColorProfile**|when `true`, imgproxy will transform the embedded color profile (ICC) to sRGB and remove it from the image.|`true`|
 |**features.miscellaneous.keepCopyright**|when true, imgproxy will not remove copyright info while stripping metadata.|`true`|
+|**features.miscellaneous.stripMetadataDPI**|The DPI metadata value that should be set for the image when its metadata is stripped.|`72.0`|
 |**features.miscellaneous.autoRotate**|when `true`, imgproxy will auto rotate images based on the EXIF Orientation parameter (if available in the image meta data).|`true`|
 |**features.miscellaneous.enforceThumbnail**|When `true` and the source image has an embedded thumbnail, imgproxy will always use the embedded thumbnail instead of the main image.|`false`|
 |**features.miscellaneous.returnAttachment**|when true, response header Content-Disposition will include attachment.|`false`|

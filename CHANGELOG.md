@@ -1,3 +1,7 @@
+## 0.8.31 Not released
+
+* Support imgproxy v3.18.0
+
 ## 0.8.30 (2023-04-11)
 
 * Add value to configure the service's node port

@@ -2,7 +2,7 @@
 # Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v3.15.0
+  tag: v3.18.0
   pullPolicy: IfNotPresent
   # create new image-pull-secret if enabled: true
   pullSecrets:
@@ -370,6 +370,16 @@ features:
     # PRO: string that will be used as a custom headers separator;
     customHeadersSeparator: ";"
 
+    # ENV['IMGPROXY_REQUEST_HEADERS_PASSTHROUGH']
+    # (3.16+, Pro) A comma separated list of names of incoming request headers
+    # that should be passed through to the source image request.
+    requestHeadersPassthrough: ""
+
+    # ENV['IMGPROXY_RESPONSE_HEADERS_PASSTHROUGH']
+    # (3.16+, Pro) A comma-separated list of names of source image response headers
+    # that should be passed through to the imgproxy response.
+    responseHeadersPassthrough: ""
+
     # ENV['IMGPROXY_ENABLE_DEBUG_HEADERS']
     # when true, imgproxy will add X-Origin-Content-Length header with the value is size of the source image.
     enableDebugHeaders: false
@@ -560,8 +570,8 @@ features:
     webpCompression: ~
 
     # ENV['IMGPROXY_AVIF_SPEED']
-    # controls the CPU effort spent improving compression. 0 slowest - 8 fastest.
-    avifSpeed: "8"
+    # controls the CPU effort spent improving compression. 0 slowest - 9 fastest.
+    avifSpeed: "9"
 
   # PRO, v3+: calculate quality for your resulting images so they fit the selected metric the best.
   # https://docs.imgproxy.net/autoquality?id=autoquality
@@ -849,7 +859,8 @@ features:
     # AWS secret
     secretAccessKey: ""
 
-    # If enabled then the IAM Role is used for the authentication
+    # ENV['IMGPROXY_S3_ASSUME_ROLE_ARN']
+    # (3.17+) The AWS IAM Role to Assume
     iamRoleName: ""
 
     # ENV['IMGPROXY_S3_REGION']
@@ -1174,6 +1185,14 @@ features:
     # base URL prefix that will be added to every requested image URL. For example, if the base URL is `http://example.com/images` and `/path/to/image.png` is requested, imgproxy will download the source image from `http://example.com/images/path/to/image.png`.
     baseUrl: ""
 
+    # ENV['IMGPROXY_URL_REPLACEMENTS']
+    # (3.17+) A list of pattern=replacement pairs, semicolon (;) divided.
+    # imgproxy will replace source URL prefixes matching the pattern with the corresponding replacement.
+    # Wildcards can be included in patterns with * to match all characters except /.
+    # ${N} in replacement strings will be replaced with wildcard values, where N is the number of the wildcard.
+    # See examples at https://docs.imgproxy.net/configuration?id=source-image-urls
+    urlReplacements: ""
+
     # ENV['IMGPROXY_USE_LINEAR_COLORSPACE']
     # when `true`, imgproxy will process images in linear colorspace. This will slow down processing. Note that images won't be fully processed in linear colorspace while shrink-on-load is enabled (see below).
     useLinearColorspace: false
@@ -1189,6 +1208,10 @@ features:
     # ENV['IMGPROXY_KEEP_COPYRIGHT']
     # (v3.5+) When `true`, imgproxy will not remove copyright info while stripping metadata. Default: `true`
     keepCopyright: true
+
+    # ENV['IMGPROXY_STRIP_METADATA_DPI']
+    # (v3.18+, Pro) The DPI metadata value that should be set for the image when its metadata is stripped. Default: 72.0
+    stripMetadataDPI: 72.0
 
     # ENV['IMGPROXY_STRIP_COLOR_PROFILE']
     # when `true`, imgproxy will transform the embedded color profile (ICC) to sRGB and remove it from the image. Otherwise, imgproxy will try to keep it as is.
