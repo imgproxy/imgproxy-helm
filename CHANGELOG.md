@@ -1,4 +1,4 @@
-## 0.8.31 Not released
+## 0.8.31 (2023-07-12)
 
 * Support imgproxy v3.18.0
 
