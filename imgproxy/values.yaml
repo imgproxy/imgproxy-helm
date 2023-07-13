@@ -222,7 +222,7 @@ resources:
   podDisruptionBudget:
     enabled: true
     minAvailable: 0
-    maxUnavailable: 0
+    maxUnavailable: 1
 
   pod:
     annotations: {}
