@@ -412,6 +412,7 @@ Deployment specific options.
 |**resources.pod.labels**|Custom labels for imgproxy pods| `{}`        |
 |**resources.deployment.readinessProbe**|Timeouts and counters for the readiness probe||
 |**resources.deployment.livenessProbe**|Timeouts and counters for the liveness probe||
+|**resources.deployment.minReadySeconds**|Minimum ready seconds for the statement set||
 |**resources.deployment.nodeSelector**|A node selector labels||
 |**resources.deployment.priority.name**|The name of the priority class||
 |**resources.deployment.priority.level**|The level of the pod priority| `0`         |
@@ -429,6 +430,7 @@ Deployment specific options.
 |**resources.deployment.replicas.cpuUtilization**|The target percentage for the average CPU utilization by pods after which they should be scaled.| `80`        |
 |**resources.deployment.resources**|Hash of resource limits for your pods| `{}`        |
 |**resources.deployment.securityContext**|Hash of security context settings for your pods|`{}`|
+|**resources.deployment.terminationGracePeriodSeconds**|A custom amount of time to terminate the app|`30`|
 |**resources.deployment.tolerations**|Tolerations for Kubernetes taints||
 |**resources.deployment.topologySpreadConstraints**|Topology spread constraints for distributing pods across zones|`[]`|
 |**resources.serviceAccount.existingName**|The name of an existing service account to be used by deployments|``|

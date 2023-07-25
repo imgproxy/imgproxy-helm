@@ -1,3 +1,8 @@
+## 0.8.33 (2023-07-25)
+
+* Enable skipping default cpu limits in `Values.resources.deployment.resources`
+* Add custom settings for `minReadySeconds` and `terminationGracePeriodSeconds`
+
 ## 0.8.32 (2023-07-14)
 
 * Support imgproxy v3.18.2
