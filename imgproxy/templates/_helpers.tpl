@@ -101,7 +101,7 @@ https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.ht
 {{- end -}}
 
 {{- $custom := $.Values.resources.deployment.resources | default dict -}}
-{{- merge $custom $default | toYaml -}}
+{{- mergeOverwrite $default $custom | toYaml -}}
 {{- end -}}
 
 {{/* Combine ingress path from server.pathPrefix and ingress.pathSuffix */}}
