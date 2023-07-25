@@ -24,6 +24,9 @@ spec:
   {{- if (eq $minCount $maxCount) }}
   replicas: {{ $replicaCount | default 1 | int }}
   {{- end }}
+  {{- if .Values.resources.deployment.minReadySeconds }}
+  minReadySeconds: {{ .Values.resources.deployment.minReadySeconds }}
+  {{- end }}
   selector:
     matchLabels:
       app: {{ template "imgproxy.fullname" $ }}
@@ -85,6 +88,9 @@ spec:
               app: {{ template "imgproxy.fullname" $ }}
         {{- end }}
         {{- end }}
+      {{- end }}
+      {{- if .Values.resources.deployment.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds: {{ .Values.resources.deployment.terminationGracePeriodSeconds }}
       {{- end }}
       containers:
         - name: "imgproxy"
