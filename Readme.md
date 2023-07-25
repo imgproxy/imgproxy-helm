@@ -426,7 +426,7 @@ Options to configure ServiceMonitor for Prometheus Operator.
 |-----|-----------|-------|
 |**features.prometheus.enabled**|Set IMGPROXY_PROMETHEUS_BIND environment variable to bind metrics to port 8081|`false`|
 |**features.prometheus.namespace**|Set IMGPROXY_PROMETHEUS_NAMESPACE environment variable to prepend prefix to the names of metrics|`""`|
-| **resources.serviceMonitor.enabled**|Use a ServiceMonitor to collect metrics|`true`|
+|**resources.serviceMonitor.enabled**|Use a ServiceMonitor to collect metrics|`true`|
 |**resources.serviceMonitor.honorLabels**|Chooses the metric's labels on collisions with target labels|`true`|
 |**resources.serviceMonitor.interval**|Interval at which metrics should be scraped (if it differs from default one)|`0`|
 |**resources.serviceMonitor.namespace**|Namespace with PrometheusOperator|`monitoring`|
