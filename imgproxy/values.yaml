@@ -221,6 +221,7 @@ resources:
     pathType: ImplementationSpecific
 
   serviceMonitor:
+    enabled: true
     honorLabels: true
     interval: 0
     namespace: ""
