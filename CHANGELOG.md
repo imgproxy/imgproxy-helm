@@ -1,3 +1,7 @@
+## 0.8.34 (2023-07-26)
+
+* Make Prometheus ServiceMonitor optional
+
 ## 0.8.33 (2023-07-25)
 
 * Enable skipping default cpu limits in `Values.resources.deployment.resources`
