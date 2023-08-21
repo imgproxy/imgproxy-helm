@@ -1,3 +1,7 @@
+## 0.8.35 (2023-08-21)
+
+* Support imgproxy v3.19.0
+
 ## 0.8.34 (2023-07-26)
 
 * Make Prometheus ServiceMonitor optional
