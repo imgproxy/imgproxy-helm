@@ -1,0 +1,31 @@
+name: check-helm-chart
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  check-helm-chart:
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout-repository
+        name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          path: imgproxy-helm/
+
+      - id: setup-helm
+        name: Setup Helm
+        uses: azure/setup-helm@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: run-linter
+        name: Run Helm Linter
+        needs:
+          - checkout-repository
+          - setup-helm
+        run: helm lint imgproxy-helm/imgproxy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

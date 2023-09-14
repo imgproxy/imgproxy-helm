@@ -2,28 +2,47 @@ name: release-helm-chart
 on:
   push:
     tags:
-    - '*'
+      - '*'
+
 jobs:
   release-helm-chart:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with:
-        path: imgproxy-helm/
-    - uses: actions/checkout@v2
-      with:
-        path: helm-repository/
-        ref: gh-pages
-    - uses: azure/setup-helm@v1
-    - name: Pack the current chart version
-      run: helm package -d helm-repository/ imgproxy-helm/imgproxy/
-    - name: Reindex Helm repository
-      run: helm repo index --url https://helm.imgproxy.net/ --merge helm-repository/index.yaml helm-repository/
-    - name: Commit & Push gh-pages with a new chart
-      run: |
-        cd helm-repository/
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        git add .
-        git commit -m "${GITHUB_REF##*/} release"
-        git push origin gh-pages
+      - id: checkout-repository
+        name: Checkout the repository
+        uses: actions/checkout@v4
+        with:
+          path: imgproxy-helm/
+
+      - id: setup-helm
+        name: Setup Helm
+        uses: azure/setup-helm@v3
+
+      - id: prepare-gh-pages
+        uses: actions/checkout@v4
+        needs: checkout-repository
+        with:
+          path: helm-repository/
+          ref: gh-pages
+
+      - id: pack-chart-version
+        name: Pack the current chart version
+        needs:
+          - setup-helm
+          - prepare-gh-pages
+        run: helm package -d helm-repository/ imgproxy-helm/imgproxy/
+
+      - id: reindex-helm-repository
+        needs: pack-chart-version
+        name: Reindex Helm repository
+        run: helm repo index --url https://helm.imgproxy.net/ --merge helm-repository/index.yaml helm-repository/
+
+      - name: Commit & Push gh-pages with a new chart
+        needs: reindex-helm-repository
+        run: |
+          cd helm-repository/
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "${GITHUB_REF##*/} release"
+          git push origin gh-pages
