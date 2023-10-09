@@ -1,3 +1,11 @@
+## 0.9.0 (2023-10-09)
+
+* Support imgproxy v3.20.0
+
+### Backwards incompatible changes
+
+* Fix issue #144 (encode license key properly in a secret)
+
 ## 0.8.35 (2023-08-21)
 
 * Support imgproxy v3.19.0
