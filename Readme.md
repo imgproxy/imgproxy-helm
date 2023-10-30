@@ -291,7 +291,7 @@ The above command installs a specified version of imgproxy.
 |-----|-----------|-------|
 |**features.datadog.enabled**|Enables error reporting to Datadog|`false`|
 |**features.datadog.agentHost**|Set the address to connect to for sending metrics to the Datadog Agent.|`localhost`|
-|**features.datadog.agentHost**|Set the Datadog Agent Trace port.|`8126`|
+|**features.datadog.agentPort**|Set the Datadog Agent Trace port.|`8126`|
 |**features.datadog.dogStatsdPort**|Set the DogStatsD port.|`8125`|
 |**features.datadog.service**|Set desired application name.|`imgproxy`|
 |**features.datadog.env**|Set the environment to which all traces will be submitted.||
