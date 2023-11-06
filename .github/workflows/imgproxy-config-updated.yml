@@ -16,8 +16,6 @@ jobs:
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4
-        with:
-          path: imgproxy-helm/
 
       - name: Create an issue
         uses: JasonEtco/create-an-issue@v2
