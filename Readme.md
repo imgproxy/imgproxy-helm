@@ -374,6 +374,7 @@ Deployment specific options.
 |**resources.pod.annotations**|Custom annotations for imgproxy pod|`{}`|
 |**resources.pod.labels**|Custom labels for imgproxy pods|`{}`|
 |**resources.deployment.readinessProbe**|Timeouts and counters for the readiness probe||
+|**resources.deployment.lifecylcle**|Lifecycle hook for the preStart or PreStop commands||
 |**resources.deployment.livenessProbe**|Timeouts and counters for the liveness probe||
 |**resources.deployment.minReadySeconds**|Minimum ready seconds for the statement set||
 |**resources.deployment.nodeSelector**|A node selector labels||
