@@ -30,6 +30,8 @@ spec:
   selector:
     matchLabels:
       app: {{ template "imgproxy.fullname" $ }}
+  strategy:
+    {{ toYaml .Values.resources.deployment.strategy | nindent 4 }}
   template:
     metadata:
       {{- with .Values.resources.pod }}
