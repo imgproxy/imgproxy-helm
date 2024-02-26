@@ -392,7 +392,8 @@ Deployment specific options.
 |**resources.deployment.replicas.stabilizationInterval**|The number of seconds for which past recommendations should be considered while scaling up or scaling down (0 - 3600) to prevent flapping.|`300`|
 |**resources.deployment.replicas.cpuUtilization**|The target percentage for the average CPU utilization by pods after which they should be scaled.|`80`|
 |**resources.deployment.resources**|Hash of resource limits for your pods|`{}`|
-|**resources.deployment.securityContext**|Hash of security context settings for your pods|`{}`|
+|**resources.deployment.podSecurityContext**|Hash of security context settings for your pods|`{}`|
+|**resources.deployment.containerSecurityContext**|Hash of security context settings for your containers|`{}`|  
 |**resources.deployment.terminationGracePeriodSeconds**|A custom amount of time to terminate the app|`30`|
 |**resources.deployment.tolerations**|Tolerations for Kubernetes taints||
 |**resources.deployment.topologySpreadConstraints**|topologySpreadConstraints for distributing pods across zones|`[]`|
