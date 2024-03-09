@@ -1,4 +1,28 @@
-# Helm chart for imgproxy
+<p align="center">
+  <a href="https://imgproxy.net">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="assets/logo-dark.svg?sanitize=true">
+      <source media="(prefers-color-scheme: light)" srcset="assets/logo-light.svg?sanitize=true">
+      <img alt="imgproxy logo" src="assets/logo-light.svg?sanitize=true">
+    </picture>
+  </a>
+</p>
+
+<h4 align="center">
+  <a href="https://imgproxy.net">Website</a> |
+  <a href="https://imgproxy.net/blog/">Blog</a> |
+  <a href="https://docs.imgproxy.net">Documentation</a> |
+  <a href="https://imgproxy.net/#pro">imgproxy Pro</a> |
+  <a href="https://hub.docker.com/r/darthsim/imgproxy/">Docker</a> |
+  <a href="https://twitter.com/imgproxy_net">Twitter</a> |
+  <a href="https://discord.gg/5GgpXgtC9u">Discord</a>
+</h4>
+
+<p align="center">
+<a href="https://github.com/imgproxy/imgproxy-helm/actions"><img alt="GH Check" src="https://img.shields.io/github/actions/workflow/status/imgproxy/imgproxy-helm/check.yml?branch=master&label=Check&style=for-the-badge" /></a>
+</p>
+
+---
 
 This repo contains a [Helm chart](https://github.com/imgproxy/imgproxy-helm/tree/master/imgproxy) to deploy imgproxy.
 
