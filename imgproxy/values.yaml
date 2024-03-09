@@ -15,7 +15,6 @@ image:
 
 # Configure K8s resources
 resources:
-
   # Settings applied to every single resource of the chart.
   common:
     labels: {}
@@ -23,7 +22,6 @@ resources:
   deployment:
     # https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority
     priority:
-
       # The name of the priority class to be used in both pod.PriorityClassName
       # and the PriorityClass (when a level is above 0).
       # When a level is not set, or set to 0 (default), then the definition
@@ -49,7 +47,6 @@ resources:
     #
     # This part can be skipped, in that case 1 replica will be used.
     replicas:
-
       # The default number of replicas to start from (default 1)
       default: 1
 
@@ -154,7 +151,8 @@ resources:
     # A security context defines privilege and access control settings for the deployment.
     # Check available settings in the documentation by link:
     # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-    securityContext: {}
+    securityContext:
+      {}
       # allowPrivilegeEscalation: false
       # runAsNonRoot: true
 
@@ -219,7 +217,7 @@ resources:
     annotations: {}
     #   kubernetes.io/ingress.class: nginx
     #   kubernetes.io/tls-acme: "true"
-    hosts: []
+    hosts: [~]
     #   - example.com
     #   - www.example.com
     tls: []
