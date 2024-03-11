@@ -436,7 +436,7 @@ Deployment specific options.
 |**resources.ingress.annotations**|Additional annotations for the ingress resource||
 |**resources.ingress.enabled**|When true, enables ingress resource for imgproxy|`false`|
 |**resources.ingress.health.whitelist**|Comma separated string of CIDR addresses that are allowed to access `/health` url of imgproxy||
-|**resources.ingress.hosts**|Hostnames for the ingress resource to use|`["example.com"]`|
+|**resources.ingress.hosts**|Hostnames for the ingress resource to use|`[null]`|
 |**resources.ingress.pathSuffix**|Suffix to be added to path prefix, for example wildcard '*' for AWS balancer||
 |**resources.ingress.tls**|TLS config array||
 |**resources.ingress.tls[].hosts**|Hostnames this tls secret is used for|`["example.com"]`|

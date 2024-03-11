@@ -202,7 +202,7 @@ resources:
     annotations: {}
     #   kubernetes.io/ingress.class: nginx
     #   kubernetes.io/tls-acme: "true"
-    hosts: []
+    hosts: [null]
     #   - example.com
     #   - www.example.com
     tls: []
