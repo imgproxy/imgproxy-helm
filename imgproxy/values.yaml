@@ -96,6 +96,13 @@ resources:
       # The setting MUST be set if `minCount < maxCount` only.
       cpuUtilization: 80
 
+    # See https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+
     # A node selector label.
     nodeSelector: {}
 
