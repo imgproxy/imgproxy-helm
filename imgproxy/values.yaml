@@ -99,7 +99,7 @@ resources:
     # See https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
     strategy:
       rollingUpdate:
-        maxSurge: 100%
+        maxSurge: 25%
         maxUnavailable: 25%
       type: RollingUpdate
 
