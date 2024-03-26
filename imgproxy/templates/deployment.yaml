@@ -153,6 +153,7 @@ spec:
             successThreshold: {{ .successThreshold | default 1 }}
             failureThreshold: {{ .failureThreshold | default 5 }}
             {{- end }}
+          lifecycle: {{ toYaml .Values.resources.deployment.lifecycle | nindent 12 }}
       {{- if ($priorityClassName | and $priorityClassVersion) }}
       priorityClassName: {{ $priorityClassName | quote }}
       {{- end }}
