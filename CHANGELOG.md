@@ -1,3 +1,7 @@
+## 0.9.1 (2024-02-27)
+
+* Add custom settings for `podSecurityContext` and `containerSecurityContext` instead of global `securityContext`
+
 ## 0.9.0 (2023-10-09)
 
 * Support imgproxy v3.20.0
