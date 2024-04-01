@@ -1,4 +1,4 @@
-{{- if and (.Values.features.prometheus.enabled) (.Values.resources.serviceMonitor.enabled) }}
+{{- if and (.Values.env.IMGPROXY_PROMETHEUS_BIND) (.Values.resources.serviceMonitor.enabled) }}
 {{- with .Values.resources.serviceMonitor }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
