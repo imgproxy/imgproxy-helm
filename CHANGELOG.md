@@ -1,3 +1,11 @@
+## 0.10.0 (2024-04-01)
+
+* Update default imgproxy version to v3.23.0
+
+### Backward incompatible changes
+
+* Remove all environment-specific values in favor of customizable env variables at `.Values.env.*`
+
 ## 0.9.0 (2023-10-09)
 
 * Support imgproxy v3.20.0
