@@ -192,6 +192,7 @@ resources:
     externalTrafficPolicy: Cluster
     loadBalancerSourceRanges:
     nodePort:
+    bind: 80
     # - 192.168.1.1/24
     # - 10.0.0.1/20
 

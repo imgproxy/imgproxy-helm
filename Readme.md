@@ -428,6 +428,7 @@ Deployment specific options.
 |**resources.service.loadBalancerSourceRanges**| Load balancer source ranges for service type "LoadBalancer"|`[]|
 |**resources.service.externalTrafficPolicy**| Enable client source IP preservation |`Cluster`|
 |**resources.service.nodePort**|Set the initial value when Kubernetes type is NodePort|``|
+|**resources.service.bind**|Set the bind port of the service (in docker it was port 8080, we use in k8s direct http port as default|`80`|
 
 ### Ingress configuration
 
