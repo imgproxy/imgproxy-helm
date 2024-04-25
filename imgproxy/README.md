@@ -171,7 +171,7 @@ The above command installs a specified version of imgproxy.
 |**features.autoquality.formatMin**|Minimal quality imgproxy can use per format, comma divided.|`avif=40`|
 |**features.autoquality.formatMax**|Maximal quality imgproxy can use per format, comma divided.|`avif=50`|
 |**features.autoquality.allowedError**|Allowed quality target error. Applicable only to `dssim` and `ml` methods.|`0.001`|
-|**features.autoquality.maxResolution**|When value is greater then zero and the result resolution exceeds the value, autoquality won’t be used.|`0`|
+|**features.autoquality.maxResolution**|When value is greater than zero and the result resolution exceeds the value, autoquality won’t be used.|`0`|
 |**features.autoquality.jpegNet**|Neural networks path for JPEG (applied to 'ml' method only).||
 |**features.autoquality.webpNet**|Neural networks path for WEBP (applied to 'ml' method only).||
 |**features.autoquality.avifNet**|Neural networks path for AVIF (applied to 'ml' method only).||
