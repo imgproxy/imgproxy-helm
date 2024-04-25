@@ -394,7 +394,6 @@ The above command installs a specified version of imgproxy.
 |**features.miscellaneous.enforceThumbnail**|When `true` and the source image has an embedded thumbnail, imgproxy will always use the embedded thumbnail instead of the main image.|`false`|
 |**features.miscellaneous.returnAttachment**|when true, response header Content-Disposition will include attachment.|`false`|
 |**features.miscellaneous.svgFixUnsupported**|when `true`, imgproxy will try to replace SVG features unsupported by librsvg to minimize SVG rendering error. This config only takes effect on SVG rasterization.|`false`|
-|**features.miscellaneous.stripMetadata**|whether to strip all metadata (EXIF, IPTC, etc.) from JPEG and WebP output images|`true`|
 
 ### k8s deployment
 
