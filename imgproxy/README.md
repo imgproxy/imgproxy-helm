@@ -304,7 +304,7 @@ The above command installs a specified version of imgproxy.
 |-----|-----------|-------|
 |**features.openTelemetry.enabled**|when `true`, imgproxy will send metrics over OpenTelemetry Metrics API|`false`|
 |**features.openTelemetry.collectorEndpoint**|OpenTelemetry collector endpoint (`host:port`)|``|
-|**features.openTelemetry.protocop**|OpenTelemetry collector protocol. Supported protocols are `grpc`, `https`, and `http`|`grpc`|
+|**features.openTelemetry.protocol**|OpenTelemetry collector protocol. Supported protocols are `grpc`, `https`, and `http`|`grpc`|
 |**features.openTelemetry.serviceName**|OpenTelemetry service name|`imgproxy`|
 |**features.openTelemetry.serverCert**|OpenTelemetry collector TLS certificate, PEM-encoded|``|
 |**features.openTelemetry.clientCert**|OpenTelemetry client TLS certificate, PEM-encoded|``|
