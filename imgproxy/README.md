@@ -152,8 +152,10 @@ Options for downloading the imgproxy image
 |-----|-----------|-------|
 |**resources.service.type**|Kubernetes service type for imgproxy|`ClusterIP`|
 |**resources.service.loadBalancerIP**|Load balancer ip for service type "LoadBalancer"|''|
-|**resources.service.loadBalancerSourceRanges**| Load balancer source ranges for service type "LoadBalancer"|`[]|
-|**resources.service.externalTrafficPolicy**| Enable client source IP preservation |`Cluster`|
+|**resources.service.loadBalancerSourceRanges**|Load balancer source ranges for service type "LoadBalancer"|`[]|
+|**resources.service.externalTrafficPolicy**|Enable client source IP preservation |`Cluster`|
+|**resources.service.annotations**|Custom annotatioins for the service| `{}`|
+|**resources.service.port**|Service port number|`80`|
 |**resources.service.nodePort**|Set the initial value when Kubernetes type is NodePort|``|
 
 ### Ingress configuration

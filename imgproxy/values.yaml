@@ -182,8 +182,9 @@ resources:
     type: ClusterIP
     loadBalancerIP: ~
     externalTrafficPolicy: Cluster
-    loadBalancerSourceRanges:
-    nodePort:
+    port: 80
+    nodePort: ~
+    loadBalancerSourceRanges: ~
     # - 192.168.1.1/24
     # - 10.0.0.1/20
 
