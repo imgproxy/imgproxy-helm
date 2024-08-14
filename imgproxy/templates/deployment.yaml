@@ -105,6 +105,7 @@ spec:
                 name: {{ $secretName }}
             {{- end }}
           resources: {{ include "imgproxy.podResources" $ | nindent 12 }}
+          securityContext: {{ $.Values.resources.deployment.container.securityContext | toYaml | nindent 12 }}
           {{- if .Values.persistence.enabled }}
           volumeMounts:
             - name: data
