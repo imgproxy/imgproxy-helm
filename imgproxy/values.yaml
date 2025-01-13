@@ -2,7 +2,7 @@
 # Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: darthsim/imgproxy
-  tag: v3.20.0
+  tag: v3.27.0
   pullPolicy: IfNotPresent
   # create new image-pull-secret if enabled: true
   pullSecrets:
@@ -313,11 +313,11 @@ features:
   # https://docs.imgproxy.net/configuration?id=server
   server:
 
-    # ENV['IMGPROXY_READ_TIMEOUT']
+    # ENV['IMGPROXY_READ_REQUEST_TIMEOUT']
     # The maximum duration (in seconds) for reading the entire image request, including the body
     readTimeout: "10"
 
-    # ENV['IMGPROXY_WRITE_TIMEOUT']
+    # ENV['IMGPROXY_TIMEOUT']
     # The maximum duration (in seconds) for writing the response
     writeTimeout: "10"
 
@@ -427,7 +427,7 @@ features:
 
     # ENV['IMGPROXY_MAX_SRC_RESOLUTION']
     # the maximum resolution of the source image, in megapixels. Images with larger actual size will be rejected.
-    maxSrcResolution: "16.8"
+    maxSrcResolution: "50"
 
     # ENV['IMGPROXY_MAX_SRC_FILE_SIZE']
     # The maximum size of the source image, in bytes. Images with larger file size will be rejected.
@@ -675,7 +675,7 @@ features:
     # Enforce/enable webP detection/usage
     webp:
 
-      # ENV['IMGPROXY_ENABLE_WEBP_DETECTION']
+      # ENV['IMGPROXY_AUTO_WEBP']
       # enables WebP support detection.
       # When the file extension is omitted in the imgproxy URL and browser supports WebP, imgproxy will use it as the resulting format
       enabled: false
@@ -687,7 +687,7 @@ features:
     # Enforce/enable AVIF detection/usage
     avif:
 
-      # ENV['IMGPROXY_ENABLE_AVIF_DETECTION']
+      # ENV['IMGPROXY_AUTO_AVIF']
       # enables AVIF support detection. When the file extension is omitted in the imgproxy URL and browser supports AVIF, imgproxy will use it as the resulting format
       enabled: false
 

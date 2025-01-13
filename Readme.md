@@ -135,23 +135,23 @@ The above command installs a specified version of imgproxy.
 
 ### Imgproxy Security Settings
 
-|Value|Description|Default|
-|-----|-----------|-------|
-|**features.security.secret**|the authorization token. If specified, request should contain the `Authorization: Bearer %secret%` header||
-|**features.security.sourceUrlEncryptionKey**|hex-encoded key used for source URL encryption|``|
-|**features.security.maxSrcResolution**|the maximum resolution of the source image, in megapixels.|`16.8`|
-|**features.security.maxSrcFileSize**|the maximum size of the source image, in bytes.|`0` (disabled)|
-|**features.security.maxAnimationFrames**|the maximum of animated image frames to being processed.|`1`|
-|**features.security.maxAnimationFrameResolution**|The maximum resolution of the animated source image frame, in megapixels.|`0`|
-|**features.security.maxSvgCheckBytes**|the maximum number of bytes imgproxy will read to recognize SVG.|`32KB`|
-|**features.security.allowOrigin**|when set, enables CORS headers with provided origin. CORS headers are disabled by default.|`false`|
-|**features.security.allowedSources**|whitelist of source image URLs prefixes divided by comma. When blank, imgproxy allows all source image URLs.||
-|**features.security.allowLoopbackSourceAddresses**|when `true`, allows connecting to loopback IP addresses when requesting source images.|`false`|
-|**features.security.allowLinkSourceAddresses**|when `true`, allows connecting to link-local multicast and unicast IP addresses when requesting source images.|`false`|
-|**features.security.allowPrivateSourceAddresses**|when `true`, allows connecting to private IP addresses when requesting source images.|`true`|
-|**features.security.ignoreSslVerification**|When true, disables SSL verification|`false`|
-|**features.security.allowSecurityOptions**|when true, allows usage of security-related processing options such as `max_src_resolution`, `max_src_file_size`, `max_animation_frames`, and `max_animation_frame_resolution`|`false`|
-|**features.security.developmentErrorsMode**|when true, imgproxy will respond with detailed error messages. Not recommended for production because some errors may contain stack trace|`false`|
+|Value|Description| Default        |
+|-----|-----------|----------------|
+|**features.security.secret**|the authorization token. If specified, request should contain the `Authorization: Bearer %secret%` header|                |
+|**features.security.sourceUrlEncryptionKey**|hex-encoded key used for source URL encryption| ``             |
+|**features.security.maxSrcResolution**|the maximum resolution of the source image, in megapixels.| `50`           |
+|**features.security.maxSrcFileSize**|the maximum size of the source image, in bytes.| `0` (disabled) |
+|**features.security.maxAnimationFrames**|the maximum of animated image frames to being processed.| `1`            |
+|**features.security.maxAnimationFrameResolution**|The maximum resolution of the animated source image frame, in megapixels.| `0`            |
+|**features.security.maxSvgCheckBytes**|the maximum number of bytes imgproxy will read to recognize SVG.| `32KB`         |
+|**features.security.allowOrigin**|when set, enables CORS headers with provided origin. CORS headers are disabled by default.| `false`        |
+|**features.security.allowedSources**|whitelist of source image URLs prefixes divided by comma. When blank, imgproxy allows all source image URLs.|                |
+|**features.security.allowLoopbackSourceAddresses**|when `true`, allows connecting to loopback IP addresses when requesting source images.| `false`        |
+|**features.security.allowLinkSourceAddresses**|when `true`, allows connecting to link-local multicast and unicast IP addresses when requesting source images.| `false`        |
+|**features.security.allowPrivateSourceAddresses**|when `true`, allows connecting to private IP addresses when requesting source images.| `true`         |
+|**features.security.ignoreSslVerification**|When true, disables SSL verification| `false`        |
+|**features.security.allowSecurityOptions**|when true, allows usage of security-related processing options such as `max_src_resolution`, `max_src_file_size`, `max_animation_frames`, and `max_animation_frame_resolution`| `false`        |
+|**features.security.developmentErrorsMode**|when true, imgproxy will respond with detailed error messages. Not recommended for production because some errors may contain stack trace| `false`        |
 
 ### Image Compression Settings
 
