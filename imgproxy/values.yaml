@@ -1283,3 +1283,10 @@ features:
   # custom:
   #   IMGPROXY_FOO: bar
   custom: {}
+
+# extraVolumes Optionally specify extra list of additional volumes for imgproxy; provisioning pod
+
+extraVolumes: []
+
+# extraVolumeMounts Optionally specify extra list of additional volumeMounts for imgproxy; provisioning container
+extraVolumeMounts: []

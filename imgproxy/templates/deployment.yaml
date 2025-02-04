@@ -73,8 +73,13 @@ spec:
       {{- else if (include "serviceAccount.enabled" $) }}
       serviceAccountName: "{{ template "imgproxy.fullname" $ }}-service-account"
       {{- end }}
-      {{- if .Values.persistence.enabled }}
       volumes:
+        - name: empty-dir
+          emptyDir: {}
+      {{- if .Values.extraVolumes }}
+        {{ .Values.extraVolumes | toYaml | nindent 8 }}
+      {{- end }}
+      {{- if .Values.persistence.enabled }}
         - name: data
           persistentVolumeClaim:
             claimName: {{ include "imgproxy.pvcName" . }}
@@ -105,8 +110,14 @@ spec:
                 name: {{ $secretName }}
             {{- end }}
           resources: {{ include "imgproxy.podResources" $ | nindent 12 }}
-          {{- if .Values.persistence.enabled }}
           volumeMounts:
+            - name: empty-dir
+              mountPath: /tmp
+              subPath: tmp-dir
+          {{- if .Values.extraVolumeMounts}}
+            {{ .Values.extraVolumeMounts | toYaml | nindent 12}}
+          {{- end}}
+          {{- if .Values.persistence.enabled }}
             - name: data
               mountPath: {{ .Values.persistence.mountPath }}
               {{- if .Values.persistence.subPath }}
