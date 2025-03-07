@@ -45,7 +45,7 @@ spec:
     - name: metrics
       port: {{ mustRegexSplit ":" .IMGPROXY_PROMETHEUS_BIND -1 | mustLast | int }}
       protocol: TCP
-      targetPort: 8081
+      targetPort: {{ mustRegexSplit ":" .IMGPROXY_PROMETHEUS_BIND -1 | mustLast | int }}
     {{- end }}
     {{- end }}
 {{- end }}

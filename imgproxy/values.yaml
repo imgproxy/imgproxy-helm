@@ -289,4 +289,5 @@ persistence:
 
 # Configure environment variables for the image proxy server
 # see https://docs.imgproxy.net/configuration
-env: {}
+env:
+  IMGPROXY_PROMETHEUS_BIND: ":8081"

@@ -117,8 +117,8 @@ spec:
             - containerPort: 8080
               name: http
               protocol: TCP
-            {{- if .Values.env.IMGPROXY_PROMETHEUS_BIND }}
-            - containerPort: 8081
+            {{- with .Values.env.IMGPROXY_PROMETHEUS_BIND }}
+            - containerPort: {{ mustRegexSplit ":" . -1 | mustLast | int }}
               name: metrics
               protocol: TCP
             {{- end }}
