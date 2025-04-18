@@ -34,7 +34,7 @@ spec:
     app: "{{ template "imgproxy.fullname" $ }}"
   ports:
     - name: http
-      port: 80
+      port: {{ .bind | default 80 }}
       protocol: TCP
       targetPort: 8080
       {{- if eq .type "NodePort" }}
