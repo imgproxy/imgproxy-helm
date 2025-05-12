@@ -1,8 +1,9 @@
-## 0.10.0 (2024-04-01)
+## 1.0.0 (to be released)
 
-* Update default imgproxy version to v3.23.0
+* default imgproxy version: v3.28.0
+* service account selecton bug fix
 
-### Backward incompatible changes
+### 🚨 Backward incompatible changes 🚨
 
 * Remove all environment-specific values in favor of customizable env variables at `.Values.env.*`
 
