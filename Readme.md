@@ -39,9 +39,9 @@ helm upgrade -i imgproxy imgproxy/imgproxy
 ```
 
 > [!IMPORTANT]
-> This readme shows documentation for chart versio 1.x.
+> This readme shows documentation for chart version 1.x.
 >
-> * For previous version see the [v0.9.0](https://github.com/imgproxy/imgproxy-helm/tree/v0.9.0) tag
+> * For previous version see the [v0.9.0](https://github.com/imgproxy/imgproxy-helm/tree/0.9.0) tag
 >
 
 ## Introduction
