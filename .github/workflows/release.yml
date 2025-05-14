@@ -23,6 +23,8 @@ jobs:
           path: helm-repository/
           ref: gh-pages
 
+      - run: cp imgproxy-helm/Readme.md imgproxy-helm/imgproxy/README.md
+
       - name: Pack the current chart version
         run: helm package -d helm-repository/ imgproxy-helm/imgproxy/
 
