@@ -35,12 +35,14 @@ To install imgproxy to your kubernetes cluster simply run:
 ```shell
 helm repo add imgproxy https://helm.imgproxy.net/
 
-# With Helm 3
 helm upgrade -i imgproxy imgproxy/imgproxy
-
-# With Helm 2
-helm upgrade -i --name imgproxy imgproxy/imgproxy
 ```
+
+> [!IMPORTANT]
+> This readme shows documentation for chart versio 1.x.
+>
+> * For previous version see the [v0.9.0](https://github.com/imgproxy/imgproxy-helm/tree/v0.9.0) tag
+>
 
 ## Introduction
 
@@ -63,11 +65,7 @@ See [official README](https://github.com/imgproxy/imgproxy#imgproxy) for more.
 ```shell
 helm repo add imgproxy https://helm.imgproxy.net/
 
-# With Helm 3
 helm upgrade -i imgproxy imgproxy/imgproxy
-
-# With Helm 2
-helm upgrade -i --name imgproxy imgproxy/imgproxy
 ```
 
 The command deploys imgproxy on the Kubernetes cluster in the default configuration. The [configuration section](#configuration) lists various ways to override default configuration during deployment.
@@ -89,7 +87,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to helm 
 ```shell
 helm upgrade -i imgproxy \
   --namespace imgproxy \
-  --set image.tag=v2.10.0 \
+  --set image.tag=v3.28.0 \
   imgproxy/imgproxy
 ```
 
@@ -99,7 +97,7 @@ The above command installs a specified version of imgproxy.
 
 ### Environment Variables
 
-Use the `env` part of the values to set environment variables for the imgproxy server.
+Use the `env` part of the values to configuse imgproxy server itself.
 Check the [documentation](https://docs.imgproxy.net/configuration) for the list of supported variables.
 
 ```yaml
@@ -110,7 +108,17 @@ env:
   FOO: bar
 ```
 
-> Notice that the latest versions of application can support more variables, than listed in the `values.yaml`.  You are free to add those values by yourself:
+### Additional secrets
+
+If you want to manage your keys in a more secure manner prepare Secrets (via External Secrets Operator, Sealed Secrets, etc)
+
+```yaml
+# values.yaml
+resources:
+  addSecrets:
+    - improxy-external-secrets
+```
+
 
 ### Image
 
