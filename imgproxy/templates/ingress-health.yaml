@@ -40,7 +40,7 @@ spec:
       http:
         paths:
           {{- $name := include "imgproxy.fullname" $ }}
-          {{- $path := ($.Values.features.server.pathPrefix | default "" | printf "%s/health") }}
+          {{- $path := ($.Values.env.IMGPROXY_PATH_PREFIX | default "" | printf "%s/health") }}
           {{- if eq $apiVersion "networking.k8s.io/v1" }}
           - path: {{ $path | quote }}
             pathType: Exact

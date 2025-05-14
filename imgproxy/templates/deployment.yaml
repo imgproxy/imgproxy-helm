@@ -70,7 +70,7 @@ spec:
       {{- end }}
       {{- if $.Values.resources.serviceAccount.existingName }}
       serviceAccountName: {{ $.Values.resources.serviceAccount.existingName | quote }}
-      {{- else if (include "serviceAccount.enabled" $) }}
+      {{- else if (include "serviceAccount.enabled" $ | eq "true") }}
       serviceAccountName: "{{ template "imgproxy.fullname" $ }}-service-account"
       {{- end }}
       {{- if .Values.persistence.enabled }}
@@ -117,20 +117,20 @@ spec:
             - containerPort: 8080
               name: http
               protocol: TCP
-            {{- if .Values.features.prometheus.enabled }}
-            - containerPort: 8081
+            {{- with .Values.env.IMGPROXY_PROMETHEUS_BIND }}
+            - containerPort: {{ mustRegexSplit ":" . -1 | mustLast | int }}
               name: metrics
               protocol: TCP
             {{- end }}
           readinessProbe:
             httpGet:
-              path: {{ .Values.features.server.pathPrefix }}/health
+              path: {{ .Values.env.IMGPROXY_PATH_PREFIX }}/health
               port: 8080
               scheme: HTTP
-              {{- if .Values.features.security.secret }}
+              {{- if .Values.env.IMGPROXY_SECRET }}
               httpHeaders:
               - name: Authorization
-                value: Bearer {{ .Values.features.security.secret }}
+                value: Bearer {{ .Values.env.IMGPROXY_SECRET }}
               {{- end }}
             {{- with .Values.resources.deployment.readinessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds | default 10 }}
@@ -140,13 +140,13 @@ spec:
             {{- end }}
           livenessProbe:
             httpGet:
-              path: {{ .Values.features.server.pathPrefix }}/health
+              path: {{ .Values.env.IMGPROXY_PATH_PREFIX }}/health
               port: 8080
               scheme: HTTP
-              {{- if .Values.features.security.secret }}
+              {{- if .Values.env.IMGPROXY_SECRET }}
               httpHeaders:
                 - name: Authorization
-                  value: Bearer {{ .Values.features.security.secret }}
+                  value: Bearer {{ .Values.env.IMGPROXY_SECRET }}
               {{- end }}
             {{- with .Values.resources.deployment.livenessProbe }}
             initialDelaySeconds: {{ .initialDelaySeconds | default 50 }}

@@ -34,16 +34,18 @@ spec:
     app: "{{ template "imgproxy.fullname" $ }}"
   ports:
     - name: http
-      port: 80
+      port: {{ .port | default 80 }}
       protocol: TCP
       targetPort: 8080
       {{- if eq .type "NodePort" }}
       nodePort: {{ .nodePort | default "" }}
       {{- end }}
-    {{- if $.Values.features.prometheus.enabled }}
+    {{- with $.Values.env }}
+    {{- if .IMGPROXY_PROMETHEUS_BIND }}
     - name: metrics
-      port: 8081
+      port: {{ mustRegexSplit ":" .IMGPROXY_PROMETHEUS_BIND -1 | mustLast | int }}
       protocol: TCP
-      targetPort: 8081
+      targetPort: {{ mustRegexSplit ":" .IMGPROXY_PROMETHEUS_BIND -1 | mustLast | int }}
+    {{- end }}
     {{- end }}
 {{- end }}
