@@ -10,12 +10,7 @@ To install imgproxy to your kubernetes cluster simply run:
 
 ```shell
 helm repo add imgproxy https://helm.imgproxy.net/
-
-# With Helm 3
 helm upgrade -i imgproxy imgproxy/imgproxy
-
-# With Helm 2
-helm upgrade -i --name imgproxy imgproxy/imgproxy
 ```
 
 ## Introduction
@@ -38,12 +33,7 @@ See [official README](https://github.com/imgproxy/imgproxy#imgproxy) for more.
 
 ```shell
 helm repo add imgproxy https://helm.imgproxy.net/
-
-# With Helm 3
 helm upgrade -i imgproxy imgproxy/imgproxy
-
-# With Helm 2
-helm upgrade -i --name imgproxy imgproxy/imgproxy
 ```
 
 The command deploys imgproxy on the Kubernetes cluster in the default configuration. The [configuration section](#configuration) lists various ways to override default configuration during deployment.
