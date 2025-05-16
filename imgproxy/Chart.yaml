@@ -25,7 +25,7 @@ annotations:
   artifacthub.io/containsSecurityUpdates: "false"
   artifacthub.io/images: |
     - name: impgroxy
-      image: darthsim/imgproxy:v3.23.0
+      image: ghcr.io/imgproxy/imgproxy:v3.28.0
   artifacthub.io/license: MIT-open-group
   artifacthub.io/links: |
     - name: imgproxy-helm chart on Github

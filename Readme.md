@@ -13,7 +13,7 @@
   <a href="https://imgproxy.net/blog/">Blog</a> |
   <a href="https://docs.imgproxy.net">Documentation</a> |
   <a href="https://imgproxy.net/#pro">imgproxy Pro</a> |
-  <a href="https://hub.docker.com/r/darthsim/imgproxy/">Docker</a> |
+  <a href="https://github.com/imgproxy/imgproxy/pkgs/container/imgproxy">Docker</a> |
   <a href="https://twitter.com/imgproxy_net">Twitter</a> |
   <a href="https://discord.gg/5GgpXgtC9u">Discord</a>
 </h4>
