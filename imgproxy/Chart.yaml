@@ -13,11 +13,9 @@ sources:
   - https://github.com/imgproxy/imgproxy
 maintainers:
   - name: darthsim
-    email: darthsim@evilmartians.com
+    email: darthsim@gmail.com
   - name: dragonsmith
     email: agon.smith@gmail.com
-  - name: nepalez
-    email: nepalez@evilmartians.com
 annotations:
   artifacthub.io/changes: |
     - kind: added
@@ -37,8 +35,6 @@ annotations:
   artifacthub.io/prerelease: "false"
   artifacthub.io/maintainers: |
     - name: darthsim
-      email: darthsim@evilmartians.com
+      email: darthsim@gmail.com
     - name: dragonsmith
       email: agon.smith@gmail.com
-    - name: nepalez
-      email: nepalez@evilmartians.com
