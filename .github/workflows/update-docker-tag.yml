@@ -31,6 +31,7 @@ jobs:
           git switch -c update-docker-tag/${{ github.event.client_payload.tag }}
 
           sed -i -E '0,/^([[:blank:]]+tag:[[:blank:]]*)[^[:blank:]]+/{s//\1${{ github.event.client_payload.tag }}/}' imgproxy/values.yaml
+          sed -i -E 's/(ghcr.io\/imgproxy\/imgproxy:)[^[:blank:]]+/\1${{ github.event.client_payload.tag }}/' imgproxy/Chart.yaml
           git commit -am "Update image.tag to ${{ github.event.client_payload.tag }}"
 
           git push --set-upstream origin update-docker-tag/${{ github.event.client_payload.tag }}
