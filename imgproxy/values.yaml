@@ -153,10 +153,21 @@ resources:
 
     # A security context defines privilege and access control settings for the deployment.
     # Check available settings in the documentation by link:
-    # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-    securityContext: {}
-      # allowPrivilegeEscalation: false
+    # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+    podSecurityContext: {}
+    # fsGroup: 999
+
+    # A security context defines privilege and access control settings for containers.
+    # Check available settings in the documentation by link:
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+    containerSecurityContext: {}
+      # runAsUser: 999
       # runAsNonRoot: true
+      # allowPrivilegeEscalation: false
+      # capabilities:
+      #   drop: ["ALL"]
+      # seccompProfile:
+      #   type: "RuntimeDefault"
 
     # A custom amount of time (in seconds) to terminate the app after pre-stop hook is called,
     # or a TERM signal is received.

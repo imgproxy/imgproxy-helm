@@ -65,8 +65,8 @@ spec:
         {{- end }}
         {{- end }}
       {{- end }}
-      {{- if $.Values.resources.deployment.securityContext }}
-      securityContext: {{ $.Values.resources.deployment.securityContext | toYaml | nindent 8 }}
+      {{- if $.Values.resources.deployment.podSecurityContext }}
+      securityContext: {{ $.Values.resources.deployment.podSecurityContext | toYaml | nindent 8 }}
       {{- end }}
       {{- if $.Values.resources.serviceAccount.existingName }}
       serviceAccountName: {{ $.Values.resources.serviceAccount.existingName | quote }}
@@ -97,6 +97,9 @@ spec:
         - name: "imgproxy"
           image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if $.Values.resources.deployment.containerSecurityContext }}
+          securityContext: {{ $.Values.resources.deployment.containerSecurityContext | toYaml | nindent 12 }}
+          {{- end }}
           envFrom:
             - secretRef:
                 name: {{ template "imgproxy.fullname" $ }}-env-secrets
