@@ -13,11 +13,9 @@ sources:
   - https://github.com/imgproxy/imgproxy
 maintainers:
   - name: darthsim
-    email: darthsim@evilmartians.com
+    email: darthsim@gmail.com
   - name: dragonsmith
     email: agon.smith@gmail.com
-  - name: nepalez
-    email: nepalez@evilmartians.com
 annotations:
   artifacthub.io/changes: |
     - kind: added
@@ -25,7 +23,7 @@ annotations:
   artifacthub.io/containsSecurityUpdates: "false"
   artifacthub.io/images: |
     - name: impgroxy
-      image: darthsim/imgproxy:v3.23.0
+      image: ghcr.io/imgproxy/imgproxy:v3.28.0
   artifacthub.io/license: MIT-open-group
   artifacthub.io/links: |
     - name: imgproxy-helm chart on Github
@@ -37,8 +35,6 @@ annotations:
   artifacthub.io/prerelease: "false"
   artifacthub.io/maintainers: |
     - name: darthsim
-      email: darthsim@evilmartians.com
+      email: darthsim@gmail.com
     - name: dragonsmith
       email: agon.smith@gmail.com
-    - name: nepalez
-      email: nepalez@evilmartians.com

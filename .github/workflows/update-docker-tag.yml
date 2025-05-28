@@ -1,0 +1,48 @@
+#
+# This action is triggered by the repository_dispatch event
+# published by the imgproxy/imgproxy repository.
+# It updates the Docker image tag in the imgproxy Helm chart and creates a pull request.
+#
+name: Create an issue about updated imgproxy docs
+on:
+  repository_dispatch:
+    types:
+      - imgproxy-version-updated
+
+jobs:
+  create-issue:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+
+      - name: Update the Docker tag
+        run: |
+          #!/bin/bash
+
+          set -e
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git switch -c update-docker-tag/${{ github.event.client_payload.tag }}
+
+          sed -i -E '0,/^([[:blank:]]+tag:[[:blank:]]*)[^[:blank:]]+/{s//\1${{ github.event.client_payload.tag }}/}' imgproxy/values.yaml
+          sed -i -E 's/(ghcr.io\/imgproxy\/imgproxy:)[^[:blank:]]+/\1${{ github.event.client_payload.tag }}/' imgproxy/Chart.yaml
+          git commit -am "Update image.tag to ${{ github.event.client_payload.tag }}"
+
+          git push --set-upstream origin update-docker-tag/${{ github.event.client_payload.tag }}
+
+      - name: Create a pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --base master \
+            --head update-docker-tag/${{ github.event.client_payload.tag }} \
+            --title "Update image.tag to ${{ github.event.client_payload.tag }}" \
+            --body "This pull request updates the image tag to ${{ github.event.client_payload.tag }}." \
+            --assignee "dragonsmith"
