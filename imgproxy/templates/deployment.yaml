@@ -122,6 +122,9 @@ spec:
               name: metrics
               protocol: TCP
             {{- end }}
+          {{- if .Values.resources.deployment.containerSecurityContext }}
+          securityContext: {{ $.Values.resources.deployment.containerSecurityContext | toYaml | nindent 12 }}
+          {{- end }}
           readinessProbe:
             httpGet:
               path: {{ .Values.env.IMGPROXY_PATH_PREFIX }}/health
