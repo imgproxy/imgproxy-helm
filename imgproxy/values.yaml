@@ -176,11 +176,22 @@ resources:
     # It is set to 0 by default.
     minReadySeconds: ~
 
-    # A security context defines privilege and access control settings for the deployment.
+    # A security context defines privilege and access control settings for the deployment pod.
     # Check available settings in the documentation by link:
     # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
     securityContext:
       {}
+      # allowPrivilegeEscalation: false
+      # runAsNonRoot: true
+    
+    # A container security context defines privilege and access control settings for the deployment container.
+    # Check available settings in the documentation by link:
+    # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    containerSecurityContext: {}
+      # capabilities:
+      #   drop:
+      #     - ALL
+      # readOnlyRootFilesystem: true
       # allowPrivilegeEscalation: false
       # runAsNonRoot: true
 
