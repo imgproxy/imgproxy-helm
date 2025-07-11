@@ -3,7 +3,7 @@ description: A fast and secure standalone server for resizing and converting rem
 name: imgproxy
 icon: https://cdn.rawgit.com/imgproxy/imgproxy/master/logo.svg
 version: 1.0.0
-appVersion: 3.24.1
+appVersion: 3.29.1
 keywords:
   - imgproxy
   - image
@@ -23,7 +23,7 @@ annotations:
   artifacthub.io/containsSecurityUpdates: "false"
   artifacthub.io/images: |
     - name: impgroxy
-      image: ghcr.io/imgproxy/imgproxy:v3.28.0
+      image: ghcr.io/imgproxy/imgproxy:v3.29.1
   artifacthub.io/license: MIT-open-group
   artifacthub.io/links: |
     - name: imgproxy-helm chart on Github
