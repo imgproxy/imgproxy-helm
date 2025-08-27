@@ -1,0 +1,36 @@
+{{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.persistence.name }}
+  labels:
+    app: {{ .Release.Name | quote }}
+    chart: {{ template "imgproxy.chart" $ }}
+    heritage: {{ .Release.Service | quote }}
+    imgproxy: "true"
+    release: {{ .Release.Name | quote }}
+    {{- range $key, $val := ($.Values.resources.common.labels | default dict) }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
+  {{- with .Values.persistence.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if .Values.persistence.storageClass }}
+  storageClassName: {{ .Values.persistence.storageClass }}
+  {{- end }}
+  {{- if .Values.persistence.dataSource }}
+  dataSource:
+    name: {{ .Values.persistence.dataSource | quote }}
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io
+  {{- end }}
+  accessModes:
+  {{- range .Values.persistence.accessModes }}
+    - {{ . | quote }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.size | quote }}
+{{- end }}

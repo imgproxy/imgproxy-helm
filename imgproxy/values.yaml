@@ -262,17 +262,14 @@ persistence:
   # If persistence is enabled
   enabled: false
 
-  # PVC name
-  name: "imgproxy-data"
-
   # If existing claim should be used
   existingClaim: ~
 
-  # Volume mount path in imgproxy deployment
-  mountPath: "/images"
+  # PVC name
+  name: "imgproxy-data"
 
-  # Persistent volume sub path
-  subPath: ~
+  # Annotations for the PVC
+  annotations: {}
 
   # Access modes for PV
   accessModes:
@@ -286,6 +283,12 @@ persistence:
 
   # Create new PV from data source
   dataSource: ~
+
+  # Volume mount path in imgproxy deployment
+  mountPath: "/images"
+
+  # Persistent volume sub path
+  subPath: ~
 
 # Configure environment variables for the image proxy server
 # see https://docs.imgproxy.net/configuration

@@ -1,3 +1,9 @@
+# CHANGELOG
+
+## 1.0.1 (unset)
+
+* Add creation of missed pvc resource when the existing pvc isn't used.
+
 ## 1.0.0 (2024-05-14)
 
 * default imgproxy version: v3.28.0
