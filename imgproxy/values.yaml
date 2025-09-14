@@ -76,7 +76,8 @@ resources:
 
       # The number of seconds for which past recommendations
       # should be considered while scaling up or scaling down (0 - 3600).
-      # The period will be the same for both up- and downscaling.
+      # This is used as the default for both directions unless overridden by 
+      # scaleUpBehavior.stabilizationInterval or scaleDownBehavior.stabilizationInterval.
       #
       # The setting is used if `minCount < maxCount` only (default 300 seconds).
       stabilizationInterval: 300
@@ -87,6 +88,28 @@ resources:
       #
       # The setting MUST be set if `minCount < maxCount` only.
       cpuUtilization: 80
+
+      # Optional: Independent scale-up behavior configuration.
+      # When specified, these settings override the shared settings above for scaling UP only.
+      # If not specified, the shared settings (stepCount, stepSeconds, stabilizationInterval) are used.
+      #
+      # All fields are optional - you can override only specific settings.
+      scaleUpBehavior:
+        # stepCount: 6                    # Number of pods to add per scaling step (overrides shared stepCount)
+        # stepSeconds: 30                 # Period between scaling steps in seconds (overrides shared stepSeconds)
+        # stabilizationInterval: 60       # Stabilization window in seconds (overrides shared stabilizationInterval)
+        # selectPolicy: Max               # Policy for selecting which recommendation to use (Min, Max, Disabled)
+
+      # Optional: Independent scale-down behavior configuration.
+      # When specified, these settings override the shared settings above for scaling DOWN only.
+      # If not specified, the shared settings (stepCount, stepSeconds, stabilizationInterval) are used.
+      #
+      # All fields are optional - you can override only specific settings.
+      scaleDownBehavior:
+        # stepCount: 1                    # Number of pods to remove per scaling step (overrides shared stepCount)
+        # stepSeconds: 300                # Period between scaling steps in seconds (overrides shared stepSeconds)  
+        # stabilizationInterval: 600      # Stabilization window in seconds (overrides shared stabilizationInterval)
+        # selectPolicy: Min               # Policy for selecting which recommendation to use (Min, Max, Disabled)
 
     # See https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
     strategy:
