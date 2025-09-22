@@ -26,14 +26,19 @@ resources:
 
       # The name of the priority class to be used in both pod.PriorityClassName
       # and the PriorityClass (when a level is above 0).
-      # When a level is not set, or set to 0 (default), then the definition
-      # of the corresponding PriorityClass is up to the user.
+      # 
+      # Usage scenarios:
+      # 1. level > 0: A new PriorityClass will be created with this name and assigned to pods
+      # 2. level = 0 + name provided: Use an existing PriorityClass with this name (no new PriorityClass created)
+      # 3. level = 0 + no name: No PriorityClass will be used
+      # 
       # You can use system names like `set-cluster-critical` and `set-node-critical` as well,
       # in this case the class won't be created and level is ignored.
       name: ~
 
       # If the level is above 0, then a correspoding PriorityClass will be created
-      # and assigned to the pod by the `PriorityClassName`
+      # and assigned to the pod by the `PriorityClassName`.
+      # If level is 0 but name is provided, an existing PriorityClass with that name will be used.
       level: 0
 
       # This setting is supported in K8s v1.19+, otherwise it will be ignored

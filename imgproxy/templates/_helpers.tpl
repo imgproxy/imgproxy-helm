@@ -71,7 +71,7 @@ https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.ht
        {{- if (include "imgproxy.versions.priorityClass" $) }}
             {{- $defaultName := (include "imgproxy.fullname" $ | printf "%s-priority") }}
             {{- $name := default $defaultName .name }}
-            {{- if (has $name $systemNames | or .level) }}
+            {{- if (has $name $systemNames | or .level | or .name) }}
                 {{- $name }}
             {{- end }}
        {{- end }}
@@ -83,7 +83,7 @@ https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.ht
     {{- with .Values.resources.deployment.priority }}
         {{- $systemNames := list "set-cluster-critical" "set-node-critical" }}
         {{- $name := include "imgproxy.resources.priorityClassName" $ }}
-        {{- if ($name | and (not (has $name $systemNames))) }}
+        {{- if ($name | and (not (has $name $systemNames)) | and .level) }}
             {{- $name }}
         {{- end }}
     {{- end }}
