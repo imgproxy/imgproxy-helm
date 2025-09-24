@@ -170,6 +170,7 @@ Options for downloading the imgproxy image
 |**resources.deployment.replicas.stepSeconds**|The period in seconds (1-1800) during which up to `stepCount` pods can be added or dropped by autoscaler.|`60`|
 |**resources.deployment.resources**|Hash of resource limits for your pods|`{}`|
 |**resources.deployment.securityContext**|Hash of security context settings for your pods|`{}`|
+|**resources.deployment.containerSecurityContext**|Security context setting for containers, see [the docs](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container)|`{}`|
 |**resources.deployment.terminationGracePeriodSeconds**|A custom amount of time to terminate the app|`30`|
 |**resources.deployment.tolerations**|Tolerations for Kubernetes taints||
 |**resources.deployment.topologySpreadConstraints**|topologySpreadConstraints for distributing pods across zones|`[]`|
