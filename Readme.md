@@ -208,6 +208,7 @@ Options for downloading the imgproxy image
 |**resources.ingress.tls**|TLS config array||
 |**resources.ingress.tls[].hosts**|Hostnames this tls secret is used for|`["example.com"]`|
 |**resources.ingress.tls[].secretName**|Name of the k8s Secret resource which stores crt & key for the ingress resource||
+|**resources.ingress.className**|ingressClassName to use||
 
 See `values.yaml` for some more Kubernetes-specific configuration options.
 
