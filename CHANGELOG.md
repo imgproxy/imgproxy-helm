@@ -1,3 +1,9 @@
+# CHANGELOG
+
+## 1.1.1 (unset)
+
+* PR #207: Fix creation of missed pvc resource when the existing pvc isn't used (@kastakhov)
+
 ## 1.1.0 (2025-09-29)
 
 * PR #211: Add support for using existing PriorityClass (@dibaro)
