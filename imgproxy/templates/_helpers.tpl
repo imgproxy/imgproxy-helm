@@ -133,3 +133,13 @@ https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.ht
 {{ $podSecurityContext | toYaml | nindent 8 }}
 {{- end -}}
 {{- end -}}
+
+{{/* use repository instead of repo */}}
+{{- define "imgproxy.repository" -}}
+{{- $repo := $.Values.image.repo -}}
+{{- $repository := $.Values.image.repository -}}
+{{- if and $repo $repository -}}
+{{- fail "Both resources.image.repo and resources.image.repository are defined. Please use only repository." -}}
+{{- end -}}
+{{- coalesce $repository $repo -}}
+{{- end -}}

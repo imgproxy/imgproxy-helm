@@ -96,7 +96,7 @@ spec:
       {{- end }}
       containers:
         - name: "imgproxy"
-          image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
+          image: "{{ include "imgproxy.repository" . }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - secretRef:

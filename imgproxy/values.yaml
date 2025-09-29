@@ -1,7 +1,7 @@
 ---
 # Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
-  repo: ghcr.io/imgproxy/imgproxy
+  repository: ghcr.io/imgproxy/imgproxy
   tag: v3.30.0
   pullPolicy: IfNotPresent
   # create new image-pull-secret if enabled: true
@@ -24,12 +24,12 @@ resources:
     priority:
       # The name of the priority class to be used in both pod.PriorityClassName
       # and the PriorityClass (when a level is above 0).
-      # 
+      #
       # Usage scenarios:
       # 1. level > 0: A new PriorityClass will be created with this name and assigned to pods
       # 2. level = 0 + name provided: Use an existing PriorityClass with this name (no new PriorityClass created)
       # 3. level = 0 + no name: No PriorityClass will be used
-      # 
+      #
       # You can use system names like `set-cluster-critical` and `set-node-critical` as well,
       # in this case the class won't be created and level is ignored.
       name: ~
@@ -78,7 +78,7 @@ resources:
 
       # The number of seconds for which past recommendations
       # should be considered while scaling up or scaling down (0 - 3600).
-      # This is used as the default for both directions unless overridden by 
+      # This is used as the default for both directions unless overridden by
       # scaleUpBehavior.stabilizationInterval or scaleDownBehavior.stabilizationInterval.
       #
       # The setting is used if `minCount < maxCount` only (default 300 seconds).
@@ -109,7 +109,7 @@ resources:
       # All fields are optional - you can override only specific settings.
       scaleDownBehavior:
         # stepCount: 1                    # Number of pods to remove per scaling step (overrides shared stepCount)
-        # stepSeconds: 300                # Period between scaling steps in seconds (overrides shared stepSeconds)  
+        # stepSeconds: 300                # Period between scaling steps in seconds (overrides shared stepSeconds)
         # stabilizationInterval: 600      # Stabilization window in seconds (overrides shared stabilizationInterval)
         # selectPolicy: Min               # Policy for selecting which recommendation to use (Min, Max, Disabled)
 
@@ -179,11 +179,10 @@ resources:
     # A security context defines privilege and access control settings for the deployment pod.
     # Check available settings in the documentation by link:
     # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-    securityContext:
-      {}
+    securityContext: {}
       # allowPrivilegeEscalation: false
       # runAsNonRoot: true
-    
+
     # A container security context defines privilege and access control settings for the deployment container.
     # Check available settings in the documentation by link:
     # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
