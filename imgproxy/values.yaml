@@ -2,7 +2,7 @@
 # Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: ghcr.io/imgproxy/imgproxy
-  tag: v3.28.0
+  tag: v3.30.0
   pullPolicy: IfNotPresent
   # create new image-pull-secret if enabled: true
   pullSecrets:
@@ -15,7 +15,6 @@ image:
 
 # Configure K8s resources
 resources:
-
   # Settings applied to every single resource of the chart.
   common:
     labels: {}
@@ -23,17 +22,21 @@ resources:
   deployment:
     # https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority
     priority:
-
       # The name of the priority class to be used in both pod.PriorityClassName
       # and the PriorityClass (when a level is above 0).
-      # When a level is not set, or set to 0 (default), then the definition
-      # of the corresponding PriorityClass is up to the user.
+      # 
+      # Usage scenarios:
+      # 1. level > 0: A new PriorityClass will be created with this name and assigned to pods
+      # 2. level = 0 + name provided: Use an existing PriorityClass with this name (no new PriorityClass created)
+      # 3. level = 0 + no name: No PriorityClass will be used
+      # 
       # You can use system names like `set-cluster-critical` and `set-node-critical` as well,
       # in this case the class won't be created and level is ignored.
       name: ~
 
       # If the level is above 0, then a correspoding PriorityClass will be created
-      # and assigned to the pod by the `PriorityClassName`
+      # and assigned to the pod by the `PriorityClassName`.
+      # If level is 0 but name is provided, an existing PriorityClass with that name will be used.
       level: 0
 
       # This setting is supported in K8s v1.19+, otherwise it will be ignored
@@ -49,7 +52,6 @@ resources:
     #
     # This part can be skipped, in that case 1 replica will be used.
     replicas:
-
       # The default number of replicas to start from (default 1)
       default: 1
 
@@ -76,7 +78,8 @@ resources:
 
       # The number of seconds for which past recommendations
       # should be considered while scaling up or scaling down (0 - 3600).
-      # The period will be the same for both up- and downscaling.
+      # This is used as the default for both directions unless overridden by 
+      # scaleUpBehavior.stabilizationInterval or scaleDownBehavior.stabilizationInterval.
       #
       # The setting is used if `minCount < maxCount` only (default 300 seconds).
       stabilizationInterval: 300
@@ -87,6 +90,28 @@ resources:
       #
       # The setting MUST be set if `minCount < maxCount` only.
       cpuUtilization: 80
+
+      # Optional: Independent scale-up behavior configuration.
+      # When specified, these settings override the shared settings above for scaling UP only.
+      # If not specified, the shared settings (stepCount, stepSeconds, stabilizationInterval) are used.
+      #
+      # All fields are optional - you can override only specific settings.
+      scaleUpBehavior:
+        # stepCount: 6                    # Number of pods to add per scaling step (overrides shared stepCount)
+        # stepSeconds: 30                 # Period between scaling steps in seconds (overrides shared stepSeconds)
+        # stabilizationInterval: 60       # Stabilization window in seconds (overrides shared stabilizationInterval)
+        # selectPolicy: Max               # Policy for selecting which recommendation to use (Min, Max, Disabled)
+
+      # Optional: Independent scale-down behavior configuration.
+      # When specified, these settings override the shared settings above for scaling DOWN only.
+      # If not specified, the shared settings (stepCount, stepSeconds, stabilizationInterval) are used.
+      #
+      # All fields are optional - you can override only specific settings.
+      scaleDownBehavior:
+        # stepCount: 1                    # Number of pods to remove per scaling step (overrides shared stepCount)
+        # stepSeconds: 300                # Period between scaling steps in seconds (overrides shared stepSeconds)  
+        # stabilizationInterval: 600      # Stabilization window in seconds (overrides shared stabilizationInterval)
+        # selectPolicy: Min               # Policy for selecting which recommendation to use (Min, Max, Disabled)
 
     # See https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy
     strategy:
@@ -151,10 +176,22 @@ resources:
     # It is set to 0 by default.
     minReadySeconds: ~
 
-    # A security context defines privilege and access control settings for the deployment.
+    # A security context defines privilege and access control settings for the deployment pod.
     # Check available settings in the documentation by link:
     # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
-    securityContext: {}
+    securityContext:
+      {}
+      # allowPrivilegeEscalation: false
+      # runAsNonRoot: true
+    
+    # A container security context defines privilege and access control settings for the deployment container.
+    # Check available settings in the documentation by link:
+    # https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+    containerSecurityContext: {}
+      # capabilities:
+      #   drop:
+      #     - ALL
+      # readOnlyRootFilesystem: true
       # allowPrivilegeEscalation: false
       # runAsNonRoot: true
 
@@ -219,7 +256,7 @@ resources:
     annotations: {}
     #   kubernetes.io/ingress.class: nginx
     #   kubernetes.io/tls-acme: "true"
-    hosts: []
+    hosts: [~]
     #   - example.com
     #   - www.example.com
     tls: []

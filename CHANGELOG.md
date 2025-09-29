@@ -1,8 +1,16 @@
 # CHANGELOG
 
-## 1.0.1 (unset)
+## 1.1.1 (unset)
 
-* Add creation of missed pvc resource when the existing pvc isn't used.
+* PR #207: Fix creation of missed pvc resource when the existing pvc isn't used (@kastakhov)
+
+## 1.1.0 (2025-09-29)
+
+* PR #211: Add support for using existing PriorityClass (@dibaro)
+* PR #209: Add independent scale-up and scale-down HPA behaviors (@mohamadaminkarami)
+* PRs #201, #198: Pass SecurityContext for container from values (@SimonWoidig, @kaufmo)
+* PR #212: securityContext deprecated in favour of podSecurityContext (@gzigzigzeo)
+* Updated default image to 3.30
 
 ## 1.0.0 (2024-05-14)
 

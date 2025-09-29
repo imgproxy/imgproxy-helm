@@ -169,7 +169,9 @@ Options for downloading the imgproxy image
 |**resources.deployment.replicas.stepCount**|The max number of pods to be added/dropped during autoscaling step.|`1`|
 |**resources.deployment.replicas.stepSeconds**|The period in seconds (1-1800) during which up to `stepCount` pods can be added or dropped by autoscaler.|`60`|
 |**resources.deployment.resources**|Hash of resource limits for your pods|`{}`|
-|**resources.deployment.securityContext**|Hash of security context settings for your pods|`{}`|
+|**resources.deployment.podSecurityContext**|Security context settings for pods|`{}`|
+|**resources.deployment.containerSecurityContext**|Security context setting for containers, see [the docs](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container)|`{}`|
+|**resources.deployment.securityContext**|DEPRECATED: Security context settings for pods|`{}`|
 |**resources.deployment.terminationGracePeriodSeconds**|A custom amount of time to terminate the app|`30`|
 |**resources.deployment.tolerations**|Tolerations for Kubernetes taints||
 |**resources.deployment.topologySpreadConstraints**|topologySpreadConstraints for distributing pods across zones|`[]`|
@@ -203,11 +205,12 @@ Options for downloading the imgproxy image
 |**resources.ingress.annotations**|Additional annotations for the ingress resource||
 |**resources.ingress.enabled**|When true, enables ingress resource for imgproxy|`false`|
 |**resources.ingress.health.whitelist**|Comma separated string of CIDR addresses that are allowed to access `/health` url of imgproxy||
-|**resources.ingress.hosts**|Hostnames for the ingress resource to use|`["example.com"]`|
+|**resources.ingress.hosts**|Hostnames for the ingress resource to use|`[~]`|
 |**resources.ingress.pathSuffix**|Suffix to be added to path prefix, for example wildcard '*' for AWS balancer||
 |**resources.ingress.tls**|TLS config array||
 |**resources.ingress.tls[].hosts**|Hostnames this tls secret is used for|`["example.com"]`|
 |**resources.ingress.tls[].secretName**|Name of the k8s Secret resource which stores crt & key for the ingress resource||
+|**resources.ingress.className**|ingressClassName to use||
 
 See `values.yaml` for some more Kubernetes-specific configuration options.
 

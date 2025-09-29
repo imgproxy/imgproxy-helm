@@ -65,8 +65,9 @@ spec:
         {{- end }}
         {{- end }}
       {{- end }}
-      {{- if $.Values.resources.deployment.securityContext }}
-      securityContext: {{ $.Values.resources.deployment.securityContext | toYaml | nindent 8 }}
+      {{- with (include "imgproxy.podSecurityContext" .) }}
+      securityContext:
+        {{ . }}
       {{- end }}
       {{- if $.Values.resources.serviceAccount.existingName }}
       serviceAccountName: {{ $.Values.resources.serviceAccount.existingName | quote }}
@@ -122,6 +123,9 @@ spec:
               name: metrics
               protocol: TCP
             {{- end }}
+          {{- if .Values.resources.deployment.containerSecurityContext }}
+          securityContext: {{ $.Values.resources.deployment.containerSecurityContext | toYaml | nindent 12 }}
+          {{- end }}
           readinessProbe:
             httpGet:
               path: {{ .Values.env.IMGPROXY_PATH_PREFIX }}/health

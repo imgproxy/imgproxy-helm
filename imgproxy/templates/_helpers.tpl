@@ -71,7 +71,7 @@ https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.ht
        {{- if (include "imgproxy.versions.priorityClass" $) }}
             {{- $defaultName := (include "imgproxy.fullname" $ | printf "%s-priority") }}
             {{- $name := default $defaultName .name }}
-            {{- if (has $name $systemNames | or .level) }}
+            {{- if (has $name $systemNames | or .level | or .name) }}
                 {{- $name }}
             {{- end }}
        {{- end }}
@@ -83,7 +83,7 @@ https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.ht
     {{- with .Values.resources.deployment.priority }}
         {{- $systemNames := list "set-cluster-critical" "set-node-critical" }}
         {{- $name := include "imgproxy.resources.priorityClassName" $ }}
-        {{- if ($name | and (not (has $name $systemNames))) }}
+        {{- if ($name | and (not (has $name $systemNames)) | and .level) }}
             {{- $name }}
         {{- end }}
     {{- end }}
@@ -117,4 +117,19 @@ https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.ht
 {{- $prefix := ($.Values.env.IMGPROXY_PATH_PREFIX | default "" | trimSuffix "/") -}}
 {{- $suffix := ($.Values.resources.ingress.pathSuffix | default "" | trimPrefix "/") -}}
 {{- printf "%s/%s" $prefix $suffix -}}
+{{- end -}}
+
+{{/* deprecated securityContext */}}
+{{- define "imgproxy.podSecurityContext" -}}
+{{- $securityContext := $.Values.resources.deployment.securityContext -}}
+{{- $podSecurityContext := $.Values.resources.deployment.podSecurityContext -}}
+{{- if and $securityContext $podSecurityContext -}}
+{{- fail "Both resources.deployment.securityContext and resources.deployment.podSecurityContext are defined. Please use only podSecurityContext." -}}
+{{- end -}}
+{{- if $securityContext -}}
+{{- printf "\n# WARNING: resources.deployment.securityContext is deprecated, please use resources.deployment.podSecurityContext instead" -}}
+{{ $securityContext | toYaml | nindent 8 }}
+{{- else if $podSecurityContext -}}
+{{ $podSecurityContext | toYaml | nindent 8 }}
+{{- end -}}
 {{- end -}}
