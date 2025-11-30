@@ -104,7 +104,7 @@ The above command installs a specified version of imgproxy.
 
 ### Environment Variables
 
-Use the `env` part of the values to configuse imgproxy server itself.
+Use the `env` part of the values to configure imgproxy server itself.
 Check the [documentation](https://docs.imgproxy.net/configuration) for the list of supported variables.
 
 ```yaml
@@ -123,7 +123,7 @@ If you want to manage your keys in a more secure manner prepare Secrets (via Ext
 # values.yaml
 resources:
   addSecrets:
-    - improxy-external-secrets
+    - imgproxy-external-secrets
 ```
 
 
