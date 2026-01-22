@@ -1,3 +1,7 @@
+## 1.1.1 (2026-01-22)
+
+* PR #XX: Add support for extra volumes and volume mounts in the deployment (@sveriger)
+
 ## 1.1.0 (2025-09-29)
 
 * PR #211: Add support for using existing PriorityClass (@dibaro)
