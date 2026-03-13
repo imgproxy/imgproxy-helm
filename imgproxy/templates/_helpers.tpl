@@ -47,7 +47,7 @@ Template to decide if the serviceAccount must be built
 {{-   if (and $useExistingName $useIamRole) -}}
 {{-     fail "Cannot add IAM Role authentication to the external service account (check .resources.serviceAccount)" -}}
 {{-   end -}}
-{{-   (not $useExistingName | and (or $useAnnotations $useIamRole)) }}
+{{-   (not $useExistingName) }}
 {{- end }}
 {{- end }}
 

@@ -1,3 +1,7 @@
+## 1.1.1 (2026-03-13)
+
+* PR #219: Fix `ServiceAccount` creation logic (@Vonmaterhorn)
+
 ## 1.1.0 (2025-09-29)
 
 * PR #211: Add support for using existing PriorityClass (@dibaro)
