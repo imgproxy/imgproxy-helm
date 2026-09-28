@@ -2,7 +2,7 @@
 # Docker image repository, tag, policy and secrets for Kubernetes to pull it.
 image:
   repo: ghcr.io/imgproxy/imgproxy
-  tag: v3.30.0
+  tag: v4.0.16
   pullPolicy: IfNotPresent
   # create new image-pull-secret if enabled: true
   pullSecrets:
