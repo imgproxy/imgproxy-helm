@@ -274,6 +274,14 @@ resources:
     # @see https://github.com/imgproxy/imgproxy-helm/issues/59
     pathType: ImplementationSpecific
 
+  httpRoute:
+    enabled: false
+    annotations: {}
+    parentRefs: []
+    hostnames: []
+    # rules: []
+    # filters: []
+
   serviceMonitor:
     enabled: true
     honorLabels: true
