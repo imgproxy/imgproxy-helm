@@ -1,4 +1,4 @@
-{{- if and .Values.httpRoute (default false .Values.httpRoute.enabled) }}
+{{- if and .Values.httpRoute .Values.httpRoute.enabled }}
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
